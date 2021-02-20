@@ -2,6 +2,8 @@
 ## Bottom-Up Latent Transformer Visual Question Generation
 (Not the sandwich 😢)
 
+Details in our google doc https://docs.google.com/document/d/1VttuEdP2OAgcp5BFZCTXb0yCEGuH6TXVV5sRV8rn4QM/edit?usp=sharing.
+
 This repository is heavily based off https://github.com/ranjaykrishna/iq. We (will) make significant modifications to update the codebase to the latest practises.
 
 Changes so far:
