@@ -42,7 +42,7 @@ class Latent(nn.Module):
         mean_logvar_prior = self.mean_logvar_prior(x)
         mean_prior, logvar_prior = mean_logvar_prior[:, :self.args.latent_dim], mean_logvar_prior[:, self.args.latent_dim:]
 
-        eps = torch.randn(x.size()).to(self.args.device)
+        eps = torch.randn(mean_prior.size()).to(self.args.device)
         std = torch.exp(0.5 * logvar_prior)
         z = eps * std + mean_prior
         kld_loss = 0
@@ -128,7 +128,7 @@ class Encoder(nn.Module):
                  attention_dropout, 
                  relu_dropout)
         
-        self.embedding_proj = nn.Linear(embedding_size, hidden_size, bias=False)
+        # self.embedding_proj = nn.Linear(embedding_size, hidden_size, bias=False)
         self.enc = nn.ModuleList([EncoderLayer(*params) for _ in range(num_layers)])
         
         self.layer_norm = LayerNorm(hidden_size)
@@ -140,7 +140,7 @@ class Encoder(nn.Module):
         x = self.input_dropout(inputs)
         
         # Project to hidden size
-        x = self.embedding_proj(x)
+        # x = self.embedding_proj(x)
 
         # Add timing signal
         x += self.timing_signal[:, :inputs.shape[1], :].type_as(inputs.data)
@@ -198,7 +198,7 @@ class Decoder(nn.Module):
         
         self.dec = nn.Sequential(*[DecoderLayer(*params) for l in range(num_layers)])
         
-        self.embedding_proj = nn.Linear(embedding_size, hidden_size, bias=False)
+        # self.embedding_proj = nn.Linear(embedding_size, hidden_size, bias=False)
         self.layer_norm = LayerNorm(hidden_size)
         self.input_dropout = nn.Dropout(input_dropout)
 
@@ -208,7 +208,7 @@ class Decoder(nn.Module):
 
         #Add input dropout
         x = self.input_dropout(inputs)
-        x = self.embedding_proj(x)
+        # x = self.embedding_proj(x)
             
         # Add timing signal
         x += self.timing_signal[:, :inputs.shape[1], :].type_as(inputs.data)

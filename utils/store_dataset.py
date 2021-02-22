@@ -128,7 +128,10 @@ def save_dataset(image_dir, questions, annotations, vocab, ans2cat, output,
         d_answers[q_index, :length] = a
         d_answer_types[q_index] = int(ans2cat[answer])
         d_indices[q_index] = done_img2idx[image_id]
-        d_image_ids[i_index] = image_id
+        d_image_ids[q_index] = image_id
+        print("IMAGE ID:", image_id)
+        print("IMAGE PATH:", path)
+        print("IN H5 FILE:", d_image_ids[q_index])
         q_index += 1
         bar.update(q_index)
     h5file.close()

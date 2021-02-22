@@ -9,11 +9,12 @@ class EncoderCNN(nn.Module):
     """Generates a representation for an image input.
     """
 
-    def __init__(self, output_size):
+    def __init__(self, args):
         """Load the pretrained ResNet-152 and replace top fc layer.
         """
         super(EncoderCNN, self).__init__()
-        self.cnn = models.resnet18(pretrained=True).cuda()
+        output_size = args.hidden_dim
+        self.cnn = models.resnet18(pretrained=True).to(args.device)
         for param in self.cnn.parameters():
             param.requires_grad = False
         self.cnn.fc = nn.Linear(self.cnn.fc.in_features, output_size)

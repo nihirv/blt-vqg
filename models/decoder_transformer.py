@@ -15,6 +15,7 @@ class GVTransformerDecoder(nn.Module):
                             total_key_depth=args.hidden_dim, total_value_depth=args.hidden_dim,
                             filter_size=args.pwffn_dim, device=args.device)
 
+
         self.output = nn.Linear(args.hidden_dim, vocab_size)
         self.z_classifier = nn.Linear(args.hidden_dim, vocab_size)
 

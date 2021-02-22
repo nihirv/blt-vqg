@@ -2,6 +2,7 @@
 """
 
 from math import log
+import os
 # from utils import vocab
 from models import transformer_layers
 from models.decoder_transformer import GVTransformerDecoder
@@ -28,14 +29,15 @@ class IQ(nn.Module):
         self.latent_transformer = latent_transformer
         self.args = args
 
-        # Nihir: Set up embedding
         self.embedding = self.embedder()
 
 
         # Setup image encoder.
-        self.encoder_cnn = EncoderCNN(args.hidden_dim)
+        self.encoder_cnn = EncoderCNN(args)
 
         self.latent_layer = Latent(args)
+        self.latent_projection = nn.Linear(args.latent_dim, args.hidden_dim)
+
         self.answer_encoder = GVTransformerEncoder(self.embedding, self.latent_layer, self.latent_transformer, args)
 
         self.decoder = GVTransformerDecoder(self.embedding, self.latent_transformer, self.vocab_size, vocab, args)
@@ -56,9 +58,9 @@ class IQ(nn.Module):
         init_embeddings = np.random.randn(self.vocab_size, self.args.emb_dim) * 0.01 
         print('Embeddings: %d x %d' % (self.vocab_size, self.args.emb_dim))
         if self.args.emb_file is not None:
-            print('Loading embedding file: %s' % self.args.emb_file)
+            print('Loading embedding file: %s' % os.path.join(self.args.root_dir, self.args.emb_file))
             pre_trained = 0
-            for line in open(self.args.emb_file).readlines():
+            for line in open(os.path.join(self.args.root_dir, self.args.emb_file)).readlines():
                 sp = line.split()
                 if(len(sp) == self.args.emb_dim + 1):
                     if sp[0] in self.vocab.word2idx:
@@ -70,7 +72,11 @@ class IQ(nn.Module):
         embedding = nn.Embedding(self.vocab_size, self.args.emb_dim, padding_idx=self.vocab.word2idx[self.vocab.SYM_PAD])
         embedding.weight.data.copy_(torch.FloatTensor(init_embeddings))
         embedding.weight.data.requires_grad = True
-        return embedding
+        emb_projection = nn.Sequential(
+            embedding,
+            nn.Linear(self.args.emb_dim, self.args.hidden_dim)
+        )
+        return emb_projection
 
 
     def forward(self, images, answers, response, target):
@@ -96,10 +102,12 @@ class IQ(nn.Module):
 
         # z-path. transformer_posteriors is a tuple: (mean_posterior, logvar_posterior)
         encoder_outputs, transformer_kld_loss, z, transformer_posteriors, src_mask = self.answer_encoder(answers, response, image_features)
+        if self.latent_transformer:
+            z = self.latent_projection(z)
         output, target_embedding, z_logit = self.decoder(encoder_outputs, target, image_features, z, src_mask)
 
         if self.latent_transformer: # experiement without requiring the latent mode enabled?
-            reconstructed_image_features = self.image_reconstructor(z)
+            reconstructed_image_features = self.image_reconstructor(encoder_outputs[:, 0] + z)
         else:
             reconstructed_image_features = self.image_reconstructor(encoder_outputs[:, 0])
 
@@ -116,18 +124,23 @@ class IQ(nn.Module):
         z = 0
         if self.latent_transformer:
             _, z, _ = self.latent_layer(encoder_outputs[:, 0], None)
+            z = self.latent_projection(z)
 
         ys = torch.ones(answers.shape[0], 1).fill_(self.vocab.word2idx[self.vocab.SYM_PAD]).long().to(self.args.device)
-
+        top_args = torch.zeros(answers.shape[0], max_decode_length+1, 6).to(self.args.device)
+        top_args_vals = torch.zeros(answers.shape[0], max_decode_length+1, 6).to(self.args.device)
 
         decoded_words = []
         for i in range(max_decode_length + 1):
             pred_targets_logit = self.decoder.inference_forward(encoder_outputs, ys, image_features, z, src_mask)
             _, pred_next_word = torch.max(pred_targets_logit[:, -1], dim=1)
+            top_6_vals, top_6_indicies = torch.topk(torch.nn.functional.softmax(pred_targets_logit[:, -1], -1), 6, dim=1)
 
             decoded_words.append(['<end>' if token.item() == self.vocab.word2idx[self.vocab.SYM_EOS] else self.vocab.idx2word[token.item()] for token in pred_next_word.view(-1)])
 
             ys = torch.cat([ys, pred_next_word.unsqueeze(1)], dim=1)
+            top_args[:, i] = top_6_indicies
+            top_args_vals[:, i] = top_6_vals
 
         sentence = []
         for _, row in enumerate(np.transpose(decoded_words)):
@@ -136,4 +149,4 @@ class IQ(nn.Module):
                 if e == '<end>': break
                 else: st+= e + ' '
             sentence.append(st)
-        return sentence
+        return sentence, top_args, top_args_vals
