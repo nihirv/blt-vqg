@@ -12,9 +12,45 @@ import numpy as np
 def generate_pad_mask(data, pad_idx=0):
     return data.data.eq(pad_idx).unsqueeze(1)
 
+
+
 class Latent(nn.Module):
     def __init__(self, args, dropout=0):
         super(Latent, self).__init__()
+
+        self.args = args
+
+        latent_layer_network_architecture = nn.Sequential(
+            nn.ReLU(),
+            nn.Dropout(dropout),
+            nn.Linear(args.latent_dim*2, args.latent_dim*2),
+            nn.ReLU(),
+            nn.Dropout(dropout),
+            nn.Linear(args.latent_dim*2, args.latent_dim*2)
+        )
+
+        self.mean_logvar_posterior = nn.Sequential(
+            nn.Linear(args.hidden_dim, args.latent_dim*2),
+            *copy.deepcopy(latent_layer_network_architecture)
+        )
+
+    def forward(self, x, prior="Normal"):
+
+        mean_logvar_posterior = self.mean_logvar_posterior(x)
+        mean_posterior, logvar_posterior = mean_logvar_posterior[:, :self.args.latent_dim], mean_logvar_posterior[:, self.args.latent_dim:]
+        kld_loss = gaussian_kld_unit_norm(mean_posterior, logvar_posterior)
+        kld_loss = torch.mean(kld_loss)
+
+        std = torch.exp(0.5 * logvar_posterior)
+        eps = torch.randn(mean_posterior.size()).to(self.args.device)
+        z = eps * std + mean_posterior
+        return kld_loss, z, (None, None), (mean_posterior, logvar_posterior)
+
+
+
+class LatentTwoSpaces(nn.Module):
+    def __init__(self, args, dropout=0):
+        super(LatentTwoSpaces, self).__init__()
 
         self.args = args
 
@@ -56,7 +92,7 @@ class Latent(nn.Module):
 
             std = torch.exp(0.5 * logvar_posterior)
             z = eps * std + mean_posterior
-        return kld_loss, z, (mean_posterior, logvar_posterior)
+        return kld_loss, z, (mean_prior, logvar_prior), (mean_posterior, logvar_posterior)
 
 
 
@@ -538,6 +574,31 @@ def gaussian_kld(recog_mu, recog_logvar, prior_mu, prior_logvar):
                                - torch.div(torch.pow(prior_mu - recog_mu, 2), torch.exp(prior_logvar))
                                - torch.div(torch.exp(recog_logvar), torch.exp(prior_logvar)), dim=-1)
     return kld
+
+
+def gaussian_kld_unit_norm(mus, logvars, eps=1e-8):
+    """Calculates KL distance of mus and logvars from unit normal.
+
+    Args:
+        mus: Tensor of means predicted by the encoder.
+        logvars: Tensor of log vars predicted by the encoder.
+
+    Returns:
+        KL loss between mus and logvars and the normal unit gaussian.
+    """
+    KLD = -0.5 * torch.sum(1 + logvars - mus.pow(2) - logvars.exp())
+    kl_loss = KLD/(mus.size(0) + eps)
+    """
+    if kl_loss > 100:
+        print kl_loss
+        print KLD
+        print mus.min(), mus.max()
+        print logvars.min(), logvars.max()
+        1/0
+    """
+    return kl_loss
+
+
 
 def _gen_timing_signal(length, channels, min_timescale=1.0, max_timescale=1.0e4):
     """

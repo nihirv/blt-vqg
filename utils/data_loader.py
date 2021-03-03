@@ -23,7 +23,7 @@ class IQDataset(data.Dataset):
     """
 
     def __init__(self, dataset, transform=None, max_examples=None,
-                 indices=None):
+                 indices=None, answer_with_category=False):
         """Set the path for images, captions and vocabulary wrapper.
 
         Args:
@@ -39,6 +39,7 @@ class IQDataset(data.Dataset):
         self.max_examples = max_examples
         self.indices = indices
         self.max_len = 23
+        self.answer_with_category = answer_with_category
 
         self.cat2name = sorted(json.load(open("data/processed/cat2name.json", "r")))
         
@@ -75,8 +76,8 @@ class IQDataset(data.Dataset):
         except:
             answer = answer
 
-        answer_type = self.answer_types[index] # gives us an index of sorted cat2name
-        answer_type = vocab.word2idx[self.cat2name[answer_type]]
+        category = self.answer_types[index] # gives us an index of sorted cat2name
+        answer_type = vocab.word2idx[self.cat2name[category]]
         
         answer_type_for_input = [vocab.word2idx[vocab.SYM_SOQ], answer_type, vocab.word2idx[vocab.SYM_EOS]]
         answer_type_for_input = torch.from_numpy(np.array(answer_type_for_input))
@@ -112,7 +113,8 @@ class IQDataset(data.Dataset):
         # print(posterior)
         ################################
         
-        answer.insert(1, answer_type)
+        if self.answer_with_category:
+            answer.insert(1, answer_type)
         answer = np.array(answer)
 
         image_index = self.image_indices[index]
@@ -127,7 +129,7 @@ class IQDataset(data.Dataset):
         qlength = question.size(0) - question.eq(0).sum(0).squeeze()
         if self.transform is not None:
             image = self.transform(image)
-        return (image, image_id, question, posterior, answer, answer_type, answer_type_for_input,
+        return (image, image_id, question, posterior, answer, category, answer_type_for_input,
                 qlength.item(), alength.item())
 
     def __len__(self):
@@ -177,7 +179,7 @@ def collate_fn(data):
 
 def get_loader(dataset, transform, batch_size, sampler=None,
                    shuffle=True, num_workers=1, max_examples=None,
-                   indices=None):
+                   indices=None, answer_with_category=False):
     """Returns torch.utils.data.DataLoader for custom dataset.
 
     Args:
@@ -196,7 +198,7 @@ def get_loader(dataset, transform, batch_size, sampler=None,
         A torch.utils.data.DataLoader for custom engagement dataset.
     """
     iq = IQDataset(dataset, transform=transform, max_examples=max_examples,
-                    indices=indices)
+                    indices=indices, answer_with_category=answer_with_category)
     data_loader = torch.utils.data.DataLoader(dataset=iq,
                                               batch_size=batch_size,
                                               shuffle=shuffle,

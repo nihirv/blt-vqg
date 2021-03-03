@@ -1,0 +1,276 @@
+EPOCH STATS FOR EPOCH 12 
+('loss', '\t', 10.5439)
+('img', '\t', 0.0005)
+('ppl', '\t', 3.9411)
+('l2_cat_encoder', '\t', 97.2975)
+('z_kld', '\t', 97.2975)
+('t_kld', '\t', 121.7694)
+('z_t_kld', '\t', 24.5263)
+('z_aux', '\t', 3.8425)
+('t_aux', '\t', 3.8909)
+('elbo', '\t', 244.9647)
+('rec', '\t', 1.3715)
+('z', 'Bleu_1', '\t', 8.8713)
+('t', 'Bleu_1', '\t', 11.9835)('z', 'Bleu_2', '\t', 3.5592)
+('t', 'Bleu_2', '\t', 4.2569)('z', 'Bleu_3', '\t', 1.47)
+('t', 'Bleu_3', '\t', 1.7818)('z', 'Bleu_4', '\t', 0.0001)
+('t', 'Bleu_4', '\t', 0.0001)('z', 'METEOR', '\t', 5.5796)
+('t', 'METEOR', '\t', 5.9872)('z', 'ROUGE_L', '\t', 22.4881)
+('t', 'ROUGE_L', '\t', 25.1922)('z', 'CIDEr', '\t', 8.6247)
+('t', 'CIDEr', '\t', 9.7414)z Generated: giraffe is giraffe giraffe giraffe giraffe or giraffe ?
+t Generated: bed is the table table table ?
+z Generated: is the light on ?
+t Generated: from the cat cat cat cat cat cat ? cat ? cat cat ? cat cat ? cat ? cat ? like like ? shoes ?
+z Generated: is the clock tower clock tower tower ? tower ?
+t Generated: truck is the sign advertising with glass ?
+z Generated: is the store store store store store ?
+t Generated: what is the orange orange ad ?
+z Generated: what is the building in the background ?
+t Generated: what is the man playing ?
+z Generated: is the woman 's bed bed bed ?
+t Generated: what is the man in the blue shirt ?
+z Generated: is the light light lit lit lit up ? ?
+t Generated: truck is the vendor truck truck at ?
+z Generated: which truck truck truck truck truck ?
+t Generated: what truck truck truck truck truck ?
+z Generated: she is the man tie tie man tie ? tie tie ? tie ?
+t Generated: is the man with the man with a wine wine ?
+z Generated: is the cat asleep ?
+t Generated: cat cat cat cat cat cat cat cat cat cat cat cat ? cat cat cat cat cat cat ? cat cat cat cat cat cat cat cat cat ? cat ? cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat
+z Generated: giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffes giraffes giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffes giraffe giraffe giraffes giraffes
+t Generated: what is the giraffe giraffe giraffe ?
+z Generated: is cat cat cat cat cat cat or cat cat cat cat cat cat cat cat cat cat cat or cat cat cat or cat cat or cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat
+t Generated: cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat
+z Generated: what is the man 's pants ?
+t Generated: is the cat cat cat cat cat ?
+z Generated: is the cat cat bed or her cat cat ? cat ?
+t Generated: is the man man a woman ?
+z Generated: snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow
+t Generated: is the man a man skier ?
+z Generated: what is the bench bench ?
+t Generated: is the woman woman with her girl ?
+z Generated: are the people waiting to ?
+t Generated: are all the people women ?
+z Generated: is the man in the picture or at the store ?
+t Generated: is the man woman selling wine ?
+z Generated: is the luggage luggage luggage luggage ?
+t Generated: is this a cat cat or cat ?
+z Generated: is this kite flying kite kite flying kite flying kite kite flying kite kite flying kites kites kites kite kite kite kite kites kite kite kite kite kite kite kite kite kite kite kite kite kite kite kite kite kite kite kite kite kite kite kite kite kite kite kite
+t Generated: are these people a lot ?
+z Generated: is the bus bus bus ?
+t Generated: is the man woman baseball player player player baseball game baseball game ?
+z Generated: is the door door door door door door door door door door door door door door door door door door door door door door door door door door door door door door door door door door door door door door door door door door door door door door door door
+t Generated: what is the cat cat cat ?
+z Generated: is the dog sheep sheep ?
+t Generated: what is the cat on ?
+z Generated: is the man holding wine glasses ?
+t Generated: shoes is the wine glass glass ?
+z Generated: are the motorcycles motorcycles motorcycles ? motorcycle motorcycles ?
+t Generated: what motorcycle on motorcycle motorcycle ?
+z Generated: is the bowl bowl bowl cake cake cake cake cake cake cake cake cake ?
+t Generated: is the orange juice ?
+z Generated: what pizza pizza pizza pizza pizza pizza ?
+t Generated: what food food pizza pizza ?
+z Generated: broccoli broccoli broccoli broccoli broccoli broccoli broccoli broccoli broccoli broccoli ?
+t Generated: food food food food food food food food food food ?
+z Generated: is the bed bed bed bed bed bed bed ? bed bed bed bed bed ?
+t Generated: is bed bed bed bed bed or bed bed ? bed ? bed bed ?
+z Generated: what cake cake cake cake cake ?
+t Generated: is the cake cake cake cake ?
+z Generated: is the tv tv tv ?
+t Generated: is the bed bed bed bed bed bed or bed ?
+z Generated: pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza
+t Generated: is the light light light light plates ?
+z Generated: players team baseball baseball baseball baseball baseball player baseball baseball baseball baseball baseball baseball baseball player baseball player baseball bat baseball bat baseball baseball players baseball bat baseball players baseball baseball baseball team baseball team baseball baseball player baseball bat baseball baseball bat baseball baseball baseball baseball baseball baseball baseball baseball
+t Generated: leg is the window window open window ?
+z Generated: what boats boat boat boat ?
+t Generated: how car car car ?
+z Generated: dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog
+t Generated: is the door door door or door ?
+z Generated: is the building building building building ?
+t Generated: is the window window window window window window ?
+z Generated: what ski ski ski ?
+t Generated: is the window window window window window ?
+z Generated: is surfboard surfboard surfboard surfboard ?
+t Generated: is the window door window ?
+z Generated: is horse horses horse horses horses horses horses horses horses horses horses horses horses horses horses horses horses ? horses horses horses horses horses horses horses horses horses horses horses horses horses horses horses horses horses horses horses horses horses horses horses horses horses horses horses horses horses horses horses
+t Generated: is the door door door door door ?
+z Generated: boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat
+t Generated: is the window door open door ? door door ? door ?
+z Generated: boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat
+t Generated: is the window door window ?
+z Generated: zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra
+t Generated: or flower pot pot pot ?
+z Generated: is the snow snow skiing skiing ?
+t Generated: is the door engines or airplane ?
+z Generated: what is bus driving driving bus bus bus driving bus ? bus driving driving driving driving driving bus ? bus driving driving bus bus bus bus bus bus bus ? driving driving bus bus bus bus bus bus bus bus driving bus bus bus bus bus bus bus bus bus bus
+t Generated: license truck car window window window window window window window window window window window window window window window ? door window window window window truck window window window door window door window ? window ? door window window window window window window window window window window window window ? window window
+z Generated: what is the dog dog ?
+t Generated: is the window window window window ?
+z Generated: bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus
+t Generated: is the truck truck truck truck truck or truck truck truck truck truck truck ? truck truck truck truck truck truck truck truck truck truck truck truck truck ? truck truck truck truck truck ? truck truck truck truck truck truck truck truck truck truck truck ? truck truck truck
+z Generated: is the oven oven oven oven oven oven oven oven oven oven oven oven oven or oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven kitchen kitchen kitchen kitchen kitchen oven oven oven oven oven
+t Generated: is the stove stove or fruit ?
+z Generated: what water water water water water water water water water water water water water water water water water water ocean water water water ocean ocean water water water water water water water water water ocean water water water water water water water water water water water water water ocean water
+t Generated: is the window window window door or window ?
+z Generated: what is the girl girl holding ?
+t Generated: is the girl 's pink pink pink ?
+z Generated: is the food food bowl bowl bread sandwich sandwich bread or sandwich bread bread ? sandwich sandwich ? sandwich sandwich sandwich sandwich sandwich sandwich sandwich sandwich sandwich sandwich sandwich sandwich sandwich sandwich ? meal bowl bowl bread sandwich sandwich sandwich bread sandwich sandwich sandwich sandwich sandwich sandwich meal sandwich sandwich
+t Generated: what vegetable broccoli broccoli broccoli ?
+z Generated: what truck truck truck truck truck ?
+t Generated: what truck truck truck truck truck truck truck truck ?
+z Generated: are the people waiting stop traffic ?
+t Generated: horse horse grass grass grass grass ?
+z Generated: is the stove stove stove stove stove ? stove stove stove ?
+t Generated: what bird bird bird ?
+z Generated: bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus
+t Generated: what is the giraffe grass ?
+z Generated: tree leaves tree tree tree tree leaves tree tree tree leaves tree leaves tree leaves ? tree tree ? tree tree tree tree leaves tree tree ? tree tree tree tree leaves tree tree ? leaves tree tree leaves tree tree leaves tree tree leaves leaves leaves leaves leaves tree leaves
+t Generated: is grass grass grass grass grass ?
+z Generated: is the park park park park park park park park park park park park park park park ? park park park park park park park park park park park park park park park park park park park park park park park park park park park park park park park park
+t Generated: what grass grass ?
+z Generated: tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis
+t Generated: what is the sheep sheep ?
+z Generated: skiing snow skiing snow snow snow snow skiing skiing skiing snow snow skiing snow snow skiing snow skiing snow snow snow snow snow skiing skiing skiing skiing skiing skiing ski snow skiing snow skiing skiing snow skiing snow skiing snow skiing skiing skiing snow snow skiing snow snow skiing skiing snow
+t Generated: what is snow in snow snow ?
+z Generated: bird bird bird bird bird bird bird bird bird bird bird bird bird bird bird bird bird bird bird bird bird bird bird bird bird bird bird bird bird bird bird bird bird bird bird bird bird bird bird bird bird bird bird bird bird bird bird bird bird bird
+t Generated: what is the bird bird bird ?
+z Generated: what fruit is in the plant plant ?
+t Generated: what giraffe tree leaves tree ?
+z Generated: is this a sky sky or sky ?
+t Generated: is grass grass grass ?
+z Generated: is the child oranges oranges ?
+t Generated: what is this man bird ?
+z Generated: what is the fire hydrant hydrant hydrant ?
+t Generated: is the bear bear bear bear ?
+z Generated: are the buildings buildings building buildings ?
+t Generated: is the bus bus fire hydrant fire hydrant ?
+z Generated: what is the man tree leaves ?
+t Generated: is the fire hydrant fire hydrant fire hydrant ?
+z Generated: is the woman holding the phone ?
+t Generated: is the cake cake cake cake cake cake ?
+z Generated: what is the woman 's hand ?
+t Generated: is the cake cake cake cake cake ?
+z Generated: clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock ? clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock
+t Generated: is the cake cake cake cake cake cake cake cake cake ?
+z Generated: is the bowl bowl bowl bowl bowl bowl bowl bowl bowl bowl bowl bowl bowl bowl bowl bowl bowl bowl bowl bowl bowl bowl bowl bowl bowl bowl bowl bowl bowl bowl bowl bowl bowl bowl bowl bowl bowl bowl bowl bowl bowl bowl bowl bowl bowl bowl bowl bowl
+t Generated: is the cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake
+z Generated: is the man 's skateboard skateboard ?
+t Generated: skateboard is the skateboard skateboard ?
+z Generated: pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza
+t Generated: is pizza pizza pizza pizza pizza pizza pizza pizza ?
+z Generated: is the girl looking at her eyes ?
+t Generated: is the cake cake cake cake cake cake cake cake cake cake cake ?
+z Generated: what is the mirror on the cake on cake cake cake cake ? cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake
+t Generated: is cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake
+z Generated: what is the water skiing skiing ?
+t Generated: is the bike is the fire hydrant ?
+z Generated: building train train train train ? train station ?
+t Generated: is the fire hydrant hydrant fire hydrant is fire hydrant ?
+z Generated: dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog dog
+t Generated: or cat is the cat in front ?
+z Generated: is the plate plate plate plate on plate ?
+t Generated: is cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake
+z Generated: is the hydrant hydrant hydrant painted ?
+t Generated: is the fire hydrant fire hydrant fire fire hydrant fire hydrant fire hydrant fire hydrant fire hydrant fire hydrant fire hydrant fire hydrant hydrant fire hydrant hydrant hydrant is fire hydrant hydrant fire hydrant ? fire hydrant hydrant hydrant hydrant hydrant hydrant hydrant hydrant hydrant fire hydrant ? fire hydrant fire
+z Generated: fire hydrant is fire hydrant hydrant hydrant hydrant ?
+t Generated: fire hydrant is fire hydrant fire hydrant fire hydrant hydrant fire hydrant fire hydrant fire hydrant ? fire hydrant fire hydrant hydrant hydrant hydrant hydrant hydrant hydrant hydrant hydrant hydrant fire hydrant ? fire hydrant hydrant hydrant hydrant hydrant hydrant hydrant fire hydrant fire hydrant hydrant hydrant fire hydrant fire hydrant
+z Generated: is the man cooking ?
+t Generated: is the cake cake cake cake cake cake cake cake cake cake ? cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake
+z Generated: are the bananas stove stove stove ?
+t Generated: is the cake cake cake cake cake cake cake cake cake cake cake cake ? cake cake ? cake cake cake cake cake cake cake cake cake cake cake cake cake ? cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake
+z Generated: are the bikes in the road ?
+t Generated: is the bike bike bike bike bike ?
+z Generated: is the cake cake cake cake cake cake cake cake cake ?
+t Generated: is the cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake
+z Generated: is train train platform platform platform platform platform train train platform platform platform platform platform platform platform platform platform platform train platform platform platform platform platform platform platform platform platform platform platform platform platform platform platform platform platform platform platform platform platform platform platform platform platform platform train platform platform
+t Generated: is the fire hydrant fire hydrant hydrant fire hydrant fire hydrant fire hydrant fire hydrant ?
+z Generated: is the bathroom sink bathroom or toilet bathroom ?
+t Generated: is the cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake or cake cake cake cake cake cake cake cake
+z Generated: is cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake
+t Generated: is cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake
+z Generated: is water water sand sand sand sand sand sand sand sand sand sand sand beach sand beach sand sand sand sand sand sand sand beach sand beach beach beach beach beach beach beach beach beach beach beach beach beach beach beach beach beach beach beach beach beach beach beach beach
+t Generated: pants is the girl hydrant ?
+z Generated: what stuffed baby stuffed stuffed stuffed stuffed stuffed toy toy ?
+t Generated: or fire hydrant is cake cake ?
+z Generated: is the building sign in the building building ?
+t Generated: is the cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake
+z Generated: are these horses horses horses cows ?
+t Generated: are the fire fire hydrant fire hydrant fire hydrant fire hydrant fire hydrant ?
+z Generated: what are the men men in the elephant ?
+t Generated: are the fire fire hydrant fire fire hydrant fire fire hydrant fire hydrant fire hydrant fire hydrant ? fire fire hydrant fire hydrant fire hydrant bus fire hydrant fire hydrant fire hydrant ? fire hydrant ? fire hydrant fire hydrant fire hydrant ?
+z Generated: what is the surfer surfer snow snow snow snow snow ? surfing snow surfing ?
+t Generated: is the person is skating ?
+z Generated: what is the man skiing ?
+t Generated: is the skateboard park fire hydrant ?
+z Generated: are the flowers wine wine glasses glasses ?
+t Generated: are cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake
+z Generated: what is the girl holding ?
+t Generated: is the cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake
+z Generated: is this food dish pizza ?
+t Generated: is the food on food dish sandwich cake ?
+z Generated: is the child cake cake cake cake cake cake cake ?
+t Generated: is the cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake
+z Generated: is the building in the building in the building ?
+t Generated: is the bus cake cake cake cake cake cake or cake ?
+z Generated: is the oven oven oven oven oven oven or oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven or oven oven oven oven oven oven oven
+t Generated: is the cake cake cake cake cake cake ?
+z Generated: plane landing plane plane plane plane plane plane plane ?
+t Generated: is the fire fire hydrant fire fire fire fire hydrant fire hydrant fire fire hydrant fire hydrant fire fire hydrant fire hydrant fire hydrant fire hydrant fire hydrant ? fire fire hydrant ? ? fire hydrant fire hydrant is fire hydrant fire hydrant fire hydrant ? fire fire fire fire fire
+z Generated: what stuffed stuffed stuffed animal stuffed stuffed stuffed toy ?
+t Generated: is the bear bear bear ?
+z Generated: is the cat sitting on a cat ?
+t Generated: is the cake cake cake cake cake cake cake cake cake cake cake cake cake ? cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake
+z Generated: zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra ? zebra ? zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra zebra
+t Generated: is the cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake ? cake ? cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake
+z Generated: what dish dish dish dish dish dish dish dish ?
+t Generated: is the cake cut cake cake cake cake cake cake ?
+z Generated: is the pizza slices pizza pizza slices pizza slices pizza ?
+t Generated: is the cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake
+z Generated: what dog is dog dog dog dog ?
+t Generated: is the bus is the dog in the bus ?
+z Generated: is the bike rider or bike ?
+t Generated: is motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle or motorcycle ?
+z Generated: are motorcycle motorcycles motorcycles motorcycles motorcycles motorcycles motorcycle motorcycles motorcycle motorcycles ? motorcycle motorcycles motorcycle motorcycles motorcycle motorcycle motorcycles motorcycles motorcycle motorcycles motorcycles motorcycles motorcycles ? bike motorcycle motorcycles motorcycles ? bike bike bike bike motorcycle motorcycles motorcycle motorcycles motorcycle motorcycles motorcycles motorcycles motorcycle motorcycles bike motorcycles ? motorcycle motorcycles
+t Generated: are fire fire fire fire fire fire fire fire fire fire fire fire fire fire fire fire fire fire fire fire fire fire hydrant fire fire fire hydrant are in the bike bike ? ?
+z Generated: is the grass field field ?
+t Generated: is the fire hydrant fire hydrant ?
+z Generated: ball frisbee frisbee frisbee frisbee frisbee frisbee frisbee frisbee frisbee frisbee frisbee frisbee frisbee frisbee frisbee frisbee frisbee ? ball frisbee frisbee frisbee frisbee frisbee frisbee frisbee frisbee frisbee frisbee frisbee frisbee frisbee frisbee frisbee frisbee frisbee frisbee frisbee frisbee frisbee frisbee frisbee frisbee frisbee frisbee frisbee frisbee frisbee ball frisbee
+t Generated: is the car door door door door door door ?
+z Generated: is the water water sand ?
+t Generated: is the fire hydrant hydrant fire hydrant fire hydrant fire hydrant fire hydrant fire hydrant fire hydrant fire hydrant fire hydrant fire hydrant hydrant fire hydrant hydrant fire hydrant fire hydrant ? ? fire hydrant fire hydrant hydrant hydrant hydrant hydrant hydrant hydrant hydrant hydrant ? fire hydrant fire hydrant
+z Generated: what is the train station station ?
+t Generated: is the fire hydrant fire hydrant fire hydrant fire hydrant ?
+z Generated: what is the man skateboarding ?
+t Generated: is the bus car car car ?
+z Generated: what is tennis player player tennis player tennis player ?
+t Generated: shoes is the bus match ?
+z Generated: elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant ? elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant ? elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant
+t Generated: is the man 's fire hydrant ?
+z Generated: is the horse horse horse horse horse horse horse ?
+t Generated: is fire hydrant is fire hydrant ?
+z Generated: traffic cars cars cars cars cars ?
+t Generated: bus is the bus bus bus bus bus ?
+z Generated: are the horses horses horses ?
+t Generated: is the fire hydrant hydrant fire hydrant ?
+z Generated: what is the tall buildings tower ?
+t Generated: bus is the fire hydrant fire hydrant ?
+z Generated: is the road paved ?
+t Generated: is the fire hydrant fire fire hydrant fire fire fire hydrant fire fire fire fire fire hydrant fire fire fire hydrant fire hydrant fire hydrant fire hydrant fire hydrant fire hydrant fire hydrant fire hydrant fire hydrant fire hydrant fire hydrant fire hydrant fire hydrant fire fire fire hydrant fire fire
+z Generated: what are the umbrellas for chairs ?
+t Generated: are cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake
+z Generated: what fruit growing leaves growing leaves growing ?
+t Generated: which bed bed bed bed bed bed bed bed bed bed ?
+z Generated: is this tennis player tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis player tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis
+t Generated: is the tv tv tv tv tv tv ?
+z Generated: is cat cat cat cat cat cat cat or stuffed cat cat cat ?
+t Generated: what food food bed ?
+z Generated: is the beach beach beach beach ?
+t Generated: what park park park ?
+z Generated: is the tennis ball ball tennis ball tennis tennis ball ? ball soccer ball tennis ball ? ball tennis ball ball tennis ball tennis tennis tennis tennis tennis tennis ball tennis tennis tennis ball tennis ball ball ball tennis ball ball ball ball ball ball tennis ball ball tennis ball
+t Generated: ball is the man man batting tennis ?
+z Generated: what clouds flying clouds in sky sky clouds ?
+t Generated: is the man player player tennis player ? tennis tennis player ? ?
+z Generated: is the bear bear bear bear bear bear ?
+t Generated: is this a dog dog bears grass ?
+

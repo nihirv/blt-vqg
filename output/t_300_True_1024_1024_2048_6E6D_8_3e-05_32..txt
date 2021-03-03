@@ -1,0 +1,276 @@
+EPOCH STATS FOR EPOCH 5 
+('loss', '\t', nan)
+('img', '\t', nan)
+('ppl', '\t', nan)
+('l2_cat_encoder', '\t', nan)
+('z_kld', '\t', nan)
+('t_kld', '\t', nan)
+('z_t_kld', '\t', nan)
+('z_aux', '\t', nan)
+('t_aux', '\t', nan)
+('elbo', '\t', nan)
+('rec', '\t', nan)
+('z', 'Bleu_1', '\t', 7.6146)
+('t', 'Bleu_1', '\t', 33.945)('z', 'Bleu_2', '\t', 2.8402)
+('t', 'Bleu_2', '\t', 15.5503)('z', 'Bleu_3', '\t', 1.1705)
+('t', 'Bleu_3', '\t', 7.9912)('z', 'Bleu_4', '\t', 0.5091)
+('t', 'Bleu_4', '\t', 4.2086)('z', 'METEOR', '\t', 5.0077)
+('t', 'METEOR', '\t', 10.8917)('z', 'ROUGE_L', '\t', 21.394)
+('t', 'ROUGE_L', '\t', 34.9155)('z', 'CIDEr', '\t', 10.3843)
+('t', 'CIDEr', '\t', 28.0196)z Generated: what stop sign sign stop sign ?
+t Generated: how many people are in the picture ?
+z Generated: what is the player player player player player player player player ?
+t Generated: is the man wearing shorts ?
+z Generated: what elephant elephant elephant ?
+t Generated: is the man wearing shorts ?
+z Generated: how many bikes bike bike bike bike bike bike bike bike bike bike bike bike ? bike bike bike bike bike bike bike bike bike bike bike bike bike bike bike bike bike bike bike bike bike bike bike bike bike bike bike bike bike bike bike bike bike bike
+t Generated: are there any people in the picture bike ?
+z Generated: how man is the man wearing his shirt ?
+t Generated: is the man wearing a shirt ?
+z Generated: what is the truck truck truck truck truck truck ?
+t Generated: is this a restaurant ?
+z Generated: bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus
+t Generated: is this a bus bus ?
+z Generated: what is the man in glasses ?
+t Generated: is the man wearing glasses ?
+z Generated: are they playing ?
+t Generated: is the man wearing glasses ?
+z Generated: how sand sand sand ?
+t Generated: is the man wearing a shirt ?
+z Generated: how many windows are on the bus ?
+t Generated: is this a real train ?
+z Generated: bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus
+t Generated: what bus is the bus ?
+z Generated: what is the toilet toilet seat toilet toilet ?
+t Generated: is this a bathroom ?
+z Generated: what bus bus bus bus bus bus bus bus bus bus ? bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus
+t Generated: is the man wearing a helmet ?
+z Generated: cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat
+t Generated: is the cat asleep ?
+z Generated: is this dish vegetable ? broccoli ?
+t Generated: is this a vegetable dish ?
+z Generated: what is the man playing ?
+t Generated: is the man wearing a hat ?
+z Generated: how many boats boats ?
+t Generated: is it a cloudy day ?
+z Generated: how many people are in the picture ?
+t Generated: is this a <unk> ?
+z Generated: how many people are in the picture ?
+t Generated: is the man wearing a tie ?
+z Generated: what is the toilet seat lid ?
+t Generated: is the man 's toilet lid lid closed ?
+z Generated: is the man wearing tie tie ?
+t Generated: is the man wearing a tie ?
+z Generated: how sheep sheep sheep sheep ?
+t Generated: what is the horse doing ?
+z Generated: what laptop computer computer laptop computer mouse computer ?
+t Generated: is the man wearing glasses ?
+z Generated: how giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe
+t Generated: how many giraffes are in the picture ?
+z Generated: what toilet toilet toilet toilet seat toilet toilet toilet ?
+t Generated: is this a toilet seat ?
+z Generated: how many shelves are in the bathroom ?
+t Generated: is this a display ?
+z Generated: how elephants elephants elephants elephants elephants ?
+t Generated: is the elephant swimming ?
+z Generated: what is the woman standing on ?
+t Generated: is the man wearing a hat ?
+z Generated: is the man <unk> ?
+t Generated: is the man wearing a tie ?
+z Generated: what is the cake cake cake ?
+t Generated: is this a cake cake ?
+z Generated: are all the items in the table table ?
+t Generated: is this a cake ?
+z Generated: what cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake
+t Generated: is this a cake cake cake ?
+z Generated: what food food food food food food food ?
+t Generated: is this a dessert ?
+z Generated: is this food donuts food ? donuts ?
+t Generated: is this a breakfast food ?
+z Generated: what is the bird bird bird ?
+t Generated: is this a bird or bird ?
+z Generated: what is the horse 's horse horse horse ?
+t Generated: what is the horse 's horse ?
+z Generated: what ski ski ski ski skiing skiing skiing skiing skiing skiing skiing skiing ski skiing skiing skiing skiing skiing skiing skiing skiing skiing skiing skiing skiing skiing skiing skiing skiing ski skiing ski skiing skiing skiing skiing skiing skiing skiing skiing skiing skiing skiing skiing skiing skiing skiing skiing skiing
+t Generated: what ski ski ski skiing skiing skiing ?
+z Generated: what is the player player player player baseball player baseball bat ?
+t Generated: is the horse running ?
+z Generated: what is the fence line ?
+t Generated: what is the bird flying ?
+z Generated: what is the girl wearing ?
+t Generated: is the man wearing a hat ?
+z Generated: what kite kite kite kite kite kite kite kite kite kite kite kite kite kite kite kite kite kite kite kite kite kite kite kite kite kite kite kite kite kite kite kite kite kite kite kite kite kite kite kite kite kite kite kite kite kite kite kite kite
+t Generated: what is the number on the kite ?
+z Generated: are they playing frisbee frisbee frisbee ?
+t Generated: is the man wearing shorts ?
+z Generated: table table table table table table table table table table table table table table table table table table table table table table table table table table table table table table table table table table table table table table table table table table table table table table table table table table
+t Generated: how many coffee table table table table table table table table table ?
+z Generated: what elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants
+t Generated: is the elephant elephant elephant ?
+z Generated: what bear bear bear bear bear bear bear bear bear bear bear bear bear bear bear bear bear bear bear bear bear bear bear bear bear bear bear bear bear bear bear bear bear bear bear bear bear bear bear bear bear bear bear bear bear bear bear bear bear
+t Generated: is this bear bear bear bear bear bear ?
+z Generated: clock tower tower clock tower tower tower tower tower tower tower tower tower tower tower tower tower tower tower tower tower tower tower tower tower tower tower tower tower tower clock tower clock tower tower tower tower tower clock tower tower tower clock tower tower clock tower tower clock tower
+t Generated: what time is it ?
+z Generated: what appliance bathroom tiles ?
+t Generated: is this a bathroom ?
+z Generated: what elephant elephant elephant elephant elephant ?
+t Generated: is the man riding ?
+z Generated: what bus bus bus bus bus bus bus bus bus bus bus ?
+t Generated: is this a bus ?
+z Generated: what building is the train station ?
+t Generated: is the man wearing a hat ?
+z Generated: what pizza pizza pizza pizza ?
+t Generated: is the man wearing glasses ?
+z Generated: plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane
+t Generated: what plane plane plane plane plane ?
+z Generated: players players players player player player player player player player player player player player player players player players player player players player player player players players tennis player player player player player players players players players players players players players player player player player player players player players players player
+t Generated: is the man wearing tennis player player player player player player player player player player player player player player player player player player player player player player player player player player player player player player player player player player player player player player player player player player player player player
+z Generated: what ski ski ski ski ski ski ski ski ski ski ski ski ski ? snow ski ski ski ski ski ski ski ski snow snow skiing ski ski ski ski ski ski ski ski ski ski ski ski ski ski snow ski ski ski ski ski snow ski skiing
+t Generated: is the snow snow skiing ?
+z Generated: clock tower clock clock tower clock clock tower clock tower clock tower clock tower clock tower clock clock tower clock tower clock tower clock tower clock clock tower clock clock tower clock clock clock clock tower clock clock clock tower clock clock clock clock clock clock clock clock clock clock
+t Generated: how many clocks are on the clock tower tower clock tower ?
+z Generated: what is the cat playing ?
+t Generated: is the man wearing shoes ?
+z Generated: what table table table table ?
+t Generated: is this a wine tasting ?
+z Generated: what toilet seat toilet seat seat seat ?
+t Generated: what is the seat seat ?
+z Generated: what is the horse bike bike ?
+t Generated: is the man wearing a hat ?
+z Generated: what is the man riding on surfing surfing ? surfing surfing ?
+t Generated: is the dog riding ?
+z Generated: what is the snow skiing skiing ?
+t Generated: is the man wearing a hat ?
+z Generated: what cat cat cat cat cat cat cat cat cat cat cat cat cat ? cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat
+t Generated: is the cat asleep ?
+z Generated: what building building is the building ?
+t Generated: is this a train station ?
+z Generated: what kite kite kite kite kite kite flying kite ?
+t Generated: is the bird flying ?
+z Generated: train train train train train train train train train train train train train train train train train train train train train train train train train train train train train train train train train train train train train train train train train train train train train train train train train train
+t Generated: is the train train train train train train train train train ?
+z Generated: is the elephant sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep ? sheep sheep sheep sheep sheep sheep sheep sheep sheep ? sheep elephant elephant elephant sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep
+t Generated: what is the elephant doing ?
+z Generated: what toothbrush toothbrush toothbrush toothbrush ?
+t Generated: is this a smartphone ?
+z Generated: is the keyboard wireless keyboard keyboard keyboard keyboard keyboard ? keyboard keyboard keyboard keyboard keyboard keyboard keyboard keyboard keyboard keyboard keyboard keyboard keyboard keyboard keyboard keyboard keyboard keyboard keyboard keyboard keyboard keyboard keyboard keyboard keyboard keyboard keyboard keyboard keyboard keyboard keyboard keyboard keyboard keyboard keyboard keyboard keyboard keyboard keyboard keyboard
+t Generated: is this a new computer ?
+z Generated: what food dish dish dish dish dish pizza dish ?
+t Generated: is this a pizza dish dish ?
+z Generated: what building building building building building building building building building building building building building building building building building building building building building building building building building building building building building building building building building building building building building building building building building building building building building building building building building
+t Generated: how many windows are on the building ?
+z Generated: what is the animal in the field ?
+t Generated: is the man wearing a shirt ?
+z Generated: what horse horse horse horse horse horse ?
+t Generated: is the man wearing a helmet ?
+z Generated: what is the wine glasses ?
+t Generated: is the man wearing glasses ?
+z Generated: what is the word on the wall ?
+t Generated: is this a real train ?
+z Generated: what is the bike seat ?
+t Generated: how many people are in the picture ?
+z Generated: are the people in the restaurant eating ?
+t Generated: is this a real person ?
+z Generated: snow snow snow snow snow snow snow snow snow snow snow skiing snow snow snow skiing snow snow snow snow snow snow skiing snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow
+t Generated: what is the snow skiing ?
+z Generated: what is the truck truck ?
+t Generated: what is the truck number ?
+z Generated: are they wearing shirts ?
+t Generated: is the man wearing a hat ?
+z Generated: how kite kite flying kite ?
+t Generated: is the sky cloudy ?
+z Generated: what bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed
+t Generated: is the man wearing a shirt ?
+z Generated: what vegetable vegetable vegetable vegetable vegetable vegetable vegetable vegetable vegetable vegetable ? vegetable vegetable vegetable vegetable vegetable vegetable vegetable vegetable vegetable vegetable vegetable vegetable vegetable vegetable vegetable vegetable vegetable vegetable vegetable vegetable vegetable vegetable vegetable vegetable vegetable vegetable vegetable vegetable vegetable vegetable vegetable vegetable vegetable vegetable vegetable vegetable vegetable vegetable
+t Generated: what vegetable is this ?
+z Generated: surfing surfing surfing surfing surfing surfing surfing surfing surfing surfing surfing surfing surfing surfing surfing surfing surfing surfing surfing surfing surfing surfing surfing surfing surfing surfing surfing surfing surfing surfing surfing surfing surfing surfing surfing surfing surfing surfing surfing surfing surfing surfing surfing surfing wave surfing surfing surfing surfing surfing
+t Generated: what surfing wave wave wave surfing wave ?
+z Generated: what bird bird bird bird flying bird ?
+t Generated: what is the bird on ?
+z Generated: what is the cat looking at ?
+t Generated: is the man wearing a tie ?
+z Generated: what is the woman sitting on ?
+t Generated: is the woman wearing earrings ?
+z Generated: are trains trains trains trains trains trains trains trains trains trains ? bus train trains trains train trains ? bus trains trains trains trains trains trains trains trains trains trains trains trains trains trains trains trains trains train trains trains trains trains trains trains trains trains bus trains trains train
+t Generated: is this a train train station ?
+z Generated: computer computer computer computer computer computer computer computer computer mouse computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer
+t Generated: is the computer monitor turned ?
+z Generated: how tall tall tall tall tall tall tall tall tall tall tall ?
+t Generated: is the man wearing a hat ?
+z Generated: what is he man wearing goggles ?
+t Generated: is the man wearing a helmet ?
+z Generated: what bike bike bike bike bike bike bike bike bike bike bike bike bike bike bike bike bike bike bike bike bike bike bike bike bike bike bike bike bike bike bike bike motorcycle bike bike bike bike bike bike bike bike bike bike bike bike bike bike bike bike
+t Generated: is the man riding on motorcycle ?
+z Generated: how many shelves are hanging ?
+t Generated: is the man wearing a tie ?
+z Generated: what is the glass glass ?
+t Generated: is this a smartphone ?
+z Generated: what truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck
+t Generated: is this a truck ?
+z Generated: is this a plane plane plane plane ?
+t Generated: is the sky cloudy ?
+z Generated: what food donut donut donut ?
+t Generated: is this a donut ?
+z Generated: is this a cake cake ?
+t Generated: is this a cake ?
+z Generated: tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis
+t Generated: is the man wearing tennis shoes ?
+z Generated: what is the remote control ?
+t Generated: is this a <unk> ?
+z Generated: is the cat sleeping ?
+t Generated: is this a real cake ?
+z Generated: is the laptop computer computer computer computer computer laptop computer computer computer laptop computer computer computer computer computer laptop computer computer computer computer computer computer computer computer computer computer computer computer laptop computer laptop computer laptop computer laptop computer computer laptop computer laptop computer laptop computer laptop computer laptop computer
+t Generated: is the man wearing glasses ?
+z Generated: what is the sky ?
+t Generated: is this a cloudy day ?
+z Generated: computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer computer
+t Generated: what is the computer computer mouse computer ?
+z Generated: what train car lane ?
+t Generated: what is the train engine ?
+z Generated: how many lights lights are hanging ?
+t Generated: are there any people in the scene ?
+z Generated: how many people are skiing ?
+t Generated: is the man wearing a hat ?
+z Generated: plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane
+t Generated: is the plane landing plane plane plane plane plane ?
+z Generated: what tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis
+t Generated: is the man wearing tennis shoes ?
+z Generated: is the man wearing glasses ?
+t Generated: is the man wearing glasses ?
+z Generated: what is the cat looking ?
+t Generated: is this a dog ?
+z Generated: cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat
+t Generated: what is the cat cat ?
+z Generated: what is the man riding ?
+t Generated: is the man wearing a hat ?
+z Generated: what birds bird birds bird birds bird ?
+t Generated: what is the bird perched on ?
+z Generated: what tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis
+t Generated: is the man wearing tennis shoes ?
+z Generated: cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat cat
+t Generated: is the cat asleep ?
+z Generated: what tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis
+t Generated: how many people are there ?
+z Generated: what dog puppy puppy dog puppy ?
+t Generated: what is the dog puppy ?
+z Generated: what stop sign stop sign stop sign stop stop stop sign stop stop stop sign stop stop stop stop sign sign sign sign stop sign stop sign stop sign stop sign stop stop stop stop sign stop stop stop stop stop stop sign stop sign sign stop sign sign sign
+t Generated: is the sign pointing stop sign ?
+z Generated: what street street street street street ?
+t Generated: is this a parking meter ?
+z Generated: what fruit is the fruit ?
+t Generated: is the man wearing a hat or a <unk> ?
+z Generated: what is the bird flying flying ?
+t Generated: is the bird flying ?
+z Generated: is the man wine glasses wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine
+t Generated: is the man wearing glasses ?
+z Generated: what is the man holding ?
+t Generated: is the man wearing a hat ?
+z Generated: what vehicle bike motorcycles are motorcycles ?
+t Generated: is the man riding bikes ?
+z Generated: are there wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine
+t Generated: is this a restaurant ?
+z Generated: what is the boat boat boat boat boat boat boat boat boat ?
+t Generated: what is the boat boat ?
+z Generated: is the wine wine wine glasses wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine glasses wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine wine
+t Generated: is the man wearing glasses ?
+
