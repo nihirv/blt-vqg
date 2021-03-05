@@ -1,532 +1,532 @@
-EPOCH STATS FOR EPOCH 34 
-('loss', '\t', 12.5387)
-('img', '\t', 0.0006)
-('ppl', '\t', 9.0562)
-('l2_cat_encoder', '\t', 88.186)
-('z_kld', '\t', 88.186)
-('t_kld', '\t', 114.4451)
-('z_t_kld', '\t', 72.5055)
-('z_aux', '\t', 3.9966)
-('t_aux', '\t', 4.0485)
-('elbo', '\t', 277.3401)
-('rec', '\t', 2.2035)
-('z', 'Bleu_1', '\t', 2.2579)
-('t', 'Bleu_1', '\t', 3.4994)('z', 'Bleu_2', '\t', 0.3496)
-('t', 'Bleu_2', '\t', 0.7081)('z', 'Bleu_3', '\t', 0.0)
-('t', 'Bleu_3', '\t', 0.2312)('z', 'Bleu_4', '\t', 0.0)
-('t', 'Bleu_4', '\t', 0.0)('z', 'METEOR', '\t', 2.2663)
-('t', 'METEOR', '\t', 3.0384)('z', 'ROUGE_L', '\t', 5.4758)
-('t', 'ROUGE_L', '\t', 9.2286)('z', 'CIDEr', '\t', 0.0828)
-('t', 'CIDEr', '\t', 1.5101)GroundTruth: is the man left or right handed ?
-z Generated: how giraffe slices cakes furniture forks ?
-t Generated: how giraffe casting on the plate forks ?
+EPOCH STATS FOR EPOCH 10 
+('loss', '\t', 11.0228)
+('img', '\t', 0.0008)
+('ppl', '\t', 4.6428)
+('l2_cat_encoder', '\t', 94.0542)
+('z_kld', '\t', 94.0542)
+('t_kld', '\t', 119.5586)
+('z_t_kld', '\t', 28.3747)
+('z_aux', '\t', 3.9149)
+('t_aux', '\t', 3.9692)
+('elbo', '\t', 243.5229)
+('rec', '\t', 1.5353)
+('z', 'Bleu_1', '\t', 3.6132)
+('t', 'Bleu_1', '\t', 30.9145)('z', 'Bleu_2', '\t', 1.2681)
+('t', 'Bleu_2', '\t', 12.2281)('z', 'Bleu_3', '\t', 0.4192)
+('t', 'Bleu_3', '\t', 6.3166)('z', 'Bleu_4', '\t', 0.0)
+('t', 'Bleu_4', '\t', 0.0005)('z', 'METEOR', '\t', 3.2148)
+('t', 'METEOR', '\t', 8.7037)('z', 'ROUGE_L', '\t', 11.6265)
+('t', 'ROUGE_L', '\t', 32.1944)('z', 'CIDEr', '\t', 2.8868)
+('t', 'CIDEr', '\t', 10.8106)GroundTruth: what animal name is posted on the front of the middle bus ?
+z Generated: bus bus bus stop bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus buses bus bus bus bus bus stop bus bus bus bus bus stop bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus
+t Generated: are there any plants in the image ?
 
-GroundTruth: where is a blue round suitcase ?
-z Generated: sign drawing cars street basket directions sign arrows sign drawing directions watch sign ? street sign dangerous sign sign sign sign sign bike sign drawing sign sign sign sign sign sign sign sign sign sign bike rear basket basket basket basket street benches sign sign sign sign sign sign drawing basket
-t Generated: left letters with writing toothbrushes walk letters ?
+GroundTruth: what is the reflection of on the table ?
+z Generated: toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet
+t Generated: is this a beach ?
 
-GroundTruth: what is in front of the bus ?
+GroundTruth: what is the train riding on ?
+z Generated: train train train train train train train train train train train train train train train train train train train train train train train train train train train train train train train train train train train train train train train train train train train train train train train train train train train
+t Generated: are these people fruit ?
+
+GroundTruth: what is the television <unk> in ?
+z Generated: how many doors doors ?
+t Generated: is this a resort ?
+
+GroundTruth: what is in the background on the shelves ?
+z Generated: bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed
+t Generated: is the sun shining ?
+
+GroundTruth: is this a passenger or freight train ?
+z Generated: train tracks train tracks tracks tracks train tracks tracks tracks tracks tracks train tracks tracks tracks tracks train tracks tracks tracks tracks train tracks tracks train tracks train tracks tracks train train train tracks train tracks train tracks train tracks train tracks train train tracks train tracks train tracks tracks train
+t Generated: is the sun out ?
+
+GroundTruth: who is throwing the ball ?
+z Generated: players players player player players player players player players player players players players players players players players players players players players players players players players players players players players players players players players players players players players players players players players players players players players players player players players players players
+t Generated: is this a farm farm or dirt road ?
+
+GroundTruth: what game is the man playing ?
+z Generated: is the batter batting baseball batters batter batter batters bat batters batter batting baseball players batting baseball players batters players batters baseball batting field batter batting field batters batting baseball players baseball players baseball players batters players bat baseball baseball players batters players batters bat batting bat bat baseball players
+t Generated: is this a farm ?
+
+GroundTruth: where is the pan ?
+z Generated: are broccoli bowl pasta bowl pasta dish broccoli broccoli dish dish pasta dish bowl bowl bowl pasta dish bowl dish bowl dish dish dish dish bowl dish dish dish dish dish dish bowl salad broccoli salad salad bowl bowl dish bowl bowl bowl bowl bowl bowl dish bowl bowl bowl
+t Generated: is this a country setting ?
+
+GroundTruth: what is soaring in the sky ?
+z Generated: beach beach kites kite beach kites beach beach beach beach beach beach beach beach beach beach beach beach beach beach beach beach beach beach beach beach beach beach beach beach beach beach beach beach beach beach beach beach beach beach beach beach beach beach beach beach beach kite beach beach kite
+t Generated: is this a bird or a bird ?
+
+GroundTruth: what type of furniture is the <unk> sitting on ?
+z Generated: is the bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed
+t Generated: is this a cow ?
+
+GroundTruth: what are the women walking beside ?
+z Generated: are the two players players ?
+t Generated: is the man wearing a hat ?
+
+GroundTruth: what is the man riding on ?
+z Generated: is the plane wings wings , wings wings wings wings ?
+t Generated: is this a bird ?
+
+GroundTruth: what is the glass sitting on ?
+z Generated: onions hot hot hot hot hot hot hot hot hot hot hot hot hot ? hot hot ? hot onions pizza pizza hot pizza onions ? hot hot food hot hot hot hot hot hot hot hot hot hot hot hot hot hot hot hot hot hot hot hot hot hot
+t Generated: is this a real animal ?
+
+GroundTruth: what is being used to eat this ?
+z Generated: orange is the fish bananas bananas ? plate bananas bananas ?
+t Generated: is this a helicopter ?
+
+GroundTruth: where is the bus driver ?
+z Generated: bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus truck bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus
+t Generated: are the trees in the background on the right in the background ?
+
+GroundTruth: what kind of room is this picture of ?
+z Generated: cabinet refrigerator door cabinet refrigerator refrigerator cabinet refrigerator refrigerator refrigerator refrigerator refrigerator cabinet refrigerator door cabinet refrigerator door refrigerator refrigerator refrigerator refrigerator refrigerator door refrigerator refrigerator cabinet refrigerator refrigerator refrigerator cabinet refrigerator refrigerator door refrigerator refrigerator refrigerator refrigerator door door refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator
+t Generated: is the floor more natural fruit or fruit ?
+
+GroundTruth: which room is this ?
+z Generated: is this bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed
+t Generated: are the bananas ripe ?
+
+GroundTruth: what type of veggie is served with the protein ?
+z Generated: broccoli broccoli broccoli food food dish dish dish dish dish dish dish dish dish dish dish dish dish dish dish dish dish dish dish dish dish dish dish dish dish dish broccoli dish dish dish dish dish dish dish dish dish dish dish broccoli dish broccoli meal broccoli broccoli dish dish
+t Generated: is the sun on or <unk> ?
+
+GroundTruth: what is the man holding ?
+z Generated: is the tie tie tie ? tie tie ?
+t Generated: is the phone on the phone phone phone ?
+
+GroundTruth: what is the man holding ?
+z Generated: is the man wearing a man 's shirt ?
+t Generated: what is the plant ?
+
+GroundTruth: how many colors is the train ?
+z Generated: what buildings buildings in buildings buildings buildings ?
+t Generated: is the person wearing a red and orange ?
+
+GroundTruth: how many giraffes can been seen ?
+z Generated: what trees are in giraffe ? giraffe in ?
+t Generated: is the person wearing a hat ?
+
+GroundTruth: how many suitcases are there ?
+z Generated: is the car driving car car car driving car car ? car car car car ? car car car car car seat car seat seat car car car car car car car seat seat car seat car car car seat seat car car car car car car car car car
+t Generated: what is the name of the bird ?
+
+GroundTruth: how many lights are in this room ?
+z Generated: luggage luggage luggage luggage luggage luggage luggage luggage luggage luggage luggage ? luggage luggage luggage luggage luggage luggage luggage luggage man luggage desk luggage boxes luggage luggage table man luggage chef luggage luggage luggage chef table luggage desk luggage luggage luggage luggage luggage luggage luggage man luggage luggage luggage luggage
+t Generated: what is the word `` s '' ?
+
+GroundTruth: how many garbage trucks are there ?
+z Generated: bus bus bus bus bus bus bus bus bus bus bus ? bus bus bus bus bus truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck bus truck truck bus bus bus bus truck truck truck truck truck truck truck truck bus
+t Generated: what is the orange and orange <unk> ?
+
+GroundTruth: how many umbrellas ?
+z Generated: is the hydrant hydrant hydrant painted ?
+t Generated: what is the main color of the bird ?
+
+GroundTruth: how many flowers are in the vase ?
+z Generated: flower flowers flowers flower vase flowers flowers flowers flowers flowers ? flower pot flower vase ? flower flower vase ? flower flower flower flower glass ? flower flower flower flower vase vase vase flower vase flower flower flower glass flowers glass flower glass flower flower flower flower flower flower flowers flower
+t Generated: is this a public restroom ?
+
+GroundTruth: how many trees can be seen ?
+z Generated: what grass field elephant grass grass grass grass grass ? grass ? grass ? elephant ?
+t Generated: is the bird flying ?
+
+GroundTruth: about how many feet of water is the bird standing in ?
+z Generated: what bird bird bird bird bird bird bird bird ? bird bird bird bird bird bird eagle bird ? bird bird bird eagle bird bird ? birds bird eagle eagle bird bird bird eagle eagle eagle eagle birds eagle birds eagle bird bird eagle bird bird eagle birds bird bird
+t Generated: is this a boat ?
+
+GroundTruth: how many bananas is this ?
+z Generated: bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas
+t Generated: what is the man 's boat ?
+
+GroundTruth: how many boys are in this picture ?
+z Generated: players players players players players playing soccer players players players playing baseball playing baseball players players players players players playing players playing players players players players players players players players players players players players players players players players players players playing players players playing players players players playing players players players
+t Generated: is the man wearing shorts or sandals ?
+
+GroundTruth: how old is this child ?
+z Generated: what is the girl 's hair ?
+t Generated: is the person wearing a helmet ?
+
+GroundTruth: how many plants in the picture ?
+z Generated: what is the girl cat bed bed bed bed bed bed sheets ?
+t Generated: what is the word on the bottom of the engine ?
+
+GroundTruth: how many people are in the picture ?
+z Generated: elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant
+t Generated: <unk> is the bear as well as well as as <unk> ?
+
+GroundTruth: what is the bus number ?
 z Generated: bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus
-t Generated: is bus bus bus bus bus bus bus bus bus bus bus bus bus ? bus cars parking bus cargo cargo cargo cargo vehicle bus train bus bus bus bus bus bus bus bus bus bus train bus train vehicle cargo vehicle cargo bus train train bus train bus bus
+t Generated: is the sun setting ?
 
-GroundTruth: what model airplane is in the picture ?
-z Generated: get head does catch catch traffic spot spot spot spot spot spot spot spot spot movie movie movie movie turn spot spot statue movie traffic too eyes kites kites movie movie <unk> clock clock donkey movie movie movie movie ears catch kites movie movie movie for head movie movie movie movie
-t Generated: are there street light street crowded traffic light traffic signal parade ?
+GroundTruth: how many sinks are here ?
+z Generated: bathroom sink bathroom sink sink toilet sink bathroom sink toilet sink sink toilet bathroom sink bathroom sink bathroom shower shower bathroom sink sink sink sink bathroom sink bathroom bathroom bathroom bathroom sink sink sink sink sink toilet toilet sink sink sink sink sink sink sink sink toilet toilet toilet sink sink
+t Generated: is the person wearing a <unk> ?
 
-GroundTruth: where is the cat looking at ?
-z Generated: suitcase cat cat cat bag suitcase suitcase cat suitcase suitcase ? suitcase cat suitcase bag bag cat suitcase suitcase suitcase suitcase suitcase cat suitcase computer cats cats suitcase bag suitcase bag bag cat cat suitcase suitcase suitcase suitcase bag cat suitcase suitcase cat cats suitcase suitcase suitcase cat cat suitcase suitcase
-t Generated: computer mouse remote remote controls good toothbrush remote device remote good remote controller controller controller remote good good suitcase suitcase controller controller remote controller remote remote good suitcase suitcase electronic suitcase computer dessert suitcase suitcase suitcase suitcase suitcase banana computer computer suitcase suitcase suitcase computer good suitcase suitcase suitcase suitcase suitcase
+GroundTruth: how many mirrors are in the picture ?
+z Generated: what is the cat bar ?
+t Generated: is the person wearing a <unk> ?
 
-GroundTruth: what kind of vehicle is this ?
-z Generated: street cars bus stop street lights ? traffic or train cars bus traffic street ? bus ? traffic cars ? graffiti traffic traffic traffic bus cars bus bus bus graffiti traffic cones ? bus bus bus bus pink bus pink pink street pink train or bus or stop bus bus bus
-t Generated: street traffic traffic street traffic based street traffic based street ? car street based street traffic traffic traffic signs street ? street ? traffic vehicle at car car car traffic traffic traffic traffic traffic traffic ? dangerous street sign based street traffic heavy traffic heavy traffic heavy traffic heavy traffic street
+GroundTruth: how many clocks ?
+z Generated: are there clocks tower clock tower clock tower clock clock tower clock tower ? clock tower clock tower clock tower clock tower clock tower clock towers clock clock tower clock tower clock tower towers clocks towers tower clock tower clock tower clock tower clock tower towers building tower clock clock
+t Generated: is the person in the foreground of the picture ?
 
-GroundTruth: what kind of vehicle is this ?
-z Generated: bike bikes bike bikes bike bikes bikes bikes bikers bikes bikes bike bike bike bike bike bike bike bike bikes bikes bikes bikes bikes ride bikes bikes bike ride bikes bike bikes bike bike ride bikes bike bike bike bike bike bikes bikes bikes bike bikes bike bike bikes bikes bikes
-t Generated: are children bike children bike bike ? bike ?
+GroundTruth: how many people are wearing helmets ?
+z Generated: trees trees trees trees trees trees snow land snow river river river river river water snow river river river river water water path land river river skiing river river river path snow path river river river land river river river river river river river land river river river river land river
+t Generated: is the bird in the tree ?
 
-GroundTruth: is the child a girl or boy ?
-z Generated: pillows pillows pillows pillows pillows pillows ? pillows pillows pillows ? pillows pillows pillows pillows ? pillows ? pillows pillows pillows pillows pillows pillows pillows pillows pillows ? pillows pillows pillows pillows ? pillows pillows pillows pillows pillows pillows pillows pillows pillows pillows pillows pillows pillows pillows pillows pillows pillows
-t Generated: too that bed that luggage other luggage ?
+GroundTruth: how many vegetables are there ?
+z Generated: plate plate fork fork fork fork fork fork fork fork fork plate dish plate plate plate plate plate plate dish plate dish plate plate dish dish dish dish dish fork plate plate plate plate plate plate plate plate plate plate fork plate plate plate plate plate plate plate plate plate plate
+t Generated: is the person in the back of the yellow and yellow ?
 
-GroundTruth: what are the animals walking on ?
-z Generated: giraffe giraffe giraffe giraffe ? giraffe ?
-t Generated: rear taller do birds cage taller taller ?
-
-GroundTruth: what is in the man 's hand ?
-z Generated: motorcycles motorcycles motorcycles motorcycles trailer truck truck trailer trailer trailer ? truck ? truck ? truck truck truck truck truck truck truck truck truck near trailer truck trailer truck bicycle bicycle bicycle trailer trailer truck trailer truck near truck truck truck truck truck truck truck trailer truck truck truck motorcycle
-t Generated: motorcycles motorcycles motorcycles motorcycle motorcycles motorcycle motorcycles motorcycles motorcycles ?
-
-GroundTruth: what type of field are they on ?
-z Generated: what players players players players players players players players players players players players players players players players players players players players players players players players players players players players players players players players players players players players players players players players players players players players players players players players players
-t Generated: player player player player players player players player players player player player players player player players players player player player player player player player players player player players player player player players player player player player players player player player players player player players player player player player players player player
-
-GroundTruth: what is the woman playing ?
-z Generated: in clothing feet those flowers tree planted pillars pillars pillars in those tree ? woman flowers ? tree pillars pillars pillars pillars pillars pillars tree tree pillars ? cage feet tree tree pillars pillars tree tree tree tree pillars pillars pillars pillars pillars tree pillars another likely equipment pillars pillars tree
-t Generated: <unk> based player feeding more <unk> more more season based clothing based <unk> ? clothing based <unk> ?
-
-GroundTruth: what are the dogs laying on ?
-z Generated: are fire hydrant fire hydrant hydrant fire hydrant hydrant ? like fire hydrant fire hydrant ? hydrant fire hydrant hydrant bull fire hydrant ? rocks ? fire hydrant ? fire hydrant fire hydrant fire hydrant hydrant fire hydrant hydrant bear hydrant fire hydrant ? hydrant hydrant hydrant hydrant hydrant fire
-t Generated: fire hydrant fire hydrant fire hydrant ? traditional fire hydrant ? fire hydrant ? fire hydrant ?
-
-GroundTruth: what is behind the elephant area ?
-z Generated: horses elephants elephants near elephants elephants near elephants pole elephants ? elephants elephants elephants near elephants pole ? elephants elephants pole elephants elephants pole elephants near elephants pole elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants near elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants
-t Generated: cats elephants elephants <unk> cow elephants elephants elephants outside elephants ?
-
-GroundTruth: what is the wall behind the bed made of ?
-z Generated: pillows pillows pillows pillows pillows pillows room pillows pillows room room room room room pillows pillows room room room room room pillows pillows pillows room room room room room pillows room room room pillows pillows room pillows room room room room room pillows room room room room room room pillows room
-t Generated: pillows pillows pillows pillows pillows pillows pillows pillows pillows pillows pillows pillows ? pillows pillows pillows pillows pillows pillows pillows pillows pillows pillows pillows pillows pillows pillows pillows room pillows pillows pillows pillows pillows pillows pillows pillows pillows pillows pillows pillows pillows pillows pillows pillows pillows pillows room room pillows pillows
-
-GroundTruth: what is the man holding in his hand ?
-z Generated: is his suit men life life suit life life life ? suit suit ? suit ? casual his life suit suit suit ? suit suit suit life bag bag bag casual his life casual his suit suit suit suit suit men men suit life suit life straight casual suit life
-t Generated: is a life suit couple suit ties ties ?
-
-GroundTruth: what is in his right hand ?
-z Generated: she how shirt shirt clip clip ribbon ? she shirt clip ? blonde tie in in she ? blouse ? clip clip in rack she in her clip clip clip clip ribbon cut she blonde she cut or she sweater teddy she she she heart she tie or she clip she
-t Generated: bad toy toy stuffed toy toy toy ? toy stuffed toy ?
-
-GroundTruth: what game controller is he holding ?
-z Generated: is the women standing to women outside women standing to women ? button button to women ? button to vehicle elephant to to the women button women to the wall shirts the women women women women women women women elephant women women dress women women women women women women women
-t Generated: <unk> is this a brush outside remote ?
-
-GroundTruth: what is the couch made of ?
-z Generated: is bed space luggage cart space luggage ? luggage ? luggage ?
-t Generated: are luggage luggage luggage dining luggage . kitchen luggage ?
-
-GroundTruth: what is the spoon made of ?
-z Generated: cookie cookie cookie cookie cookie cookie cake plates bowls plates plates cupcakes cake cookie butter cupcakes cookie cookie cookie cookie cookie cookie cookie cookie cookie cookie cookie cookie butter cookie cookie cupcakes cookie plates plates cookie butter cookie cookie cookie cookie cookie cookie cookie cookie cookie pizza tomatoes tomatoes cupcakes
-t Generated: will cut cookie frosting paper bread cookie frosting ? cookie cookie cookie cookie cookie ? bread plate plates ? dessert cookie cookie cookie cookie cookie cookie plates cookie cookie cookie bread cookie cookie dessert plate controllers bread cookie cookie cookie bread bread plates bread bread bread bread bread plate desert
-
-GroundTruth: what is the object made of ?
-z Generated: bird bird <unk> in bird bird bird bird chest ? bird chest ?
-t Generated: headed near sunlight <unk> live live cups ?
-
-GroundTruth: what room is the sink photographed ?
-z Generated: toilet toilet appliance use use toilet toilet toilet toilet use toilet toilet toilet toilet toilet toilet toilet toilet get bathroom appliance toilet use use toilet use use use use bathroom get use appliance use use use use use use use use appliance toilet toilet toilet use use toilet toilet toilet
-t Generated: toilet toilet toilet brush glass toilet toilet designed toilet toilet brush outside toilet sunlight outside bathroom ? toilet bathroom bathroom toilet bathroom bathroom bathroom bathroom bathroom bathroom bathroom potty toilet bathroom bathroom glass tiles bathroom potty bathroom toilet toilet glass glass tiles bathroom bathroom toilet toilet toilet toilet toilet toilet
-
-GroundTruth: are these elephants living in the wild or a zoo ?
-z Generated: elephant elephants elephants elephant elephant elephant elephant elephant elephant elephants elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephants elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant
-t Generated: yard elephants elephants elephants elephant elephants elephant elephants elephants elephant ? elephants elephants elephants elephant elephants elephant elephants elephants elephants elephants elephants elephants elephants elephants elephant elephant elephants elephant elephant elephants sheep elephants elephants elephants elephants elephants elephant elephants elephants elephant elephant elephants elephants elephants elephant elephant elephants ball elephants elephants
-
-GroundTruth: where is the kite ?
-z Generated: kite kite kite kite kite kite kite kite kite kite kite kite kite kite kite flying kite kite flying kite kite kite kite kite kite kite kite kite kite kite kite flying flying kite kite flying kite kite kite kite flying kite kite kite kite kite kite flying kite kite kite
-t Generated: is the kite flying flying flying flying flying kite flying flying flying kite flying kite flying flying kite flying flying flying flying flying flying flying flying flying kite kite flying kite flying flying kite flying flying kite flying kite flying kite flying flying flying kite flying kite kite kite flying
-
-GroundTruth: what fruit is shown ?
-z Generated: bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas ? bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas fruit bananas bananas fruit bananas bananas bananas bananas bananas bananas bananas bananas basket bananas bananas bananas bananas bananas
-t Generated: oranges oranges apple bananas apple bananas apple oranges ? bananas fruit ? oranges oranges ? oranges oranges bananas apple ? oranges oranges bananas oranges bananas oranges bananas oranges ? bananas oranges bananas bananas fruit oranges bananas oranges bananas oranges oranges bananas bananas apple fruit fruit oranges fruit oranges oranges bananas
-
-GroundTruth: what kind of salad is on the plate ?
-z Generated: dish toast dish dish toast toast dish toast toast toast dish toast toast toast toast toast dish toast toast toast toast toast toast toast dish dish dish dish toast toast toast dish dish dish dish dish dish pizza dish dish dish dish dish dish toast toast toast toast dish dish dish
-t Generated: cheese pizza pizza dish pizza dish food pizza pizza dish pizza pizza pizza pizza pizza dish ? pizza cake pizza dish bread pizza pizza pot dish pizza pizza pizza pizza pizza pizza dish pizza pizza pizza pizza lot pizza pizza basket pizza pizza dish pizza dish pizza dish dish pizza
-
-GroundTruth: what is mainly featured ?
-z Generated: how long sock ? aware ? broccoli ?
-t Generated: cheese pizza ? ? ? cheese ? cheese pizza ? pizza ? ?
-
-GroundTruth: how many remotes are visible ?
-z Generated: inside owl plaid only owl how owl at how owl how owl owl how owl owl level feed feed owl owl owl feed how owl finger owl shown owl owl owl level level level owl finger pickles finger owl owl owl finger owl finger owl some owl owl owl owl owl
-t Generated: how stuffed stuffed only one stuffed stuffed stuffed stuffed stuffed for stuffed cats only one stuffed stuffed ?
-
-GroundTruth: how many animals do you see ?
-z Generated: sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep
-t Generated: sheep cows cows cows cows cows sheep cows sheep sheep cows sheep sheep cows sheep sheep cows sheep sheep cows cows cows sheep cows cows cows sheep sheep cows sheep cows cows sheep sheep sheep cows cows sheep sheep cows sheep cows sheep sheep sheep cows cows cows sheep sheep
-
-GroundTruth: how many luggage ?
-z Generated: sign bike street sign street sign bike street sign sign sign ? sign drawing street directions street sign sign sign sign sign sign arrows sign arrows sign sign sign basket street sign sign sign sign directions sign sign sign sign opening street sign sign sign sign sign sign sign sign sign
-t Generated: where directions directions in sign blue sign sign walk ?
-
-GroundTruth: how many people are standing ?
-z Generated: could i animal ride ride like cow ride ride ?
-t Generated: do humans sculpture has made sculpture sculpture ?
-
-GroundTruth: how many men are wearing white shirts ?
-z Generated: most bus car and bus bus bus bus and bus bus car and large car and bus bus large bus bus bus bus bus bus getting bus bus bus bus bus bus bus large getting bus bus bus door yard bus bus stairs bus yard bus large large bus bus getting
-t Generated: where large large cross school cross still square going going square going large large large skiing ?
-
-GroundTruth: how many speakers are on the desk ?
-z Generated: what wall signs signs probably drawers objects that might signs probably controller probably remote ? probably wall structure structure wall tv signs structure remote controls structure ? remote structure microwave biggest wall that tv bunk room room room room biggest microwave wall structure structure structure structure structure structure bed room
-t Generated: if device device device device device device device device ? device anything ? form device anything form remote controls device device device device device device device device remote device device device device device device that room device device device device remote device device device device device device device device device
-
-GroundTruth: how many clocks can be seen in the image ?
-z Generated: shopping street traffic cones crowded traffic traffic crowded moving traffic traffic crowded traffic crowded ?
-t Generated: are traffic moving moving moving moving traffic street moving <unk> moving moving street ?
-
-GroundTruth: how many individual photos are there ?
-z Generated: computer monitors computer monitors computer computer computer monitors computer computer monitors computer monitors brush laptop computer laptop computer computer computer using computer laptop computer computer computer laptop computer computer laptop computer computer computer laptop computer computer computer monitors computer computer computer computer computer computer computer laptop computer computer laptop computer laptop
-t Generated: where brush using cover ?
-
-GroundTruth: how many boys are there ?
-z Generated: team are popular teams actually popular stuffed row apple keys stuffed stuffed stuffed stuffed stuffed popular stuffed stuffed popular stuffed actually number are actually row stuffed team number number stuffed team number number actually stuffed teams number are stuffed stuffed stuffed stuffed stuffed stuffed represent number actually actually actually actually keys
-t Generated: are the lambs palace number many kids ? jackets ?
-
-GroundTruth: how many benches are there ?
-z Generated: giraffe steps giraffe giraffe giraffe steps in giraffe giraffe giraffe giraffe giraffe building ? giraffe giraffe giraffe giraffe giraffe giraffe giraffe steps boats giraffe giraffe steps porch giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe steps giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe
-t Generated: how steps steps steps steps steps steps steps steps statue steps steps steps steps steps steps steps steps steps steps steps steps steps steps steps steps porch steps steps steps stairs steps steps porch steps steps porch porch steps steps porch steps steps steps steps steps steps steps steps steps
-
-GroundTruth: how many people ?
-z Generated: sky water water water water water water water water water water water water water beach ? water beach water water water water water water water water beach water land water water beach water water water water water water water water land water water water water water water water water water beach
-t Generated: waves clouds waves waves waves waves waves waves waves ?
-
-GroundTruth: how many tomato slices are on the bun ?
-z Generated: would the donuts donuts looks drawn donuts ? mustard the carrots ? cut ? cut cut ? donuts ? onions donuts ? donuts ? donuts donuts ? yellow cut at at potatoes donuts donuts cheese mustard cheese mustard cut donuts donuts donuts donuts carrots bread cheese donuts donuts box potatoes
-t Generated: do these nuts nuts nuts nuts nuts nuts ? nuts on now nuts ? rice nuts ?
-
-GroundTruth: how many drinks are on the table ?
-z Generated: cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake
-t Generated: cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake
-
-GroundTruth: how many wheels are in the shadow ?
-z Generated: do skateboard skateboard skateboard scissor midair scissor skateboard ? skateboard plane scissor ? plane scissor ? scissor plane scissor skateboard shoe plane ? plane skateboard skateboard with the plane plane land plane scissor skateboard skateboard plane scissor skateboard midair plane skateboard skateboard scissor skateboard skateboard jet do plane plane plane
-t Generated: do the do do do see do do do do way do do do do do do way do do do do do do do do way ski lift jet do do do do do do do do do do do do do do do do do do do do
-
-GroundTruth: how many slices have been taken ?
-z Generated: pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza ? pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza pizza
-t Generated: pizza dish pizza pizza pizza pizza pizza pizza pizza pizza pizza dessert pizza pizza pizza pizza dessert pizza pizza dish pizza pizza pizza pizza onions pizza onions onions pizza pizza onions pizza onions pizza pizza pizza pizza onions pizza pizza dish pizza pizza pizza already pizza pizza pizza pizza pizza pizza
-
-GroundTruth: what is the pitchers number ?
-z Generated: what does this child is her play air her throwing ? air ? air ?
-t Generated: where is girl girl players girl girl ? where girl girl girl player team team girl where player player player player player player player player player player player girl girl girl girl girl girl girl girl girl girl girl girl girl girl girl girl lady girl girl girl girl girl
-
-GroundTruth: what color is the pitcher ?
-z Generated: vase vase vase vase vase vase vase vase vase vase vase vase vase vase vase vase vase vase vase vase vase vase vase vase vase vase vase vase vase vase vase vase vase vase vase vase vase vase vase vase vase vase vase vase vase vase vase vase vase vase
-t Generated: is one vase lit ? lit ? lit lit ? lit ? bright ? right ? right ? right vase vase vase vase ? vase vase vase vase live vase vase ? remote lit ? cut vase vase vase vase vase right lit lit vase lit remote right mother right
-
-GroundTruth: what color is the couch ?
-z Generated: if people toy stuffed toy stuffed toy stuffed toy ?
-t Generated: would bed bed bed bed bed pocket ?
+GroundTruth: what color are the chairs people are sitting in ?
+z Generated: bus what bus bus buses bus bus ? bus ? ?
+t Generated: is this a park ?
 
 GroundTruth: what color is the plate ?
-z Generated: what plate plate plate ? plate ? plate ? plate ? plate ? plate ? plate ? plate ? plate plate ? paper plate ? plate plate plate ? plate plate cake ? plate ? plate plate plate plate plate buns plate plate on hot plate hot plate desert plate
-t Generated: where plate plate cake ? cake cake ? desert ?
-
-GroundTruth: what color tag is on the lamb 's ear ?
-z Generated: dogs elephants elephants elephants lambs elephants elephants elephants elephants lambs elephants elephants elephants cows elephants elephants cows elephants elephants dogs elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants dogs elephants elephants elephants elephants elephants elephants elephants elephants elephants adults elephants elephants elephants elephants
-t Generated: elephants elephants elephants elephants elephants elephants ? elephants elephants elephants ? elephants elephants elephants elephants elephants ? elephants elephants elephants ? elephants elephants elephants ? elephants elephants elephants elephants elephants elephants elephants elephants elephants ? elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants elephants
-
-GroundTruth: what color is the stoplight ?
-z Generated: can light light light be traffic signal sign traffic signal light signal ?
-t Generated: traffic light traffic traffic stoplight designed designed traffic traffic traffic go traffic designed in traffic traffic sign stoplight designed designed traffic signal traffic light traffic stoplight signal signal traffic signal sign sign signal signal stoplight traffic traffic signal sign signs signs signs signs traffic sign traffic signal stoplight sign traffic
-
-GroundTruth: what color are the things on the trays ?
-z Generated: subway wood wood wood wood wood wood wood wood wood wood wood wood wood wood wood wood wood wood wood wood wood wood wood wood wood wood wood wood wood wood wood wood wood wood wood wood wood subway wood wood wood wood wood wood wood wood wood wood wood wood
-t Generated: <unk> are the stuffed stuffed stuffed stuffed stuffed ? matching stuffed ? <unk> <unk> ? matching stuffed stuffed ?
-
-GroundTruth: what color circle is the number seven in ?
-z Generated: stop sign stop stop sign graffiti graffiti ? graffiti sign stop stop ? sign ? stop sign sign sign ? graffiti sign stop sign stop sign sign sign sign sign graffiti graffiti graffiti graffiti graffiti graffiti sign sign sign stop sign signs sign graffiti sign sign sign sign ? sign stop
-t Generated: would brush letters go sign letters stop sign letters ? luggage ? luggage ? a letters luggage sign remote remote remote remote remote remote remote remote luggage ? vehicle vehicle ? yellow vehicle letters <unk> yellow vehicle vehicle vehicle travel vehicle vehicle <unk> yellow yellow sign a keyboard yellow sign
-
-GroundTruth: what color is the couch ?
-z Generated: house vases giraffe vases fireplace vases hanging vases fireplace vases bed in vases ? fireplace fireplace ? fireplace ? fireplace fireplace vases vases house vases vases vases vases room fireplace fireplace vases sheets sheets fireplace wine vases fireplace vases vases fireplace fireplace vases christmas fireplace sheets vases fireplace vases vases bed
-t Generated: fireplace bed room fireplace bed room room room bed bed fireplace room fireplace room fireplace fireplace room bed bed room wall fireplace bed room room room room room bed fireplace fireplace room bed bed bed bed bed bed bed bed room room room bed room room room room bed fireplace
-
-GroundTruth: what color shirt does the person closest to the camera wear ?
-z Generated: people tennis people street people street ?
-t Generated: has people already bright luggage luggage luggage luggage luggage ?
-
-GroundTruth: what color is the water ?
-z Generated: mountain mountain mountain mountain mountain mountain mountain mountain mountain mountain mountain mountain mountain mountain mountain mountain mountain mountain mountain mountain mountain mountain mountain mountain mountain mountain mountain mountain mountain mountain mountain mountain mountain mountain mountain mountain mountain mountain mountain mountain mountain mountain mountain mountain mountain mountain mountain mountain mountain mountain mountain
-t Generated: where go go sleep ?
-
-GroundTruth: what color is the kid 's jersey ?
-z Generated: what player player player player net playing player player playing player playing player playing player player player player playing playing player playing player player player fence playing playing playing playing player player player player player playing player player player player player player player player playing player playing playing player playing
-t Generated: team would team player player player player player team team team team player player player player player team team player team player player player he team player player player player playing player player player player team player player player player player team player player team team player player player player sponsored
-
-GroundTruth: what color is the disk ?
-z Generated: is the child riders riders riders riders riders riders trying riders ? cowboy riders riders ? riders ? riders baseball player throwing riders riders her horse horse he horse cowboy riders riders riders riders riders riders riders riders riders riders riders riders riders riders cowboy soccer training riders riders riders
-t Generated: dress man wearing playing <unk> man playing ? man boots ? man ? man man playing playing ? ? played ? man known man ? ? playing playing playing playing playing man cheese man man playing cheese cheese man basket man man man <unk> <unk> man man man cheese playing playing
-
-GroundTruth: what color is the cat ?
-z Generated: when car purse purse straps glove glove glove ? glove glove glove glove ? glove glove glove ? glove or glove glove glove glove leather glove purse glove ? purse purse clothing leather purse leather glove leather leather glove glove glove glove glove glove that clothing glove glove or leather leather
-t Generated: is this a real toys cart toys ? toys ? toys ? key cake ? right teeth toys toys toys toys toys toys toys toys toys toys toys toys toys bears toys toys toys toys toys bed clothing toys toys toys toys toys toys toys toys meal toys toys toys
-
-GroundTruth: what color is the door on the left ?
-z Generated: vases vases vases vases vases window vases glass wine vases glasses wine vases vases wine glasses ? wine glass glass glass wine glasses wine glasses wine glasses wine wine wine glasses glasses wine glasses wine wine wine glasses wine wine glasses wine glasses glasses wine wine wine glasses wine glasses wine
-t Generated: vases vases wine glass wine glasses glasses wine glasses ? glass glass ? wine glass glass ? vases ? bar vases glass vases ? bar vases vases glasses glasses glasses wine glass glasses wine glasses glass kitchen glass room wine wine glasses wine glasses glasses glasses glass glass glasses glasses wine
-
-GroundTruth: what color is the board ?
-z Generated: water wave wave surf water water water water wave water water ? water water water water water water water wave water water wave water water water wave water wave water water water wave water water water water water water next water water water water water water water wave water water water
-t Generated: has foot bottom foot long <unk> foot foot bottom foot <unk> foot foot foot foot bottom foot cold ? foot foot foot cold foot foot foot foot foot foot foot foot cold board foot foot foot foot foot walk foot foot foot foot <unk> <unk> cold cold cold board board
-
-GroundTruth: what color are the plants in front of the bench ?
-z Generated: boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats
-t Generated: is driver driver driver driver seat driver driver driver driver seat seat ? passenger driver driver ? : : truck car vehicle vehicle ?
-
-GroundTruth: what color is the skiers backpack ?
-z Generated: snow snow snow snow snow snow snow snow snow skiing snow snow snow snow snow ski snow ski snow snow skiing snow snow snow snow snow snow snow ski snow snow skiing snow snow ski snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow ski
-t Generated: how ski snow ski ski snow skiing goggles ski goggles ? goggles ? ski ski snow ski skiing ski ski ski ski goggles skiing ski ski ski ski ski skiing ski ski ski ski goggles goggles ski ski goggles goggles ski goggles goggles ski snow snow skiing ski skiing ski
-
-GroundTruth: what color is the couch ?
-z Generated: children bed bed are <unk> bed bed <unk> bed bed bed bed <unk> bed bed bed bed <unk> is bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed
-t Generated: glasses glasses glasses <unk> glasses glasses glasses glasses glasses glasses ? glasses glasses ? glasses glasses ? glasses ? glasses ? glasses glasses glasses glasses glasses glasses glasses glasses glasses glasses glasses glasses glasses glasses glasses glasses glasses glasses glasses glasses glasses glasses glasses glasses <unk> stuffed glasses glasses glasses glasses
-
-GroundTruth: what color is her hat ?
-z Generated: lady would primary poles in , poles ? old hair ? skis ? in in skiers ? pulling ? old hair ? poles in poles in her side skis ? poles poles ? primary skis poles ? poles in poles poles poles lady poles in <unk> ? lady poles in poles
-t Generated: how his <unk> his tie his his tie his his his shirt his tie his his his tie his his his umbrella the his the woman his his lady his woman his his his his his his lady lady his woman cut lady women his <unk> his lady lady lady
-
-GroundTruth: does this train appear to be <unk> ?
-z Generated: train train train many train train train train train train train train train train train train train train train train train train train train train train train train many train suitcases train train train train train opening suitcases train train train train many train train train train train train train train
-t Generated: do you clocks visible lights lights visible in train train center building lights ?
-
-GroundTruth: is there a shower curtain ?
-z Generated: beach toilets liquid shower shower shower glass shower shower shower shower shower shower shower glass shower shower outside shower shower glass glass glass shower shower shower appliance shower shower shower shower shower shower shower shower glass shower shower glass shower shower glass glass glass glass shower shower glass glass glass shower
-t Generated: toothbrush toilets toothbrush toothbrush ? toothbrush land toothbrush toilets beach flying toothbrush seen ? beach near beach ? toothbrush toothbrush ski kites ? toothbrush ski ski slope surf beach toothbrush beach toothbrush land toothbrush toothbrush ski ? glass shower ? near ski ski surf toothbrush surf spoon ski slope beach beach
-
-GroundTruth: is the flower on the vase the same as the flowers in the vase ?
-z Generated: flower vase vase tulips tulips vase vase tulips vase vase vase vase vase vase tulips tulips vase vase vase vase vase vase vase vase vase vase vase vase vase vase vase vase vase vase vase vase vase vase vase vase vase vase tulips vase vase vase vase vase vase vase
-t Generated: are flowers flowers in vases ? vase vases vases ?
-
-GroundTruth: was this picture taken during a rain storm ?
-z Generated: drive airplane moving pay plane car car airplane car at car car car car plane car moving car airplane car airplane car plane car machine car car car car airplane airplane airplane plane at truck plane moving moving plane moving truck truck plane plane moving car plane moving airplane plane airplane
-t Generated: do air moving moving moving moving in moving <unk> moving snow ? metal moving <unk> ? vehicle <unk> snow moving moving moving moving vehicle moving moving vehicle metal metal moving vehicle moving scissors metal moving <unk> metal vehicle moving moving moving moving moving moving <unk> metal moving moving moving moving
-
-GroundTruth: does the train appear to be new ?
-z Generated: display building train tracks tracks building train train tracks ? train tracks tracks tracks tracks ? train station tracks tracks train tracks display train tracks with train tracks train tracks train tracks tracks train tracks tracks tracks tracks tracks tracks tracks tracks train tracks train train tracks train train train
-t Generated: traffic light wear traffic traffic traffic traffic traffic traffic traffic traffic ?
-
-GroundTruth: is this the city of london ?
-z Generated: clock tower tower tower tower tower clock tower clock tower tower clock tower tower tower tower tower tower tower tower tower tower tower tower tower tower tower clock tower tower clock tower clock clock clock tower church clock tower tower clock tower tower tower clock tower tower tower tower tower tower
-t Generated: traffic cones ski poles tower ski ski ski ski ski tower ? tower ?
-
-GroundTruth: are people watching the game ?
-z Generated: playing guys zebras playing here zebras legs zebras playing zebras kicking zebras kicking zebras playing ball skiers zebras men kicking zebras playing zebras in kicking zebras zebras zebras park playing zebras zebras kicking kicking kicking zebras kicking zebras kicking zebras bat horses zebras legs zebras zebras kicking zebras kicking zebras zebras
-t Generated: is the man catchers skiers skiers ski skiers skiers skiers skiing on the men skiing downhill skiing race skiing horses race ski skiers ski skiers park during race race race skiing during skiers skiers skiers team skiers skiers skiing skiers skiers race skiers skiers race run race skiing skiers skiers
-
-GroundTruth: are the people in this scene the same gender ?
-z Generated: tennis player tennis tennis tennis player tennis tennis tennis tennis player tennis player tennis tennis player tennis player tennis player player player tennis player tennis tennis player player player tennis player tennis player tennis tennis player tennis player tennis tennis player tennis player player tennis tennis tennis tennis tennis player tennis
-t Generated: tennis player player players player tennis player players tennis player player player playing player playing tennis player player playing player player player player player player soccer player ball player player player player player player soccer player players tennis player player player player player player player tennis player player player player
-
-GroundTruth: do the lamps match ?
-z Generated: pillows pillows pillows pillows pillows pillows pillows pillows pillows , pillows pillows ? shirts ? pillows ? pillows pillows pillows pillows pillows pillows pillows ? pillows pillows pillows pillows pillows pillows pillows pillows pillows pillows pillows pillows pillows pillows pillows stacked pillows pillows stacked pillows hot pillows pillows pillows pillows pillows
-t Generated: can apple go good go ?
-
-GroundTruth: is this a densely packed forest ?
-z Generated: bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench
-t Generated: after bench equipment bench bench bench bench bench bench bench bench bench bench ? bench bench bench equipment equipment equipment bench bench bench equipment equipment bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench equipment bench bench bench
-
-GroundTruth: if i am going <unk> mph , should i slow down during the next right turn ?
-z Generated: yellow car shoe road yellow road road ? tank car car car car from ? road ? road ? get get get car car should yellow car skateboard yellow arrows yellow subway car into yellow would yellow road subway yellow from car off yellow road yellow road road yellow road
-t Generated: can move car road get green car car car car car car car ? good green ? car road get green get car get wet get road get get get snow deep get go home get get green get wheel wheel car car car get get get get get get
-
-GroundTruth: have these men been sliding into home ?
-z Generated: female players players are players players holding players holding poles holding players holding holding festival players holding ? player player player players player poles run players run poles at player run run player players run players run run run run run players run players run run player run run run run
-t Generated: do batting players team batting team players players team players team team batting in players team team team batting batting batting batting batting batting players team batting players players team batting players players players players players team players players players from players players players players players players players players players
-
-GroundTruth: is there a gallon of milk ?
-z Generated: mess mess luggage luggage luggage trip trip trip trip <unk> ? trip trip trip trip ? trip trip suitcase suitcase trip trip ride ride trip trip trip trip trip trip trip trip trip race trip trip trip trip trip trip trip trip party store store trip trip trip trip trip trip
-t Generated: orange vegetable tree red show clothing cartoon ride cartoon shirt cartoon ride school cartoon cartoon car party ? cartoon ride ride ride ride ride ride ride cartoon ride school ride school ride ride cartoon ride school school party vehicle school school school school school school school school ride ride ride school
-
-GroundTruth: does the pedestrian light say walk ?
-z Generated: street street street street street street street street street street street ? entrance street street ? street number street ? street cones street street street number street street cones street cones street number street number street street street public street street street street street street street street street number street street
-t Generated: street signs open traffic street signs street building street street ? street street street ? city street number street street street street cargo street cargo cargo street sign open open street open cargo cargo street open open open open street street street street cargo rain street street street street street
-
-GroundTruth: is there salt on the table ?
-z Generated: officers officers officers pizza pizza ? chef ? women women dress ? ? pizza ? ? ? ? ? ? sandwiches ? pizza ? ? pizza pizza women pizza pizza bag ? ? women dress pizza dress dress dress women women pizza pizza pizza pizza pizza pizza pizza women women ?
-t Generated: do pizza pizza ?
-
-GroundTruth: is the food in the top dish healthy ?
-z Generated: did number on number on at you to serve <unk> at the slices on at you at number at chinese food at a <unk> you food <unk> on at deep '' meal food at food slices slices food on most slices on food food <unk> <unk> food food food ''
-t Generated: is this a chopsticks for food for a more to <unk> on a eyes to you you you eyes more more pizza for eyes to you you slice slices slice slices slice slice more slice slices slice slice slice tie more food pizza slice pizza food for you to more
-
-GroundTruth: is there grass in the background ?
-z Generated: sand beach sand beach sand beach sand beach beach beach beach beach beach beach beach beach beach beach beach beach sand beach beach sand beach beach beach beach beach beach beach beach beach beach beach beach beach beach beach beach beach sand beach beach beach beach beach beach beach beach beach
-t Generated: black kite flying sand flying sand flying snowboard skiing kite flying ? flying flying baseball ski fun ski fun boats ski skiing ski sand sand ? sand bench land baseball flying ski side skiers fun baseball snowboard fun baseball boats baseball skiers fun baseball birds beach skiing sand land beach
-
-GroundTruth: is this a beautiful scenery ?
-z Generated: if houses well motorcycle road well road road roads road road road road or road road houses road road tracks car road road car or trains car road road or bike bike cabin cabin trains trains motorcycle motorcycle road road road road road road road road road or road road
-t Generated: car stop street ski street ski ski ski ski street city ski ski ski ski ski street ski ski ski ski ski ski ski ski ski ski ski ski ski city stop city ski ski ski ski ski street tracks snow ski street car ski ski stop ski ski street
-
-GroundTruth: is the person wearing a shirt ?
-z Generated: if the surfer wave goes land wave clouds ? surf surfer wave ?
-t Generated: do wave wave wave ski ski wave wave wave tracks planes ? wave by wave by wave tracks tracks wave tracks tracks ski ski wave wave wave wave wave wave wave wave wave wave wave wave wave wave wave wave wave wave wave wave wave wave wave wave wave wave
-
-GroundTruth: are there any people ?
-z Generated: or display chairs or chairs chairs chairs chairs chairs chairs ? chairs chairs chairs ? chairs or chairs ? chairs chairs chairs chairs at display chairs chairs chairs chairs chairs chairs chairs couches chairs chairs chairs chairs chairs chairs chairs chairs chairs chairs chairs chairs chairs or chairs or couch display
-t Generated: why have living space home ski ?
-
-GroundTruth: can you see the photographer ?
-z Generated: why drink drink she drinking drinking she drinking wine tea ? ?
-t Generated: park park under park park park park park park park under park park park park reflected park park ? park park reflected park flowers reflected park park park sleeves <unk> park park park park sleeves children bed sheets lady lady lady vase vase <unk> snow vase vase vase snow park
-
-GroundTruth: does the color of the toilet match the color of the tub ?
-z Generated: toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet cleaning toilet cleaning toilet toilet toilet toilet toilet bathroom toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilets toilet toilet toilet toilet toilets toilet toilet toilet toilet
-t Generated: baseball movie toilet signal fire hydrant open open ? fire hydrant ? fire hydrant fire hydrant ? fire open grass ? grass form fire fire fire hydrant open fire hydrant signal signal fire grass fire hydrant hydrant fire hydrant fire hydrant fire hydrant hydrant fire hydrant open open open open open
-
-GroundTruth: is the surfer on the left falling ?
-z Generated: skier snow skier snow snow snow snow snow snow snow snow snow snow ? snow snow on snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow snow near snow snow on snow snow snow snow snow snow snow snow snow
-t Generated: <unk> if something hat in on wave wetsuit surfer surfer surfer surfer ? ski ski surfer ? ski ski wave ski ski ski deep ski ski board toothbrush ski ski ski ski ski ski training surfer surfer ski boat wetsuit ski ski ski boat on ski surfer ski ski ski surfer
-
-GroundTruth: is this bed covered in a <unk> ?
-z Generated: pillows pillows pillows pillows pillows pillows bed bed pillows bed bed pillows pillows pillows pillows pillows pillows pillows pillows pillows pillows pillows pillows pillows pillows pillows bed bed pillows pillows pillows bed bed bed bed bed bed bed pillows bed bed bed bed pillows bed bed bed bed bed bed pillows
-t Generated: screens do screens screens screens screens screens screens screens ?
-
-GroundTruth: is this toilet controlled <unk> ?
-z Generated: toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet toilet
-t Generated: toilet toilet bowl toothbrush on toothbrush toilet ? toilet toilet bowl toilet bowl toilet ? toilet toilet bowl ? glass toothbrush toilet toilet toilet : toothbrush toilet afternoon bathroom toilet bowl toothbrush toilet afternoon toilet toilet glass bathroom near near toilet toilet toothbrush toilet toilet toilet toilet bowl within toilet
-
-GroundTruth: is this man dressed up ?
-z Generated: against women women women halloween women or women display halloween women dress women women halloween ? halloween display halloween halloween display halloween halloween halloween display halloween halloween halloween halloween halloween halloween halloween halloween women women halloween halloween halloween halloween halloween halloween halloween dress halloween halloween halloween halloween halloween halloween halloween halloween
-t Generated: lighthouse using lighthouse lighthouse ?
-
-GroundTruth: is the refrigerator empty ?
-z Generated: cabinet cabinet doors cabinet cabinet cabinet doors cabinet cabinet cabinet cabinet cabinet cabinet doors cabinet cabinet cabinet cabinet doors from cabinet doors door cabinet cabinet cabinet cabinet cabinet using cabinet doors appliance power cabinet doors cabinet door doors cabinet doors cabinet doors doors box refrigerator cabinet doors cabinet fridge doors cabinet
-t Generated: will snow snow feel snow snow snow snow on sea snow in sea snow just eyes sea sea sea sea calm ocean wave snow wave wave eyes eyes <unk> jet jet snow snow snow wave jet jet jet sea body sea snow sea sea sea sea sea sea sea jet
-
-GroundTruth: is the girl wearing sunglasses ?
-z Generated: are the cows and flowers from keep inside on based all flowers from the flowers from the and flowers vase from flowers from the flowers ? flowers on the from from flowers outdoors the flowers shown groom flowers spring most from flowers inside the rain based the flowers based adult
-t Generated: do eyes do candy eyes keep keep based rain pants called in pants ?
-
-GroundTruth: does this fruit look tasty ?
-z Generated: oranges oranges oranges oranges oranges oranges fruit oranges oranges oranges oranges oranges oranges oranges oranges oranges oranges oranges oranges oranges oranges oranges oranges oranges oranges oranges oranges fruit oranges fruit fruit fruit oranges fruit oranges fruit oranges oranges oranges oranges oranges oranges oranges fruit oranges oranges fruit oranges oranges fruit oranges
-t Generated: are apples other dish oranges oranges oranges oranges dish dish dish ? oranges oranges oranges oranges oranges ? dish dish oranges oranges dish dish dish dish dish apples oranges dish fruit fruit oranges fruit oranges oranges oranges dish dish dish dish oranges oranges dish dish dish dish dish dish oranges
-
-GroundTruth: is this person an adult ?
-z Generated: skiing skiers skiing skiing skiing skiing skiing skiing skiing skiing skiing skiers skiing skiing skiing skiers skiers skiers skiing skiing skiing skiing skiing skiers skiing skiers skiing skiing skiing skiing skiing skiing skiing skiing snow skiing skiing skiing skiing skiers skiers skiers skiing skiing skiing skiing skiers skiing skiing skiers
-t Generated: skiing skiing skiing skiers skiing skiing skiing skiing skiers ski skiing skiing skiing skiing skiing skiing ski ski ski ski skiing ski skiing skiing skiing skiing skiing skiing ski skiing skiing skiing ski skiing skiing ski skiers skiing skiing skiing skiing skiing slope skiing skiers skiing skiing skiing skiing skiing
-
-GroundTruth: are there any cars visible in this photo ?
-z Generated: parking meter meter meter meter meter meter meter meter meter meter meter meter meter meter parking meter meter meter parking meter meter meter meter meter meter meter meter meter meter meter meter meter meter meter parking meter meter parking meter meter parking meter meter parking meter meter meter meter meter
-t Generated: can meter meter meter meter meter time meter meter meter meter meter meter meter ? meter meter meter meter meter meter meter meter meter meter meter meter meter meter meter meter meter meter meter meter meter parking meter meter meter meter meter meter meter meter meter meter meter meter meter
-
-GroundTruth: is the lime a part of a drink ?
-z Generated: umbrella umbrella like umbrella boats like umbrella umbrella umbrella boats on umbrella ? umbrella ? like umbrella boat boat boat boat umbrella like umbrella like umbrella like umbrella like umbrella boat umbrella umbrella like boat boat like like like boat boat boat umbrella boat umbrella boat boat umbrella boats like
-t Generated: is the umbrella sports on the plate umbrella on umbrella underwater ?
-
-GroundTruth: is this kitchen well used ?
-z Generated: computer laptop computer kitchen door computer wall kitchen door computer computer at microwave door coffee door door tv laptop computer kitchen door coffee computer laptop computer microwave computer laptop tv tv tv computer kitchen tv tv tv room computer laptop computer door computer tv tv laptop room door computer tv laptop
-t Generated: device device device device device device device device device device device device device device device device device device device device device device device device device device device device device device device device device device device device device device device device device device device device device device device device device device
-
-GroundTruth: what this picture taken indoors ?
-z Generated: animal cat cat cat animals cat cat snow snow snow ? snow ? find cat cat ? snow ? chicken cat cat snow snow ? snow ? animal animal cat cat cat cat cat animals ? polar cat cat cat cat get cat cat cat cat cat polar snow cat cat
-t Generated: elephants feet feet feet goat feet feet feet feet feet feet feet cats feet feet feet feet feet now cats feet feet cats cats feet goat structure structure structure goat feet goat feet feet cats feet feet feet feet cats feet feet goat feet now <unk> goat feet cat feet feet
-
-GroundTruth: is there a dog ?
-z Generated: how smiling tea cooking pot outside ? pot outside ? smiling ? glasses outside ? outside ?
-t Generated: platter outside napkin on napkin plates napkin ? hat napkin at table ? napkin napkin plate ? outside ? outside ? hat on outside candles ? plate edible table candles napkin plates plates outside candles outside plate outside table table in plate plates plate cake fork outside outside outside on cake
-
-GroundTruth: are all of these fruits grown on the same kind of tree ?
-z Generated: bananas bananas are banana bananas bananas apple bananas bananas bananas bananas bananas bananas bananas ? bananas bananas ripe bananas bananas bananas bananas ripe bananas bananas bananas bananas bananas bananas bananas bananas bananas ripe bananas bananas bananas ripe banana banana bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas bananas ripe
-t Generated: did he on zebra on guy ?
-
-GroundTruth: is the window open ?
-z Generated: carpet pillows carpet carpet carpet carpet carpet carpet ? carpet ? carpet ? carpet ? carpet ? carpet room carpet room carpet carpet or carpet carpet window window room carpet room carpet room room room carpet room carpet room window room carpet pillows carpet carpet room room carpet room door carpet
-t Generated: is anything shirt shining oranges ?
-
-GroundTruth: how can you clean your hands here ?
-z Generated: building building church windows windows church window window window window building window building church window church church church window building window building building church window panes window panes building church window church window window church window church window window windows church windows windows window window church church church window windows church
-t Generated: television if houses if <unk> shadows shadows shadows shadows if building building if religious building building shadows ? building building building <unk> if religious building building building building building building building television building shadow play building play find building building building building building <unk> <unk> play building building building building building
-
-GroundTruth: is this pizza ?
-z Generated: should the food food food food food food food food food item dish food food food food food food food dish dish food food dish food dish plates food fork food food food food dish food food food food dish food food food food food food food dish food food
-t Generated: is the food on dish dish ? dish dish ?
-
-GroundTruth: is there any melted butter in a bowl ?
-z Generated: plates plates plates plates plates plates plates plates plates plates plates plates plates plates plates plates plates plates plates plates plates plates plates plates plates plates plates plates plates plates plates plates plates plates plates plates plates plates bowls plates plates plates plates plates plates plates plates plates plates plates plates
-t Generated: hat cake plate plate plate on plate ? plate cake plate plate plate plate plate plate plate plate plate plate plate plate hat plate plate plate plate plate plate plate plate plate cake plate plate plate plate plate plate plate plate plate pizza plate plate plate plate cake plate plate
-
-GroundTruth: is there a fenced off section ?
-z Generated: plane plane plane plane highest plane in plane ? plane plane flying the plane plane ? plane plane houses buildings plane plane plane plane buildings plane ? plane plane plane airplane flags point plane landing plane plane plane buildings plane airplane blue plane plane plane airplane plane plane opening clouds plane
-t Generated: parking parking parking parking city parking city parking parking parking parking parking parking parking city parking parking parking parking parking parking parking parking parking city parking parking parking air parking parking city parking parking parking parking city parking parking parking parking parking parking city parking parking city sign air city air
-
-GroundTruth: does the truck have a spare tire ?
-z Generated: truck is truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck
-t Generated: light truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck car truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck
-
-GroundTruth: will the plane fly over the people ?
-z Generated: clouds clouds kites clouds clouds kites kites ? clouds clouds ?
-t Generated: is the beach air air beach beach air forefront air forefront air air air open air calm air ship ship ship ship ship ship air ship air air air air ship air ship air ship ship ship ship ship ship ship ship ship ship ship air air air air air
-
-GroundTruth: is the man wearing a tie ?
-z Generated: is he a he are men player ? ? ? shirt ?
-t Generated: men does men men men men men men men men men men men men men men men men ? men men men men men men men men men men men men men men men men men men men men men men men men men men men men men men men men
-
-GroundTruth: are the zebras planning to cross a river ?
-z Generated: zebras zebras zebras zebras zebras zebras zebras zebra zebra zebras zebras zebra zebra zebra zebras zebras zebras zebras zebras zebra zebras zebras zebras zebra zebras zebras zebras zebras zebra zebras zebra zebras zebra zebra zebra zebras zebras zebras zebras zebra zebras zebra zebras zebra zebra zebras zebras zebra zebras zebras zebras
-t Generated: horse elephants horse zebra zebras zebras horse zebra zebras zebra elephants zebra elephants horse zebra zebras horse ? zebra zebra elephants ducks ducks ducks ducks elephants ducks horse zebra zebra horse horse zebra zebras zebras zebra zebras elephants horse elephants horse horse zebra zebra zebras zebra horse zebra zebra zebra zebra
-
-GroundTruth: are these <unk> the women are holding ?
-z Generated: singer singer elephant all elephants elephant ?
-t Generated: how old dish dish dish dish dish dish dish dish dish ? dish dish ?
-
-GroundTruth: what is the picture white and black ?
-z Generated: is the man on actively actively actively actively actively on silhouette ?
-t Generated: would men riding riding in vehicles dressed on men dressed ? cowboy riding on cowboy skiing dressed cowboy riding vehicles skiing riding on riding on hiking riding dressed skiing dressed riding team skiing on children dressed riding on cowboy on cowboy dressed on cowboy cowboy skiing skiing dressed riding riding
-
-GroundTruth: is this a home kitchen ?
-z Generated: cabinet refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator refrigerator
-t Generated: if a good kitchen counter counter oven oven : ?
-
-GroundTruth: does this elephant work for the circus ?
-z Generated: elephants elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant
-t Generated: elephants elephants elephants elephant elephant elephant elephant elephants elephants elephants elephant elephant elephant elephant elephant elephants elephant elephant elephant elephant elephant elephant elephants elephant elephant elephant elephant elephant elephant elephant elephant elephant elephant elephants elephant elephants elephants elephants elephant elephant elephant elephant elephant elephant elephants elephant elephant elephant elephant elephant elephant
-
-GroundTruth: are they eating cake ?
-z Generated: cold shoes shoes shoes ? bib ? bib ? bib ? bib ? bib ?
-t Generated: were stuffed stuffed stuffed stuffed missing missing stuffed ? bib ? bib ? bib ?
-
-GroundTruth: is there food on the stove ?
-z Generated: drawers door door door door closed door door door door door door door door door door ? drawers drawers door drawers door drawers door door door door door door drawers door door door door door door door door door door door door door door door door door door door door door
-t Generated: something wave wave wave wave wave wave wave wave ? body wave ? wave wave ?
-
-GroundTruth: are these the leg 's of a giraffe ?
-z Generated: hazy trees hazy clear trees trees trees trees trees trees trees ? spot ?
-t Generated: do horse jump jump jump horse do horse jump ?
-
-GroundTruth: is the woman taking the picture ?
-z Generated: motorcycle bike motorcycle motorcycles motorcycle motorcycle motorcycles motorcycle motorcycle rider bike motorcycles motorcycle rider motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle bike ride ride rider motorcycle ride ride ride bike bike rider bike bike bike ride bike bike rider bike bike bike motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle
-t Generated: do bikes ride on motorcycle motorcycles ? bike ride ride ride ride ride ride ride ride ride ride ride ride ride ride ride ride ride ride ride ride ride ride ride ride ride ride ride ride ride ride ride ride ride ride ride ride ride ride ride ride ride ride
-
-GroundTruth: are the flowers real ?
-z Generated: flowers flower flower flower flower flower flower flower flower flower flower flower ? flower ? flower ? flower inside flower flower flower flower flower flower flower flower flower vase ? flower flower flower red flowers flower flower flower flower flower flower flower flower flower inside flower flower flower flowers flowers flower
-t Generated: these given still still still still still still still flower still still still still still ? flower still ? still still ? still still flower flower flower flower vase vases still still still still still still still still flower vase still still still still still still still still still still still
-
-GroundTruth: is there some sort of precipitation coming down ?
-z Generated: crosswalk stop street stop stop stop stop here stop stop stop stop stop stop stop stop stop stop stop stop stop stop stop stop stop stop stop stop stop stop stop stop stop stop stop stop stop stop stop stop stop stop stop stop stop stop stop stop stop stop stop
-t Generated: stoplights light stoplights park park park stoplights walk park park park park park park park park ? park park park park park park park park park park park lights park park park park park park park park park park building building park park park park park park park park park
-
-GroundTruth: are the skies blue ?
-z Generated: plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane jet plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane
-t Generated: plane plane jet planes airplane airplane plane airplane plane plane airplane airplane airplane plane plane airplane plane plane jet jet plane jet plane jet jet airplane airplane jet jet plane jet jet jet jet airplane plane jet plane plane jet plane plane jet jet plane airplane plane plane plane airplane
-
-GroundTruth: is there a pier in the picture ?
-z Generated: boats water boat boat boat water boat boat boat boat boat boat boat boat water boat boat boat boats ? boat boat boat boat boat boat boat boats boat water boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boats
-t Generated: wet wet swim swim boats boats on boats boats boats boats ? boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats boats swim boats boats boats boats
-
-GroundTruth: is this place a market ?
-z Generated: why art art art plates left red red mess ? red left toys ? toys ? toys ? toys edible left mess toilet toys toys edible left shot mess toys plates toys at left mess mess party left mess mess left left red left toilet ceiling red left mess left
-t Generated: why candles so candles candles candles ? candles ? bar ?
-
-GroundTruth: are those goats ?
-z Generated: cats cow cow cows cows cows elephants ? cow cow ? cow ? cow ? ? cows ? cows ? cows cows cows cows cow elephants ? cow cat cows cat cow cow cow cow cows cow elephant ? cow cow cows cow elephant cow cow cat cow elephants cow out
-t Generated: what sheep sheep sheep sheep sheep sheep sheep sheep sheep sheep cat sheep sheep sheep sheep sheep sheep sheep sheep sheep ski ski ski sheep ski sheep ski sheep ? sheep ? sheep ski sheep sheep sheep ? sheep cows ? cowboy sheep sheep <unk> cat sheep ski ski ride
-
-GroundTruth: is he texting ?
-z Generated: umbrella umbrella umbrella umbrella umbrella umbrella umbrella umbrella ? umbrella ? umbrella ? ? umbrella ? umbrella ? umbrella umbrella umbrella umbrella umbrella umbrella umbrella umbrella umbrella ? umbrella umbrella ? umbrella umbrella appliance umbrella umbrella umbrella umbrella umbrella umbrella umbrella umbrella umbrella umbrella ? umbrella umbrella umbrella umbrella umbrella
-t Generated: jacket jacket sleeves color umbrella shown umbrella jacket umbrella ? color ? sleeves ? color ? umbrella ? umbrella ? umbrella umbrella umbrella umbrella umbrella ? umbrella umbrella umbrella eyes eyes umbrella umbrella umbrella eyes umbrella umbrella ? sleeves umbrella ? umbrella shown umbrella umbrella eyes eyes eyes umbrella ? umbrella
-
-GroundTruth: is this served hot or cold ?
-z Generated: pizza cheese wine pizza bread pizza pizza cheese pizza cheese pizza ? dish pizza dish pizza pizza pizza cheese pizza pizza pizza pizza pizza cheese pizza ? pizza cheese pizza cheese cheese pizza pizza pizza cheese cheese cheese cheese pizza cheese ready cheese pizza cheese pizza pizza pizza pizza pizza pizza
-t Generated: cheese cheese cheese cheese cheese cake cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese pizza cheese cheese cheese cheese cheese cheese cheese cheese
-
-GroundTruth: what kind of animal is this ?
-z Generated: how after head after after after after ? part after after looking head looking looking after ? view ? head head head after after head after sharing head after head head after head belong head enough head enough enough head after if after head enough head after head after after
-t Generated: do teddy bears teddy bears teddy bear bed ? teddy bears ?
-
-GroundTruth: what animals is that ?
-z Generated: related planes clouds clouds clouds clouds clouds clouds clouds clouds clouds clouds ? clouds ? clouds ? clouds clouds clouds clouds clouds clouds clouds clouds clouds clouds clouds clouds clouds clouds clouds clouds clouds clouds ? clouds clouds clouds clouds clouds clouds clouds clouds clouds clouds clouds clouds clouds clouds clouds
-t Generated: do live depicted tracks tracks seen tracks building building ?
-
-GroundTruth: what sport is this ?
-z Generated: tennis players tennis players tennis player tennis player tennis tennis players player players player player player tennis player tennis players tennis player tennis players tennis player player tennis player field tennis tennis player player tennis players player players players tennis players tennis player tennis player players tennis player tennis players tennis
-t Generated: players player players player player player player players player players team player player player players player players player player players player player team player player player player player player team players player player player player player player player team player player player player player player player player player players player
-
-GroundTruth: what is the girl doing ?
-z Generated: to refrigerator refrigerator kitchen refrigerator door open kitchen kitchen ? kitchen kitchen ?
-t Generated: is this computer open laptops ?
-
-GroundTruth: why is the cat sitting on the bench ?
-z Generated: bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench bench
-t Generated: book bench cat benches bench bench bench bed bench bench bench bench bench bench bench bench bench bench bench bench bench bench bed bench bench bench bench bench bench bench bench bench bed bench bench bench bench bench bench bench bed bench bench bench bench bench bench bench bench bench bench
+z Generated: which knife knife knife cutting knife cutting knife knife knife knife knife knife knife cutting knife knife knife knife cutting knife knife knife cutting knife knife knife knife cutting knife cut knife cutting knife cut knife knife knife knife cutting knife cut knife knife knife knife knife knife knife fork
+t Generated: what is the man doing ?
+
+GroundTruth: what color is the oven ?
+z Generated: oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven oven
+t Generated: is this a park ?
+
+GroundTruth: what color is the boys pants ?
+z Generated: what is the cow cow carriage cow cow ?
+t Generated: what is the man running after ?
+
+GroundTruth: what color is the laptop ?
+z Generated: is this a hot tray tray ? hot hot ?
+t Generated: what is the man riding on ?
+
+GroundTruth: what color is one of the towels hanging up on the door ?
+z Generated: is this a man toothbrush ?
+t Generated: is the man holding the racquet for <unk> ?
+
+GroundTruth: what are the color of the fruits ?
+z Generated: fruit bananas fruit fruit fruit bananas fruit bananas bananas ? fruit fruit fruit fruit fruit fruit fruit fruit fruit ? fruit apple fruit fruit fruit fruit fruit fruit fruit fruit fruit fruit fruit fruit fruit fruit fruit fruit fruit fruit orange fruit fruit fruit fruit fruit fruit fruit fruit fruit
+t Generated: what is the cat under ?
+
+GroundTruth: what color is the zebra 's mohawk ?
+z Generated: zebras zebras zebras zebras zebras zebras zebras zebras zebras zebras zebras zebra zebras zebras zebras zebras zebra zebras zebras zebras zebras zebras zebras zebras zebra zebras zebras zebras zebras zebras zebras zebras zebras zebras zebras zebras zebras zebras zebras zebras zebras zebras zebras zebras zebras zebras zebra zebras zebra zebras zebras
+t Generated: is the ground wet ?
+
+GroundTruth: what color is the lamp ?
+z Generated: desk desk desk desk desk desk computer desk ? desk desk desk desk ? desk desk desk desk ? desk desk desk desk desk ? desk desk ? desk desk desk desk desk desk desk desk desk desk desk desk desk desk desk desk desk desk desk desk desk desk desk
+t Generated: is this a park ?
+
+GroundTruth: what color is the desk ?
+z Generated: computer computer laptop computer computer computer laptop computer computer laptop computer laptop computer computer computer computer computer monitor computer computer computer computer monitor computer monitor computer computer monitor computer computer computer computer monitor computer computer computer computer monitor computer computer monitor computer computer monitor computer monitor computer monitor computer computer monitor
+t Generated: is this a city street ?
+
+GroundTruth: what color is the umbrella ?
+z Generated: what building building painted painted painted painted painted ? building building building ? building building building ?
+t Generated: is the ground damp ?
+
+GroundTruth: what color is the man 's short ?
+z Generated: players players player player players player player player player player player player player player players player players player players players player players player players player players player players player player player player player player players player players players players player players players player players player players player players players players
+t Generated: what is the man holding ?
+
+GroundTruth: what three colors are shown on the vases ?
+z Generated: vase are all the vases vases made wine wine wine wine wine wine wine wine wine wine wine ?
+t Generated: what is the man holding to walk ?
+
+GroundTruth: are there any cars ?
+z Generated: train station train station cars cars station cars train station station station station station station cars train station cars train cars cars cars cars train station cars cars cars cars train cars train cars cars train cars train cars train train cars train cars station station station train cars train station
+t Generated: is the man in a center of the orange <unk> ?
+
+GroundTruth: are these professional tennis players ?
+z Generated: are they wearing hanging hanging hanging hanging hanging hanging hanging hanging hanging hanging hanging hanging hanging ? hanging hanging hanging hanging hanging hanging hanging hanging hanging hanging hanging hanging hanging hanging hanging hanging hanging hanging hanging hanging hanging traffic hanging hanging hanging hanging hanging traffic traffic traffic sports hanging traffic
+t Generated: is the man wearing long short sleeves ?
+
+GroundTruth: was the photo taken during the day ?
+z Generated: is the street light tower tower tower tower tower ? tower tower tower tower tower tower tower tower tower tower tower tower tower tower tower tower tower tower tower tower tower tower tower tower tower tower tower tower tower tower tower tower tower tower tower tower tower tower tower tower
+t Generated: is the bird in the center of the picture ?
+
+GroundTruth: is this dog asleep ?
+z Generated: is the elephant elephant been been been been been in been ? ?
+t Generated: is this a large bird ?
+
+GroundTruth: would the <unk> be moving clockwise if the car goes straight ? ?
+z Generated: is the car car car car car car car car car ? car ? car car car car car car car car car ? car car car car car car ? car car car car car car car car car car car car car car car car car car car
+t Generated: is the bird flying ?
+
+GroundTruth: are there lots of trees in the distance ?
+z Generated: plane kite plane jet plane plane jet plane plane jet plane plane plane airplane plane plane plane plane plane plane airplane plane plane airplane plane plane airplane plane plane plane plane plane plane plane plane plane plane plane kite plane plane jet plane plane plane plane plane plane plane plane
+t Generated: is the man wearing a tie or orange ?
+
+GroundTruth: is the sandwich cut into <unk> ?
+z Generated: what fruit icing icing icing icing plate icing icing icing plate eat icing icing icing icing icing icing icing icing plate icing icing peel plate plate plate icing icing icing peel peel peel plate icing icing icing plate eat eat plate peel plate peel icing icing plate plate peel dessert
+t Generated: is this a boat ?
+
+GroundTruth: is her umbrella colorful ?
+z Generated: is the umbrella umbrella umbrella umbrella ?
+t Generated: is this a small boat ?
+
+GroundTruth: is this a full house at the stadium ?
+z Generated: is baseball player player baseball player pitcher player player player pitcher baseball player pitcher player baseball field baseball baseball baseball player player field baseball baseball field baseball field players player baseball player line baseball player baseball baseball baseball baseball player field baseball pitcher pitcher pitcher player player pitcher pitcher pitcher
+t Generated: is the man wearing a shirt ?
+
+GroundTruth: are the man 's teeth seen ?
+z Generated: ski skier skier skier skier skier skier skier skier ski skier skier skier skier skier skier skier skier skier ski skier skier ski ski skier skier skier skier skier ski skier skier skier skier ski skier skier skier ski skier skier skier skier skier skier skier skier skier ski skier skier
+t Generated: is the bird in the back resting ?
+
+GroundTruth: is someone wearing a yellow jacket ?
+z Generated: motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle
+t Generated: what is the man doing ?
+
+GroundTruth: does it appear to be rush hour at this intersection ?
+z Generated: street parking parking parking parking park parking parking benches parking parking parking parking parking parking parking parking parking parking parking parking parking parking parking park street parking parking parking parking park parking parking parking parking parking parking parking parking parking parking parking parking poles parking parking parking park parking park park
+t Generated: is the man in the foreground of the image <unk> ?
+
+GroundTruth: is this homemade food ?
+z Generated: is this case case case case case case case case food case case case case case case case case case case case case case case case case case case container case case case case case case case container case case case case case case case case case case case case
+t Generated: is the sun shining ?
+
+GroundTruth: is the dog on a leash ?
+z Generated: what toy toy toy toy toy toy toy toy ? dog dogs dogs dog dogs ? dogs paws ?
+t Generated: is the bird in the air ?
+
+GroundTruth: does the cat have its eyes closed ?
+z Generated: bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed
+t Generated: is this a modern bird ?
+
+GroundTruth: are they getting married ?
+z Generated: is cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake
+t Generated: is the man in the air ?
+
+GroundTruth: is this a fancy restaurant ?
+z Generated: is this a wine glasses glasses ?
+t Generated: is this a small plane ?
+
+GroundTruth: is the giraffe about to sleep ?
+z Generated: giraffe giraffe giraffe giraffe ?
+t Generated: is this a rural area ?
+
+GroundTruth: are the giraffe couple ?
+z Generated: giraffe giraffe giraffes giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe ? giraffe giraffe giraffe giraffe giraffe giraffe giraffes giraffe giraffe giraffe giraffe giraffe giraffes giraffe giraffe giraffe giraffes giraffe giraffe giraffe giraffe giraffe giraffes giraffe giraffes giraffes giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe giraffe
+t Generated: is the sky clear ?
+
+GroundTruth: is a train going over the traffic ?
+z Generated: do boats tower tower tower ? ship ? ship ? ship ?
+t Generated: is the bird in the foreground of the picture ?
+
+GroundTruth: is this a modern picture ?
+z Generated: train is crossing crossing crossing crossing crossing crossing crossing crossing crossing crossing crossing crossing crossing ? truck tracks ? truck tracks crossing crossing tracks crossing crossing crossing crossing crossing crossing crossing crossing crossing crossing crossing crossing crossing crossing crossing crossing crossing crossing crossing crossing crossing crossing crossing crossing crossing tracks crossing
+t Generated: is the child wearing a helmet ?
+
+GroundTruth: are the two people playing the game excited ?
+z Generated: is light light light light light light ?
+t Generated: is the man wearing a shirt or long shirt ?
+
+GroundTruth: is this a packed road ?
+z Generated: what bikes bike bike riders bike bike riders bike ? dirt bike bike bike bike bike ? dirt dirt bike bike bike bike bike dirt bike riders bike bike bike bike bike bike riders bike bike bike bike bike riders bike riders bike riders bike bike riders bike bike bike
+t Generated: is this a large bird ?
+
+GroundTruth: will the horse 's hooves touch the bar ?
+z Generated: is the fence fence fence horses horses horses horses horses ?
+t Generated: is this a large bird ?
+
+GroundTruth: could an average <unk> sedan fit on the path in the photo ?
+z Generated: what sheep sheep sheep sheep sheep sheep sheep ?
+t Generated: is the bird in the cage ?
+
+GroundTruth: is the flower alive ?
+z Generated: is the fruit vase fruit fruit or fruit fruit ?
+t Generated: is this a modern day picture ?
+
+GroundTruth: car are parked for washing ?
+z Generated: truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck truck
+t Generated: is the man in the center of the picture ?
+
+GroundTruth: are these people chefs in a restaurant ?
+z Generated: are cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake cake
+t Generated: is this a painting ?
+
+GroundTruth: is the sun in the sky ?
+z Generated: light is light light skier snow ski snow skiing ? sign ?
+t Generated: is this a bird or a bird ?
+
+GroundTruth: is this a veggie pizza ?
+z Generated: cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese pizza pizza cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese cheese
+t Generated: is this a boat ?
+
+GroundTruth: is this a double decker bus ?
+z Generated: bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus bus
+t Generated: why are there two different types of fruit in the image ?
+
+GroundTruth: is this area clean ?
+z Generated: refrigerator kitchen kitchen cabinets kitchen kitchen kitchen kitchen kitchen kitchen kitchen kitchen cabinet cabinet kitchen kitchen kitchen cabinets kitchen kitchen kitchen kitchen kitchen cabinets kitchen cabinets kitchen kitchen kitchen kitchen kitchen kitchen kitchen kitchen kitchen kitchen cabinets cabinets kitchen kitchen cabinets kitchen kitchen cabinet kitchen kitchen kitchen kitchen kitchen kitchen kitchen
+t Generated: is the man wearing a shirt ?
+
+GroundTruth: do these items belong to a particular type of kit ?
+z Generated: laptop computer mouse mouse mouse computer mouse mouse computer mouse mouse computer keyboard computer mouse computer mouse mouse mouse mouse computer mouse computer desk mouse mouse desk computer mouse mouse computer desk mouse computer mouse mouse mouse mouse mouse mouse computer mouse mouse mouse mouse mouse desk mouse mouse computer
+t Generated: is this a commercial exhibit ?
+
+GroundTruth: does the kid have glasses ?
+z Generated: tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis court tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis
+t Generated: is this a country park ?
+
+GroundTruth: is the man clean shaven ?
+z Generated: bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed
+t Generated: is the man wearing a hat ?
+
+GroundTruth: is the dog sticking out his tongue ?
+z Generated: sand sand sand sand sand sand sand snow sand sand sand sand sand sand sand sand ? sand sand sand sand sand sand sand rocks sand rocks sand sand sand rocks sand sand sand sand sand sand snow snow sand sand sand sand sand sand sand sand sand sand sand sand
+t Generated: is it a bird or bird ?
+
+GroundTruth: is the man wearing a shirt ?
+z Generated: are the men men men men wearing the men men men are the men men men ? police ? computer ? men are men computer green men are men are men men are men men are men men are men men police officers officers are men are work men men
+t Generated: what is the man doing ?
+
+GroundTruth: is this person married ?
+z Generated: what wine glasses wine wine wine wine wine wine wine wine wine wine table wine wine table table table table table wine wine coffee table table table table table table table table wine table table wine table wine wine table table table wine wine glasses wine table bowl glasses bowl
+t Generated: is this a restaurant ?
+
+GroundTruth: are there any pictures on the wall ?
+z Generated: is the light light red looking light or phone phone phone ?
+t Generated: is the man in the center of the picture ?
+
+GroundTruth: are there animals in the photo ?
+z Generated: what trees trees in tree leaves ?
+t Generated: is this a bird ?
+
+GroundTruth: is this person 's hat facing forward ?
+z Generated: tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis ball tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis tennis
+t Generated: is the man wearing a helmet ?
+
+GroundTruth: are they playing tennis ?
+z Generated: is the woman tennis tennis tennis ?
+t Generated: is the umbrella open or just it ?
+
+GroundTruth: are there cds in the picture ?
+z Generated: child child birthday birthday little child birthday child birthday birthday birthday party birthday birthday child birthday birthday party child birthday birthday birthday birthday party little party child party child birthday party party birthday party child boys birthday party child birthday birthday birthday birthday party child birthday birthday birthday birthday party
+t Generated: is the man wearing glasses ?
+
+GroundTruth: are any angels visible on the clock ?
+z Generated: clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock clock
+t Generated: is this a large city ?
+
+GroundTruth: is there a place to wash your hands when finished ?
+z Generated: what is the man chefs chefs ?
+t Generated: what is the small bird sitting on ?
+
+GroundTruth: is this animal aware of the camera ?
+z Generated: what rocks rocks rocks rocks rocks rocks rocks rocks rocks rocks ? rocks rocks rocks rocks rocks rocks rocks rocks rocks rocks rocks rocks rocks rocks rocks rocks rocks rocks rocks rocks rocks rocks rocks rocks rocks rocks rocks rocks rocks rocks rocks rocks rocks rocks rocks rocks rocks rocks
+t Generated: is this a bird ?
+
+GroundTruth: are these two men on the same team ?
+z Generated: are the men players player player player players player player player player players players players player players player players players players players player players player players player player players player players player players players player players player players player players player players players players player players player player player players
+t Generated: is the man wearing a helmet ?
+
+GroundTruth: should the bananas be eaten soon ?
+z Generated: banana banana banana banana banana banana banana banana ? banana ? banana banana banana banana banana ? banana banana banana banana banana peel banana peel banana banana peel banana banana banana banana banana banana peel banana banana banana peel banana peel banana banana banana banana peel banana banana banana banana
+t Generated: is this a new boat ?
+
+GroundTruth: is there someone working in this photo ?
+z Generated: are people benches benches or benches ? benches ? ? ? ? ?
+t Generated: is the man wearing a hat ?
+
+GroundTruth: is this vehicle moving ?
+z Generated: is the fence wheels bike bike bike ? bicycle ? ? ? bicycle ? bike ? bike ? ? ? ? bike ? ?
+t Generated: is the bird flying ?
+
+GroundTruth: are those flowers been seen ?
+z Generated: why is this a vases vases door door door door door door door door door door door door door door door door door door door door door door door door door door door door door door door door door door door door door door door door door door door door door
+t Generated: what is the bear on ?
+
+GroundTruth: is this a local coffee shop ?
+z Generated: hot hot hot hot hot hot hot hot hot hot hot plate hot hot hot hot hot hot hot dinner hot hot hot hot hot hot hot hot hot hot hot hot hot hot hot hot sandwich sandwich hot hot hot hot chocolate chocolate sandwich hot hot hot hot hot chocolate
+t Generated: is this a real animal ?
+
+GroundTruth: is this a propeller plane ?
+z Generated: plane plane plane plane plane plane plane plane plane plane plane jet plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane plane
+t Generated: is the man or a wine ?
+
+GroundTruth: is there a fireplace in this room ?
+z Generated: is furniture furniture furniture furniture furniture furniture furniture ? furniture furniture ? furniture furniture ? furniture furniture furniture furniture furniture table furniture furniture furniture table furniture furniture furniture furniture furniture furniture furniture furniture furniture furniture furniture furniture furniture furniture furniture furniture furniture furniture furniture furniture furniture furniture furniture furniture furniture
+t Generated: is this a modern photo ?
+
+GroundTruth: are any lights on ?
+z Generated: kitchen kitchen kitchen kitchen kitchen kitchen cabinet bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed bed
+t Generated: is the person wearing a shirt ?
+
+GroundTruth: is the road paved ?
+z Generated: what boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat boat
+t Generated: is this a large bird ?
+
+GroundTruth: is the road paved ?
+z Generated: sign sign sign sign signs sign sign sign signs sign signs sign sign sign sign sign sign signs sign signs sign sign sign sign sign sign sign sign signs signs signs sign signs signs signs signs signs signs signs signs signs signs sign signs signs signs signs signs signs signs sign
+t Generated: <unk> is this an exhibit ?
+
+GroundTruth: is the dog awake ?
+z Generated: what cats cats cats cats cats cats cats cats cats ? cats ? cats cats dog cats cats cats cats cats cats cats cats cats cats cats ? cats cats cats cats cats cats cats dog cats cats dog cats ? cats cats cats cats cats dog cats cats cats cats
+t Generated: is the bird looking for its prey ?
+
+GroundTruth: could that be a digital camera ?
+z Generated: what woman woman laptop computer computer laptop computer laptop laptop computer computer laptop computer computer laptop computer laptop computer computer computer computer computer table laptop computer computer table laptop computer laptop laptop computer woman laptop computer computer desk laptops computer computer woman laptop computer computer laptop computer computer laptop laptop
+t Generated: what is the man sitting on the bench ?
+
+GroundTruth: is this a single size serving ?
+z Generated: are all pizza slices pizza pizza pizza pizza ?
+t Generated: is this a small boat ?
+
+GroundTruth: is the zebra inside of an enclosure ?
+z Generated: what branches tree branches tree branches tree branches branches branches ? tree tree tree tree tree branches tree tree branches tree tree tree tree branches tree tree tree tree tree tree tree tree tree tree tree branches tree tree branches branches branches tree branches tree branches tree branches tree tree
+t Generated: is this a city ?
+
+GroundTruth: is it noon in this picture ?
+z Generated: what horse horse horse horse horse horse horse horse horse horse horse ? horse horse horse horse horse horse horse horse horse horse horse horse horse horse horse horse horse horse horse horse horse horse horse horse horse horse horse pony horse horse horse horse horse horse horse horse horse
+t Generated: is the bird flying ?
+
+GroundTruth: is the person in the picture wearing a necktie ?
+z Generated: is the woman happy happy her light happy happy ? tie ?
+t Generated: what is the person standing on ?
+
+GroundTruth: what era is the bathtub from ?
+z Generated: light are there candles lit candles lit ?
+t Generated: is the person on the ground ?
+
+GroundTruth: how is the sky ?
+z Generated: is the bird smoke feathers ?
+t Generated: is the person on the right something ?
+
+GroundTruth: what kind of food is that ?
+z Generated: what veggies veggies veggies cheese ? vegetable cheese cheese sandwich sandwich veggies ? vegetable ?
+t Generated: is this a professional house ?
+
+GroundTruth: what does the sign say to do ?
+z Generated: are the chairs chairs chairs seats or building ?
+t Generated: is the man wearing a tie ?
+
+GroundTruth: what is the weather like ?
+z Generated: does the boats boats boats boats boats ? boats boats boats ?
+t Generated: is this a professional game ?
+
+GroundTruth: what animal is located on the back top cabinet ?
+z Generated: what kitchen computer controller controller is room room room ? room room ? room ? room room room ?
+t Generated: what is the name of the umbrella ?
+
+GroundTruth: what is sitting in the chair ?
+z Generated: is the laptop computer or laptop computer ?
+t Generated: is this a real cake ?
+
+GroundTruth: what animal is pictured ?
+z Generated: what cat cat cat cat cats cat cat cat cat cat cat cat cat cat cat cat cat paws cat cat cow cat cat cat cat cat cat cat cat cat cat cat paws cat cat cat cat cat ? cat cat cat cat cat cat cat cat cat cats
+t Generated: are these items for fruit ?
+
+GroundTruth: what is the man doing ?
+z Generated: why waves waves water waves water waves waves waves water waves water water water water beach water water water waves water waves waves water waves waves waves water waves waves waves waves waves waves waves waves waves waves waves water waves water waves water waves waves waves waves waves waves
+t Generated: is this a cake cake ?
+
+GroundTruth: what is the woman doing ?
+z Generated: motorcycle is the motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle motorcycle
+t Generated: what is the long red thing ?
+
+GroundTruth: where are the adults ?
+z Generated: what is zebra in the water on ski ski ? ?
+t Generated: is the sun in the sky ?
 
 

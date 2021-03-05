@@ -107,13 +107,15 @@ class TrainIQ(pl.LightningModule):
             elbo = loss_rec
         else:
             l2_category_encoder = torch.tensor([0])
+            t_loss_aux = torch.tensor([0]).to(self.args.device)
             z_kld_loss, t_kld_loss, z_t_kld_loss = z_kld, t_kld, z_t_kld
             z_logit = z_logit.unsqueeze(1).repeat(1, output.size(1), 1)
-            t_logit = t_logit.unsqueeze(1).repeat(1, output.size(1), 1)
             z_loss_aux = self.criterion(
                 z_logit.reshape(-1, z_logit.size(-1)), target.reshape(-1))
-            t_loss_aux = self.criterion(
-                t_logit.reshape(-1, t_logit.size(-1)), target.reshape(-1))
+            if self.args.enable_t_space:
+                t_logit = t_logit.unsqueeze(1).repeat(1, output.size(1), 1)
+                t_loss_aux = self.criterion(
+                    t_logit.reshape(-1, t_logit.size(-1)), target.reshape(-1))
 
             kl_weight = min(math.tanh(6 * self.kliter /
                                       self.args.full_kl_step - 3) + 1, 1)
@@ -132,6 +134,8 @@ class TrainIQ(pl.LightningModule):
         if self.iter == self.args.num_pretraining_steps:
             self.latent_transformer = True
             self.model.switch_GVT_train_mode(self.latent_transformer)
+            # for param in self.model.answer_encoder.r_encoder.parameters():
+            #     param.requires_grad = False
             self.configure_optimizers()  # restart ADAM optimizer
 
         output, z_logit, t_logit, l2_category_encoder, z_kld, t_kld, z_t_kld, image_recon = self(batch)
@@ -167,7 +171,8 @@ class TrainIQ(pl.LightningModule):
 
 
         z_scores = self.nlge.compute_metrics(ref_list=[gts], hyp_list=z_preds)
-        t_scores = self.nlge.compute_metrics(ref_list=[gts], hyp_list=t_preds)
+        if self.args.enable_t_space:
+            t_scores = self.nlge.compute_metrics(ref_list=[gts], hyp_list=t_preds)
 
 
 

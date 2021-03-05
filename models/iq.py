@@ -6,7 +6,7 @@ import os
 # from utils import vocab
 from models import transformer_layers
 from models.decoder_transformer import GVTransformerDecoder
-from models.transformer_layers import Encoder, Latent, gaussian_kld, gaussian_kld_unit_norm, generate_pad_mask
+from models.transformer_layers import Encoder, Latent, LatentTwoSpaces, gaussian_kld, gaussian_kld_unit_norm, generate_pad_mask
 from models.encoder_transformer import GVTransformerEncoder
 import numpy as np
 import torch
@@ -36,7 +36,7 @@ class IQ(nn.Module):
         self.encoder_cnn = EncoderCNN(args)
 
         # z-path
-        self.latent_layer = Latent(args)
+        self.latent_layer = LatentTwoSpaces(args)
         self.latent_projection = nn.Linear(args.latent_dim, args.hidden_dim)
         self.answer_encoder = GVTransformerEncoder(self.embedding, self.latent_layer, self.latent_transformer, args)
         self.z_classifier = nn.Linear(args.hidden_dim, self.vocab_size)
@@ -45,9 +45,16 @@ class IQ(nn.Module):
         self.category_embedding, self.category_image_encoder, self.t_latent_layer, self.t_latent_projection, self.t_classifier = None, None, None, None, None
         if args.enable_t_space:
             self.category_embedding = nn.Embedding(16, args.hidden_dim) # maybe tinker with this hidden size? Seems very big
-            self.category_image_encoder = Encoder(None, args.hidden_dim, num_layers=4, num_heads=args.num_heads, 
-                                total_key_depth=args.hidden_dim, total_value_depth=args.hidden_dim,
-                                filter_size=args.pwffn_dim)
+            # self.category_image_encoder = Encoder(None, args.hidden_dim, num_layers=4, num_heads=args.num_heads, 
+            #                     total_key_depth=args.hidden_dim, total_value_depth=args.hidden_dim,
+            #                     filter_size=args.pwffn_dim)
+            self.category_image_encoder = nn.Sequential(
+                nn.Linear(args.hidden_dim, args.pwffn_dim),
+                nn.Dropout(0.3),
+                nn.ELU(),
+                nn.Linear(args.pwffn_dim, args.hidden_dim)
+            )
+
             self.category_image_encoder_projection = nn.Linear(args.hidden_dim, args.hidden_dim)
         
             self.t_latent_layer = Latent(args)
@@ -96,10 +103,10 @@ class IQ(nn.Module):
 
     def encode_category_images(self, categories, image_features):
         category_embedding = self.category_embedding(categories)
-        cat_image_features = (category_embedding + image_features).unsqueeze(1)
-        encoded_category_image = self.category_image_encoder(cat_image_features, mask=None)
+        cat_image_features = (category_embedding + image_features)#.unsqueeze(1)
+        encoded_category_image = self.category_image_encoder(cat_image_features)#, mask=None)
         encoded_category_image = self.category_image_encoder_projection(encoded_category_image)
-        encoded_category_image = encoded_category_image.squeeze(1)
+        # encoded_category_image = encoded_category_image
         return encoded_category_image
 
 
@@ -114,12 +121,12 @@ class IQ(nn.Module):
         encoder_outputs, response_outputs, z_kld, z, transformer_priors, transformer_posteriors, src_mask = self.answer_encoder(answers, response, image_features)
 
         # t-path.
-        l2_category_encoder = None
+        l2_category_encoder = torch.tensor([0]).to(self.args.device).detach()
         if self.args.enable_t_space:
             encoded_category_image = self.encode_category_images(categories, image_features)
-            l2_category_encoder = self.l2Loss(encoded_category_image, encoder_outputs[:,0])
+            # l2_category_encoder = self.l2Loss(encoded_category_image, encoder_outputs[:,0])
 
-        z_t_kld, t_kld, t = 0, 0, None
+        z_t_kld, t_kld, t = torch.tensor([0]).to(self.args.device), torch.tensor([0]).to(self.args.device), None
         if self.latent_transformer:
             z = self.latent_projection(z)
 
@@ -147,6 +154,11 @@ class IQ(nn.Module):
         image_features = self.encoder_cnn(images)
         src_mask = generate_pad_mask(categories)
         embedded_context = self.embedding(categories)
+        ###
+        # one_tensor = torch.LongTensor([0]).to(self.args.device).detach()
+        # category_encoding_vector = self.answer_encoder.category_segment_encoding(one_tensor)
+        # embedded_context[:, :2] = embedded_context[:, :2] + category_encoding_vector
+        ###
         encoder_outputs = self.answer_encoder.encoder(embedded_context, src_mask)
         encoder_outputs[:, 0] = encoder_outputs[:, 0] + image_features # TEST THISSS
         if self.args.enable_t_space:

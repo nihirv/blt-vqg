@@ -1,0 +1,404 @@
+EPOCH STATS FOR EPOCH 13 
+('loss', '\t', 3.0252)
+('img', '\t', 0.0006)
+('ppl', '\t', 1.1952)
+('l2_cat_encoder', '\t', 222.9218)
+('z_kld', '\t', 222.9218)
+('t_kld', '\t', 0.0)
+('z_t_kld', '\t', 0.0)
+('z_aux', '\t', 2.5566)
+('t_aux', '\t', 0.0)
+('elbo', '\t', 223.1001)
+('rec', '\t', 0.1783)
+('z', 'Bleu_1', '\t', 23.0404)
+('z', 'Bleu_2', '\t', 5.331)
+('z', 'Bleu_3', '\t', 1.4132)
+('z', 'Bleu_4', '\t', 0.0001)
+('z', 'METEOR', '\t', 9.1413)
+('z', 'ROUGE_L', '\t', 27.6225)
+('z', 'CIDEr', '\t', 15.0527)
+GroundTruth: is the landing gear up or down ?
+z Generated: plane or contrails planes and plane landing wheels ?
+
+GroundTruth: what hand is the catcher holding the glove with ?
+z Generated: is batter team spectators man or woman stands bat glove players ?
+
+GroundTruth: what direction is the animal on the right looking ?
+z Generated: what is giraffe any grazing in the car giraffes ?
+
+GroundTruth: where does the arrow point ?
+z Generated: what is red van legally all the red tree ?
+
+GroundTruth: what animal is printed on the plate ?
+z Generated: what is saucer plates desserts right of the desserts ?
+
+GroundTruth: what beverage brand is printed on the cups ?
+z Generated: what are the donuts table <unk> that 's cakes ?
+
+GroundTruth: what kind of a contraption is this ?
+z Generated: what is the umbrellas desktop computer blanket show kite ?
+
+GroundTruth: what toy does the elephant have in his cage ?
+z Generated: what elephants is a tusk bag other ?
+
+GroundTruth: what sweet liquid is in the container ?
+z Generated: is the bottles ' plane flying can white <unk> ?
+
+GroundTruth: what type of bus is this ?
+z Generated: what bus is purple and vehicle likely all the suitcases bus ?
+
+GroundTruth: what is sticking out of the ground ?
+z Generated: is the snow religious point person roses ?
+
+GroundTruth: what is the boy playing with ?
+z Generated: is the frisbee not visible in bench 's beach bank ?
+
+GroundTruth: what is the man wearing over his shoulders ?
+z Generated: is the sign skaters man or plastic skate skater signs ?
+
+GroundTruth: what does the handle belong to ?
+z Generated: how just plate is the wine <unk> see ?
+
+GroundTruth: what is the building made of ?
+z Generated: what sign are the streets name <unk> sign sign ?
+
+GroundTruth: what is flying overhead ?
+z Generated: is the trees starting kite to beach ?
+
+GroundTruth: what sport are the children playing ?
+z Generated: are that team visible her skirt people ball soccer ?
+
+GroundTruth: what is this animal ?
+z Generated: how bear is roaming on its vegetation ?
+
+GroundTruth: where was this taken ?
+z Generated: plane and what jetliner planes at the tail ?
+
+GroundTruth: what food might this animal hunt for in the water ?
+z Generated: how any wave bear at polar surfers to water ?
+
+GroundTruth: what kind of pizza is on the blue plate ?
+z Generated: what food is two diners straws in plate 's wine ?
+
+GroundTruth: what is the dish on the left ?
+z Generated: how cup is donuts a meal of donuts ? ? ? ?
+
+GroundTruth: how many shadows of people are there ?
+z Generated: is the motorcycles that motorcycle hand from water ?
+
+GroundTruth: how many cows in this photo ?
+z Generated: is the road sight , what track tracks ?
+
+GroundTruth: how many train cars are on this train ?
+z Generated: train is not bushes name railway in ?
+
+GroundTruth: how many women 's <unk> do you see ?
+z Generated: is the bicyclist painted hard or store ?
+
+GroundTruth: how many giraffes are there ?
+z Generated: giraffe is giraffes name giraffe giraffe giraffe giraffes giraffe ?
+
+GroundTruth: how many legs total ?
+z Generated: what is a cow trailer the women so ?
+
+GroundTruth: how many mason jars are on the counter ?
+z Generated: what kitchen counter only <unk> refrigerator ?
+
+GroundTruth: how many sinks are there ?
+z Generated: what is sinks a shower counter with ?
+
+GroundTruth: how many electronic devices are in the photo ?
+z Generated: what computer monitors is the desk like that donuts ?
+
+GroundTruth: how many trains are there on the tracks ?
+z Generated: train train train trains kind train platform tracks trains train ?
+
+GroundTruth: how many wheels are on the skateboard ?
+z Generated: is the tennis person umbrella ground seen on her skateboard ?
+
+GroundTruth: how many tiles are under the toilet ?
+z Generated: is the commode toilet and toilet lid flowers ?
+
+GroundTruth: how many birds on sitting on the wall ?
+z Generated: what is clock tower and kites like the cows building ?
+
+GroundTruth: how many trains are there in the picture ?
+z Generated: what is train platform and bridge ?
+
+GroundTruth: how many end cars ?
+z Generated: what is train engine trains train any kind ?
+
+GroundTruth: what color is the cat 's eyes ?
+z Generated: how is cat one of bedding paws cat ?
+
+GroundTruth: what color is the catcher 's knee guards ?
+z Generated: is team batter visible people batter 's playing baseball players batter ?
+
+GroundTruth: what color is the highest kite ?
+z Generated: what is kites any boat and sails ?
+
+GroundTruth: what color is the woman 's purse ?
+z Generated: what is actually a curtains style buttons woman appliances ?
+
+GroundTruth: which color do the two computers have in common ?
+z Generated: computer is monitors monitors desk like desk monitors monitors computer monitors computer monitors ? desk ? laptop computer desk monitors computer monitors monitors computer monitors ? desk desktop desktop monitors desktop monitors screens monitors desktop monitors monitors monitors monitors mouse monitors desk desk are desk desktop desk desktop comp desk
+
+GroundTruth: what color are the buses ?
+z Generated: is red word team or stop outside sponsors of bus ?
+
+GroundTruth: what color is the knife handle ?
+z Generated: how is one saucer donuts on the plate saucer ?
+
+GroundTruth: what color is the man 's shirt ?
+z Generated: what no elephant is elephants ' game glass ?
+
+GroundTruth: what color are the signal lights ?
+z Generated: what is blue count people ball kites or night ?
+
+GroundTruth: what color is the <unk> part of the clock ?
+z Generated: is the umbrella tie or park ' jacket raining ?
+
+GroundTruth: is this a home scene ?
+z Generated: are that birthday chairs or best design ?
+
+GroundTruth: are they in a pasture ?
+z Generated: what can horse is lambs do tongue white ?
+
+GroundTruth: has this dog ever been groomed ?
+z Generated: what dog and ducklings are on a <unk> dog living dog ?
+
+GroundTruth: is this a children 's meal ?
+z Generated: what is the pizza holes <unk> buses are in ?
+
+GroundTruth: does it appear it is about to rain ?
+z Generated: is the surfboard man or bad waves and board ?
+
+GroundTruth: is he wearing nike shoes ?
+z Generated: what toilet is other men wearing tile ?
+
+GroundTruth: is this a hotel room ?
+z Generated: what is furniture the speaker <unk> light ?
+
+GroundTruth: is the man appropriately dressed for bike riding ?
+z Generated: what has a different fridge counter vase ?
+
+GroundTruth: is she teaching the baby how to skate ?
+z Generated: what is the child artificial lighting ?
+
+GroundTruth: are these <unk> ?
+z Generated: how is paper <unk> taking pictures ?
+
+GroundTruth: has the elephant <unk> itself recently ?
+z Generated: elephants what is elephants elephant tusk line elephants man elephants ?
+
+GroundTruth: is the boy staring ?
+z Generated: how is those blue angels food military fries ?
+
+GroundTruth: are their olives on the pizza ?
+z Generated: what food are onion rings on pizza seat yet ?
+
+GroundTruth: are they doing the same sport ?
+z Generated: what ski land birds at any human ski slope ?
+
+GroundTruth: is there a person holding the remote ?
+z Generated: how is the controller you devices in remote clear ?
+
+GroundTruth: are these bikes harleys ?
+z Generated: what is only motorcycle riders vase kind ?
+
+GroundTruth: are these people attached to the same boat ?
+z Generated: is the water deeper at surfer 's name and beach ?
+
+GroundTruth: are these dogs playing jump rope ?
+z Generated: what two bird laces is flying in the water ?
+
+GroundTruth: are there tables in the picture ?
+z Generated: what is bed <unk> name open people ?
+
+GroundTruth: is this a male and female ?
+z Generated: what is goat ducks wave any water to ?
+
+GroundTruth: are there any street lights ?
+z Generated: bus what bus <unk> bus bus bowl bus buses ?
+
+GroundTruth: is the man skating ?
+z Generated: is his skateboard require water kites or any skater ?
+
+GroundTruth: the boy right handed ?
+z Generated: how is just kite string colored to kites ?
+
+GroundTruth: is the truck red in the photo ?
+z Generated: how is truck truck and bumper <unk> ?
+
+GroundTruth: do either of the men smoke ?
+z Generated: what is teeth on the remote tie high fashion ?
+
+GroundTruth: is the <unk> considered to be in `` <unk> position '' ?
+z Generated: is those skateboard players glass or tennis racket stands ?
+
+GroundTruth: are the giraffes at the zoo ?
+z Generated: what giraffe is not giraffes on the giraffe giraffe ?
+
+GroundTruth: is it cold here ?
+z Generated: what ski bird other any snowboarders man skiing on ?
+
+GroundTruth: is this food frosted ?
+z Generated: what could the same filling for bears cake ?
+
+GroundTruth: is this a museum ?
+z Generated: what is table <unk> people 's table <unk> bags ?
+
+GroundTruth: is there construction likely going on in the next room ?
+z Generated: what is the chairs . valance 's name wine ?
+
+GroundTruth: are these horses tame ?
+z Generated: is the surfers board very man horse or surfboards ?
+
+GroundTruth: is this baseball player going to hit the ball ?
+z Generated: is those baseball bat panels to tennis on the weather ?
+
+GroundTruth: is this can happy ?
+z Generated: what cat is two kitten of whiskers on ?
+
+GroundTruth: will they golf a <unk> on the next hole ?
+z Generated: is not baseball pitcher 's uniforms on batter 's throwing ?
+
+GroundTruth: is the bus colorful ?
+z Generated: is the truck delivering and bus driver logo ?
+
+GroundTruth: are these kits bigger than the people ?
+z Generated: what is the donkey have formal hat on cows ?
+
+GroundTruth: are the horses about the same size ?
+z Generated: is the cows horse bell cows at elephant ?
+
+GroundTruth: is the man on a boat ?
+z Generated: how is one ladies umbrella live coat ?
+
+GroundTruth: is there a table ?
+z Generated: what are the toy that ladies past hair on ?
+
+GroundTruth: is the girl sad ?
+z Generated: what are the cake and sink pictured here ?
+
+GroundTruth: is it snowing ?
+z Generated: what is polar bear on cows back ?
+
+GroundTruth: is there drop plastic down ?
+z Generated: what meal are there white olives slice slice on ?
+
+GroundTruth: are this mushrooms ?
+z Generated: how is bear at least paws of a barbecue ?
+
+GroundTruth: is the man wearing glasses ?
+z Generated: how is it a remote color of buttons flowers ?
+
+GroundTruth: is the fireplace gas ?
+z Generated: what is ceiling the men dress and people luggage ?
+
+GroundTruth: is there a castle in this picture ?
+z Generated: is n't tower playing soccer team kite tower ?
+
+GroundTruth: is this food sweet ?
+z Generated: what healthy on top plate biodegradable bears are ?
+
+GroundTruth: is he moving ?
+z Generated: what is the picture drying on top panel ?
+
+GroundTruth: is this an airport ?
+z Generated: what bus is any drawing the salad truck ?
+
+GroundTruth: is the child having dinner ?
+z Generated: what is a donut can were blue slices ?
+
+GroundTruth: do other cats generally do what this cat is doing ?
+z Generated: what are the couch animal <unk> windows ?
+
+GroundTruth: is the kitchen organized ?
+z Generated: what is kitchen counter oven bears name oven cabinet ?
+
+GroundTruth: do the people know each other ?
+z Generated: what is the gentleman have other here tie light ?
+
+GroundTruth: is the dog 's collar red ?
+z Generated: how is birds first top banana whole fingernails ?
+
+GroundTruth: is the stove turned on ?
+z Generated: what is the laptop here life bear ?
+
+GroundTruth: is this a stormy picture ?
+z Generated: what is the moon colored top to bat ?
+
+GroundTruth: is this person wearing a hat ?
+z Generated: what is a skateboard glass those ladies doing ?
+
+GroundTruth: are there any people next to the umbrella ?
+z Generated: what stuffed cross the beach strings will snow ?
+
+GroundTruth: are the men about the same age ?
+z Generated: what is have kitchen counter , what hair color ?
+
+GroundTruth: are they a family ?
+z Generated: elephant elephants tusk is that elephants elephants elephants elephant elephants ? tusk ? elephant ? ?
+
+GroundTruth: is this a college dorm room ?
+z Generated: what no dogs is speaker that books ?
+
+GroundTruth: is the man wearing a scarf ?
+z Generated: what is the dining head pottery car like all ?
+
+GroundTruth: is this airplane in the sky ?
+z Generated: is the sky fins and beach on plane wing ?
+
+GroundTruth: does this photo look taken thru a window ?
+z Generated: what is kites the plane and off and beach ?
+
+GroundTruth: could the man have fallen ?
+z Generated: is n't toy snowboarders man or snow ski bindings ? ?
+
+GroundTruth: are there too many people on top of the truck ?
+z Generated: what truck are any <unk> driving in the truck ?
+
+GroundTruth: are any benches occupied ?
+z Generated: what is there a tree closest bench about ?
+
+GroundTruth: is the baby asleep ?
+z Generated: what is dining hair on the right wall birthday counter ?
+
+GroundTruth: would it be easy to watch <unk> on this device ?
+z Generated: what is the microwave white as remotes ?
+
+GroundTruth: when was this picture took ?
+z Generated: what any bird slope is their hands ski ?
+
+GroundTruth: is it cloudy or rainy in the pic ?
+z Generated: what plane is propeller and airplane planes at the planes ?
+
+GroundTruth: what pattern is on the pillow ?
+z Generated: what is a horse carriage lit like the lady ?
+
+GroundTruth: what color is the baby 's hair ?
+z Generated: how real doughnut is buttons or the people ladies hair ?
+
+GroundTruth: what animal is biggest ?
+z Generated: what horse is any bull of the animals bridle ?
+
+GroundTruth: what are the birds doing ?
+z Generated: what is birds branch computer keyboard flowers bird bench ?
+
+GroundTruth: what are the animals doing the picture ?
+z Generated: how bear is ram come goat ?
+
+GroundTruth: what is the man in the photo doing ?
+z Generated: what is skateboard any human pan windows open tennis ?
+
+GroundTruth: what activity is this person doing ?
+z Generated: what is surfboards any surfboard wetsuit at any wetsuit ?
+
+GroundTruth: what sport is being played ?
+z Generated: what is the cow and bull men glass ?
+
+GroundTruth: is this person sitting or standing ?
+z Generated: is the vases seat for someone watching this <unk> ?
+
+
