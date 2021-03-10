@@ -13,7 +13,7 @@ class GVTransformerDecoder(nn.Module):
 
         self.decoder = Decoder(args.emb_dim, hidden_size = args.hidden_dim, num_layers=args.dec_num_layers, num_heads=args.num_heads, 
                             total_key_depth=args.hidden_dim, total_value_depth=args.hidden_dim,
-                            filter_size=args.pwffn_dim, device=args.device)
+                            filter_size=args.pwffn_dim, device=args.device, input_dropout=args.dropout, layer_dropout=args.dropout, attention_dropout=args.dropout, relu_dropout=args.dropout)
 
 
         self.output = nn.Linear(args.hidden_dim, vocab_size)

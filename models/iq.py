@@ -36,7 +36,7 @@ class IQ(nn.Module):
         self.encoder_cnn = EncoderCNN(args)
 
         # z-path
-        self.latent_layer = LatentTwoSpaces(args)
+        self.latent_layer = LatentTwoSpaces(args, args.dropout)
         self.latent_projection = nn.Linear(args.latent_dim, args.hidden_dim)
         self.answer_encoder = GVTransformerEncoder(self.embedding, self.latent_layer, self.latent_transformer, args)
         self.z_classifier = nn.Linear(args.hidden_dim, self.vocab_size)
@@ -45,9 +45,6 @@ class IQ(nn.Module):
         self.category_embedding, self.category_image_encoder, self.t_latent_layer, self.t_latent_projection, self.t_classifier = None, None, None, None, None
         if args.enable_t_space:
             self.category_embedding = nn.Embedding(16, args.hidden_dim) # maybe tinker with this hidden size? Seems very big
-            # self.category_image_encoder = Encoder(None, args.hidden_dim, num_layers=4, num_heads=args.num_heads, 
-            #                     total_key_depth=args.hidden_dim, total_value_depth=args.hidden_dim,
-            #                     filter_size=args.pwffn_dim)
             self.category_image_encoder = nn.Sequential(
                 nn.Linear(args.hidden_dim, args.pwffn_dim),
                 nn.Dropout(0.3),
@@ -118,7 +115,7 @@ class IQ(nn.Module):
         image_features = self.encoder_cnn(images)
 
         # z-path. transformer_priors/posteriors is a tuple: (mean_prior, logvar_prior)
-        encoder_outputs, response_outputs, z_kld, z, transformer_priors, transformer_posteriors, src_mask = self.answer_encoder(answers, response, image_features)
+        encoder_outputs, response_outputs, z_kld, z, transformer_priors, transformer_posteriors, src_mask, res_mask = self.answer_encoder(answers, response, image_features)
 
         # t-path.
         l2_category_encoder = torch.tensor([0]).to(self.args.device).detach()
@@ -142,12 +139,21 @@ class IQ(nn.Module):
 
         output, z_logit, t_logit = self.decoder(encoder_outputs, target, image_features, z, t, src_mask)
 
+        response_output = None
+        if self.args.reconstruct_through_response:
+            response_output, _, _ = self.decoder(response_outputs, target, image_features, z, t, res_mask)
+
         if self.latent_transformer: # experiement without requiring the latent mode enabled?
             reconstructed_image_features = self.image_reconstructor(encoder_outputs[:, 0] + z)
         else:
             reconstructed_image_features = self.image_reconstructor(encoder_outputs[:, 0])
 
-        return output, z_logit, t_logit, l2_category_encoder, z_kld, t_kld, z_t_kld, (image_features, reconstructed_image_features), transformer_priors, transformer_posteriors
+        return_logits = (z_logit, t_logit)
+        return_klds = (z_kld, t_kld, z_t_kld)
+        return_image_features = (image_features, reconstructed_image_features)
+        return_transformer_latents = (transformer_priors, transformer_posteriors)
+
+        return output, response_output, return_logits, l2_category_encoder, return_klds, return_image_features, return_transformer_latents
 
 
     def decode_greedy(self, images, categories, max_decode_length = 50):

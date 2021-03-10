@@ -1,0 +1,14 @@
+python3 test_iq.py \
+--hidden_dim 1024 \
+--latent_dim 1024 \
+--pwffn_dim 2048 \
+--enc_num_layers 12 \
+--dec_num_layers 2 \
+--num_heads 8 \
+--batch_size 128 \
+--latent_transformer True \
+--dropout 0.5 \
+--enable_t_space False \
+--use_gpu True \
+--input_mode "ans" \
+--print_note "No response reconstruction. 50% time train input is [cat], other is [cat,ans]"

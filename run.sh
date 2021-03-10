@@ -1,13 +1,15 @@
-CUDA_VISIBLE_DEVICES=1, python3 train_iq.py \
+python3 train_iq.py \
 --hidden_dim 1024 \
 --latent_dim 1024 \
 --pwffn_dim 2048 \
---enc_num_layers 16 \
---dec_num_layers 2 \
+--enc_num_layers 6 \
+--dec_num_layers 6 \
 --num_heads 8 \
 --batch_size 128 \
---num_pretraining_steps 10000 \
+--num_pretraining_steps 25000 \
+--total_training_steps 100000 \
+--dropout 0.4 \
 --enable_t_space False \
 --use_gpu True \
 --input_mode "ans" \
---print_note "Z path."
+--print_note "No response reconstruction. Adam optimizer. Posterior concat with prior"

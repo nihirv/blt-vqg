@@ -21,10 +21,10 @@ class Latent(nn.Module):
         self.args = args
 
         latent_layer_network_architecture = nn.Sequential(
-            nn.ReLU(),
+            nn.ELU(),
             nn.Dropout(dropout),
             nn.Linear(args.latent_dim*2, args.latent_dim*2),
-            nn.ReLU(),
+            nn.ELU(),
             nn.Dropout(dropout),
             nn.Linear(args.latent_dim*2, args.latent_dim*2)
         )
@@ -55,10 +55,10 @@ class LatentTwoSpaces(nn.Module):
         self.args = args
 
         latent_layer_network_architecture = nn.Sequential(
-            nn.ReLU(),
+            nn.ELU(),
             nn.Dropout(dropout),
             nn.Linear(args.latent_dim*2, args.latent_dim*2),
-            nn.ReLU(),
+            nn.ELU(),
             nn.Dropout(dropout),
             nn.Linear(args.latent_dim*2, args.latent_dim*2)
         )
@@ -71,6 +71,7 @@ class LatentTwoSpaces(nn.Module):
 
         self.mean_logvar_posterior = nn.Sequential(
             nn.Linear(args.hidden_dim*2, args.latent_dim*2),
+            # nn.Linear(args.hidden_dim, args.latent_dim*2),
             *copy.deepcopy(latent_layer_network_architecture)
         )
 
@@ -86,6 +87,7 @@ class LatentTwoSpaces(nn.Module):
         mean_posterior, logvar_posterior = None, None
         if x_p is not None: # if x_p IS None, then we're in eval mode.
             mean_logvar_posterior = self.mean_logvar_posterior(torch.cat((x_p, x), dim=-1))
+            # mean_logvar_posterior = self.mean_logvar_posterior(x_p)
             mean_posterior, logvar_posterior = mean_logvar_posterior[:, :self.args.latent_dim], mean_logvar_posterior[:, self.args.latent_dim:]
             kld_loss = gaussian_kld(mean_posterior, logvar_posterior, mean_prior, logvar_prior)
             kld_loss = torch.mean(kld_loss)
@@ -430,7 +432,7 @@ class PositionwiseFeedForward(nn.Module):
                 raise ValueError("Unknown layer type {}".format(lc))
 
         self.layers = nn.ModuleList(layers)
-        self.relu = nn.ReLU()
+        self.relu = nn.ELU()
         self.dropout = nn.Dropout(dropout)
         
     def forward(self, inputs):

@@ -1,0 +1,405 @@
+EPOCH STATS FOR EPOCH 2 
+('loss', '\t', 4.2756)
+('loss_response', '\t', 0.0)
+('img', '\t', 0.2926)
+('ppl', '\t', 71.7142)
+('l2_cat_encoder', '\t', 0.0)
+('z_kld', '\t', 0.0)
+('t_kld', '\t', 0.0)
+('z_t_kld', '\t', 0.0)
+('z_aux', '\t', 0.0)
+('t_aux', '\t', 0.0)
+('elbo', '\t', 4.2727)
+('rec', '\t', 4.2727)
+('z', 'Bleu_1', '\t', 4.6037)
+('z', 'Bleu_2', '\t', 0.7151)
+('z', 'Bleu_3', '\t', 0.0)
+('z', 'Bleu_4', '\t', 0.0)
+('z', 'METEOR', '\t', 3.8846)
+('z', 'ROUGE_L', '\t', 16.7854)
+('z', 'CIDEr', '\t', 4.7043)
+GroundTruth: which direction is the arrow pointing ?
+z Generated: ?
+
+GroundTruth: what shape is the entrance to the building ?
+z Generated: ? the is ? ? ?
+
+GroundTruth: what does it say on the beer glass ?
+z Generated: ? is ? ? ? the ? ? is ? ?
+
+GroundTruth: what is the flag on the left ?
+z Generated: ? ? ?
+
+GroundTruth: what are the glass <unk> hanging from the boat ?
+z Generated: is ? ? the the ?
+
+GroundTruth: what are the people waiting for ?
+z Generated: ? the ?
+
+GroundTruth: what is the skateboarder wearing ?
+z Generated: the the ? ?
+
+GroundTruth: what is the man holding ?
+z Generated: ? is ?
+
+GroundTruth: what is the name of this dish ?
+z Generated: 
+
+GroundTruth: what are they doing ?
+z Generated: the ?
+
+GroundTruth: what type of eating utensils are visible in this image ?
+z Generated: is
+
+GroundTruth: what does the sign have in its hand ?
+z Generated: is ? ?
+
+GroundTruth: what type of clothing is the individual in the foreground wearing ?
+z Generated: the the ? ? ? ? ?
+
+GroundTruth: where are the books ?
+z Generated: is is
+
+GroundTruth: what is the pizza sitting on ?
+z Generated: the is ?
+
+GroundTruth: what is the man wearing ?
+z Generated: 
+
+GroundTruth: what is the man pointing toward ?
+z Generated: 
+
+GroundTruth: what are the men holding ?
+z Generated: the the
+
+GroundTruth: what kind of wood is the deck made of ?
+z Generated: is
+
+GroundTruth: which room of the house is this ?
+z Generated: ? the is ? ? ? ? ? ? ? ?
+
+GroundTruth: what are they eating ?
+z Generated: is ? the is ?
+
+GroundTruth: what are the black items on the pizza ?
+z Generated: ? ?
+
+GroundTruth: how many women are in the photo ?
+z Generated: the
+
+GroundTruth: how many elephants are there ?
+z Generated: ? ?
+
+GroundTruth: how many meals are on the table ?
+z Generated: ? is ? is is ? ?
+
+GroundTruth: how many trays of pastries are there ?
+z Generated: ?
+
+GroundTruth: how many hats are there ?
+z Generated: 
+
+GroundTruth: how many cabinets are above the person ?
+z Generated: ? the
+
+GroundTruth: how many pastries are in this picture ?
+z Generated: is
+
+GroundTruth: how many people can fit on the bench ?
+z Generated: ? the
+
+GroundTruth: how many children in the picture ?
+z Generated: is the ? ?
+
+GroundTruth: how many chairs are there ?
+z Generated: ? is
+
+GroundTruth: how many red pieces of luggage ?
+z Generated: the ?
+
+GroundTruth: how many people in the shot ?
+z Generated: 
+
+GroundTruth: how many zebra are standing in the field ?
+z Generated: is is the the ? ?
+
+GroundTruth: how many train cars ?
+z Generated: ?
+
+GroundTruth: how many fruits are on this plate ?
+z Generated: ? ?
+
+GroundTruth: how many men are there ?
+z Generated: ? the is
+
+GroundTruth: how many cars are in this scene ?
+z Generated: 
+
+GroundTruth: how many tree trunks are visible ?
+z Generated: is is
+
+GroundTruth: what color is most of the messy trail ?
+z Generated: is ?
+
+GroundTruth: what is the color of the nearest car ?
+z Generated: is
+
+GroundTruth: what color is the grass ?
+z Generated: ? ? the
+
+GroundTruth: what color is the ground ?
+z Generated: ? ? ? the ? ? ? ?
+
+GroundTruth: what color is the shoes ?
+z Generated: is the
+
+GroundTruth: what color is the sky ?
+z Generated: is ?
+
+GroundTruth: what color is the tie of the second man to the left ?
+z Generated: the ? is the is ? ? ?
+
+GroundTruth: what kind of fruit is on the plate ?
+z Generated: 
+
+GroundTruth: which color is dominant ?
+z Generated: 
+
+GroundTruth: what colors are on the hydrant in the back ?
+z Generated: 
+
+GroundTruth: what color is the boy 's hair ?
+z Generated: is is ? is
+
+GroundTruth: what color is the plate ?
+z Generated: ? ? ?
+
+GroundTruth: is the animal on the couch alive ?
+z Generated: is
+
+GroundTruth: does the man have hair ?
+z Generated: is ?
+
+GroundTruth: is the plane flying over the ocean ?
+z Generated: ? the ?
+
+GroundTruth: does the dog have a collar on ?
+z Generated: is
+
+GroundTruth: is this road sometimes covered with leaves ?
+z Generated: is ? ?
+
+GroundTruth: is there a cell phone ?
+z Generated: is is
+
+GroundTruth: is the surfer on the left falling ?
+z Generated: the the
+
+GroundTruth: is this person looking for something to eat ?
+z Generated: 
+
+GroundTruth: are they overcooked ?
+z Generated: the ? is is the
+
+GroundTruth: is the pizza being <unk> ?
+z Generated: ? ?
+
+GroundTruth: is there a plant ?
+z Generated: is is
+
+GroundTruth: are these people sad ?
+z Generated: 
+
+GroundTruth: are the buildings more than one story high ?
+z Generated: 
+
+GroundTruth: is the kitchen being remodeled ?
+z Generated: the
+
+GroundTruth: is this woman pooping ?
+z Generated: the the
+
+GroundTruth: does this place have restroom facilities ?
+z Generated: the ? is is the ?
+
+GroundTruth: do you think this is a nice place ?
+z Generated: 
+
+GroundTruth: is the angel a reflection ?
+z Generated: 
+
+GroundTruth: is this person very high up in the air ?
+z Generated: is ?
+
+GroundTruth: are both horses grazing ?
+z Generated: 
+
+GroundTruth: are there any <unk> on the pizza ?
+z Generated: 
+
+GroundTruth: is there anyone eating the pizza ?
+z Generated: 
+
+GroundTruth: are the spectators cheering ?
+z Generated: is ? ? ? ?
+
+GroundTruth: is the man on the bench overweight ?
+z Generated: 
+
+GroundTruth: is the front tire flat ?
+z Generated: 
+
+GroundTruth: are these people in a restaurant ?
+z Generated: ? is is
+
+GroundTruth: is this a fake kitchen ?
+z Generated: is is
+
+GroundTruth: are there any bushes on the field ?
+z Generated: ?
+
+GroundTruth: is there a turn arrow ?
+z Generated: ?
+
+GroundTruth: is someone walking in the street ?
+z Generated: 
+
+GroundTruth: is the boy wearing a safety vest ?
+z Generated: the the ? ? ?
+
+GroundTruth: is he celebrating ?
+z Generated: 
+
+GroundTruth: are there telephone poles ?
+z Generated: ? ?
+
+GroundTruth: is the woman stable ?
+z Generated: 
+
+GroundTruth: is this a <unk> ?
+z Generated: 
+
+GroundTruth: is she using an iphone ?
+z Generated: is
+
+GroundTruth: is the plane large ?
+z Generated: ? the
+
+GroundTruth: is the food fresh ?
+z Generated: ? ?
+
+GroundTruth: are all the people in this picture girls ?
+z Generated: is the
+
+GroundTruth: is it important to tag these items and make them <unk> ?
+z Generated: 
+
+GroundTruth: is the table cluttered ?
+z Generated: ? ?
+
+GroundTruth: is the clock face white ?
+z Generated: 
+
+GroundTruth: is the wall green ?
+z Generated: is is is
+
+GroundTruth: is the person identifiable in the photo ?
+z Generated: ?
+
+GroundTruth: is the lamp on ?
+z Generated: 
+
+GroundTruth: has the grass been cut ?
+z Generated: ?
+
+GroundTruth: can you smoke in here ?
+z Generated: is
+
+GroundTruth: are there trees ?
+z Generated: 
+
+GroundTruth: is this the beach ?
+z Generated: 
+
+GroundTruth: is this a park ?
+z Generated: is is is ? the
+
+GroundTruth: do you think it 's safe to pet a giraffe ?
+z Generated: 
+
+GroundTruth: are the flowers shown all the same type ?
+z Generated: ? ? is ? is ?
+
+GroundTruth: is the light on ?
+z Generated: ? is ? the is
+
+GroundTruth: is there anyone wearing glasses ?
+z Generated: 
+
+GroundTruth: could you eat here ?
+z Generated: is ? the the
+
+GroundTruth: is this a newer building ?
+z Generated: the ?
+
+GroundTruth: is the man wearing glasses ?
+z Generated: 
+
+GroundTruth: is it raining ?
+z Generated: is
+
+GroundTruth: are these been sold ?
+z Generated: ? ?
+
+GroundTruth: is the writing on the signs in english ?
+z Generated: is
+
+GroundTruth: has the customer already paid ?
+z Generated: 
+
+GroundTruth: is this a photo ?
+z Generated: is is
+
+GroundTruth: are the blinds sheer ?
+z Generated: 
+
+GroundTruth: what someone using the computer in bed ?
+z Generated: ? ? ? ? ? ?
+
+GroundTruth: is there cabinets there ?
+z Generated: ? ?
+
+GroundTruth: are these elephants in the wild ?
+z Generated: the
+
+GroundTruth: is this an old photo of a photo with a filter ?
+z Generated: the
+
+GroundTruth: what gender is the person holding the paddle ?
+z Generated: is
+
+GroundTruth: what color is the woman 's hair ?
+z Generated: ?
+
+GroundTruth: is the lid opened or closed ?
+z Generated: ? is ? ? is
+
+GroundTruth: is the bright object in this picture hot or cold ?
+z Generated: ? ?
+
+GroundTruth: what season of the year is it ?
+z Generated: the ?
+
+GroundTruth: what should the train do given the lights above ?
+z Generated: flaw the ? the the ? ? ? ? ?
+
+GroundTruth: what hairstyle is this person wearing ?
+z Generated: is the
+
+GroundTruth: which animal is drinking the water ?
+z Generated: 
+
+GroundTruth: what type of animal is shown ?
+z Generated: 
+
+

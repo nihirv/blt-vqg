@@ -20,6 +20,8 @@ import pytorch_lightning as pl
 from pytorch_lightning.callbacks.early_stopping import EarlyStopping
 import torch.multiprocessing
 import math as m
+import shutil
+import random
 # os.environ['CUDA_VISIBLE_DEVICES'] = '1'
 
 torch.multiprocessing.set_sharing_strategy('file_system')
@@ -35,7 +37,7 @@ class TrainIQ(pl.LightningModule):
         self.hp_string = "{}_{}_{}_{}_{}_{}_{}E{}D_{}_{}_{}.".format(
             ("t" if args.enable_t_space else "z"), args.emb_dim, "True", args.hidden_dim, args.latent_dim, args.pwffn_dim, args.enc_num_layers, args.dec_num_layers, args.num_heads, ("adaptive" if args.adaptive_lr else args.lr), args.batch_size
         )
-        self.print_string = "{}".format(args.print_note)
+        self.print_string = "{}_".format(args.print_note)
 
         self.iter = 0
         self.kliter = 0
@@ -43,6 +45,7 @@ class TrainIQ(pl.LightningModule):
         self.nlge = NLGEval(no_glove=True, no_skipthoughts=True)
         metrics = {
             "loss": [],
+            "loss_response": [],
             "img": [],
             "ppl": [],
             "l2_cat_encoder": [],
@@ -76,24 +79,29 @@ class TrainIQ(pl.LightningModule):
         images, _, questions, posteriors, answers, categories, answer_types_for_input, _ = batch.values()
         images, questions, posteriors, answers, answer_types_for_input = images.to(self.args.device), questions.to(self.args.device), posteriors.to(self.args.device), answers.to(self.args.device), answer_types_for_input.to(self.args.device)
 
-        # if train_or_inf == "train":
-        #     output, z_logit, _, kld_loss, _, _, image_recon, _, _ = self.model(
-        #         images, answers, posteriors, questions, categories)
-        # elif train_or_inf == "inf":
-        #     output, z_logit, kld_loss, _, _, image_recon, _, _ = self.model(
-        #         images, answers, posteriors, questions, categories)
+        # if random.random() > 0.5:
+        #     output, response_output, logits, l2_category_encoder, klds, image_reconstructs, z_latents = self.model(images, answers, posteriors, questions, categories)
+        # else:
+        #     output, response_output, logits, l2_category_encoder, klds, image_reconstructs, z_latents = self.model(images, answer_types_for_input, posteriors, questions, categories)
+        output, response_output, logits, l2_category_encoder, klds, image_reconstructs, z_latents = self.model(images, answers, posteriors, questions, categories)
 
-        ## TODO: REMOVE CATEGORY FROM ANSWER
 
-        output, z_logit, t_logit, l2_category_encoder, z_kld, t_kld, z_t_kld, image_recon, _, _ = self.model(
-            images, answers, posteriors, questions, categories)
+        z_logit, t_logit = logits
+        z_kld, t_kld, z_t_kld = klds
+        image_recon = image_reconstructs
 
-        return output, z_logit, t_logit, l2_category_encoder, z_kld, t_kld, z_t_kld, image_recon
+        return output, response_output, z_logit, t_logit, l2_category_encoder, z_kld, t_kld, z_t_kld, image_recon
 
-    def calculate_losses(self, output, z_logit, t_logit, l2_category_encoder, z_kld, t_kld, z_t_kld, image_recon, target):
+    def calculate_losses(self, output, response_output, z_logit, t_logit, l2_category_encoder, z_kld, t_kld, z_t_kld, image_recon, target):
         loss_rec = self.criterion(
             output.reshape(-1, output.size(-1)), target.reshape(-1))
         loss_img = self.image_recon_criterion(image_recon[0], image_recon[1])
+
+        loss_response = torch.tensor([0]).to(self.args.device)
+        if self.args.reconstruct_through_response:
+            loss_response = 0.1 * self.criterion(
+                response_output.reshape(-1, response_output.size(-1)), target.reshape(-1))
+
 
         if not self.latent_transformer:
             if not self.args.enable_t_space:
@@ -103,7 +111,7 @@ class TrainIQ(pl.LightningModule):
             z_t_kld_loss = torch.tensor([0])
             z_loss_aux = torch.tensor([0])
             t_loss_aux = torch.tensor([0])
-            loss = loss_rec + self.args.image_recon_lambda * loss_img + l2_category_encoder
+            loss = loss_rec + self.args.image_recon_lambda * loss_img + l2_category_encoder + loss_response
             elbo = loss_rec
         else:
             l2_category_encoder = torch.tensor([0])
@@ -122,11 +130,11 @@ class TrainIQ(pl.LightningModule):
             aux = z_loss_aux+t_loss_aux
             weighted_aux = self.args.aux_ceiling * aux
             elbo = loss_rec + z_kld_loss + t_kld_loss + z_t_kld_loss
-            weighted_elbo = loss_rec + self.args.kl_ceiling  * (self.args.lambda_z * z_kld_loss + self.args.lambda_t * t_kld_loss + self.args.lambda_z_t * z_t_kld_loss) + weighted_aux
+            weighted_elbo = loss_rec + kl_weight * (self.args.lambda_z * z_kld_loss + self.args.lambda_t * t_kld_loss + self.args.lambda_z_t * z_t_kld_loss) + weighted_aux
             loss = loss_rec + weighted_elbo + \
-                 + self.args.image_recon_lambda * loss_img
+                 + self.args.image_recon_lambda * loss_img + loss_response
 
-        return loss, loss_rec.item(), loss_img.item(), math.exp(min(loss_rec.item(), 100)), l2_category_encoder.item(), z_kld_loss.item(), t_kld_loss.item(), z_t_kld_loss.item(), z_loss_aux.item(), t_loss_aux.item(), elbo.item()
+        return loss, loss_response.item(), loss_rec.item(), loss_img.item(), math.exp(min(loss_rec.item(), 100)), l2_category_encoder.item(), z_kld_loss.item(), t_kld_loss.item(), z_t_kld_loss.item(), z_loss_aux.item(), t_loss_aux.item(), elbo.item()
 
     def training_step(self, batch, batch_idx):
 
@@ -138,17 +146,18 @@ class TrainIQ(pl.LightningModule):
             #     param.requires_grad = False
             self.configure_optimizers()  # restart ADAM optimizer
 
-        output, z_logit, t_logit, l2_category_encoder, z_kld, t_kld, z_t_kld, image_recon = self(batch)
+        output, response_output, z_logit, t_logit, l2_category_encoder, z_kld, t_kld, z_t_kld, image_recon = self(batch)
         target = batch["questions"].to(self.args.device)
 
-        loss, loss_rec, loss_img, ppl, l2_category_encoder, z_kld_loss, t_kld_loss, z_t_kld_loss, z_aux, t_aux, elbo = self.calculate_losses(
-            output, z_logit, t_logit, l2_category_encoder, z_kld, t_kld, z_t_kld, image_recon, target)
+        loss, loss_response, loss_rec, loss_img, ppl, l2_category_encoder, z_kld_loss, t_kld_loss, z_t_kld_loss, z_aux, t_aux, elbo = self.calculate_losses(
+            output, response_output, z_logit, t_logit, l2_category_encoder, z_kld, t_kld, z_t_kld, image_recon, target)
 
         if self.latent_transformer:
             self.kliter += 1
 
         self.log('train loss', loss)
         self.log('train rec loss', loss_rec)
+        self.log('train response loss', loss_response)
         self.log('image recon loss', loss_img)
         self.log('perplexity', ppl)
         self.log('l2 category encoder', l2_category_encoder)
@@ -176,7 +185,7 @@ class TrainIQ(pl.LightningModule):
 
 
 
-        with open(os.path.join("output/", self.hp_string +".txt"), "w") as f:
+        with open(os.path.join("output/", (self.print_string + self.hp_string) +".txt"), "w") as f:
             f.write("EPOCH STATS FOR EPOCH {} \n".format(self.current_epoch))
             for k, v in self.val_metrics.items():
                 buffer = k, "\t", np.round(np.mean(v), 4)
@@ -203,13 +212,14 @@ class TrainIQ(pl.LightningModule):
 
     def validation_step(self, batch, batch_idx):
         target = batch["questions"].to(self.args.device)
-        output, z_logit, t_logit, l2_category_encoder, z_kld, t_kld, z_t_kld, image_recon = self(batch)
+        output, response_output, z_logit, t_logit, l2_category_encoder, z_kld, t_kld, z_t_kld, image_recon = self(batch)
 
-        loss, loss_rec, loss_img, ppl, l2_category_encoder, z_kld_loss, t_kld_loss, z_t_kld_loss, z_aux, t_aux, elbo = self.calculate_losses(
-            output, z_logit, t_logit, l2_category_encoder, z_kld, t_kld, z_t_kld, image_recon, target)
+        loss, loss_response, loss_rec, loss_img, ppl, l2_category_encoder, z_kld_loss, t_kld_loss, z_t_kld_loss, z_aux, t_aux, elbo = self.calculate_losses(
+            output, response_output, z_logit, t_logit, l2_category_encoder, z_kld, t_kld, z_t_kld, image_recon, target)
 
         self.val_metrics["loss"].append(loss.item())
-        self.val_metrics["img"].append(self.args.image_recon_lambda * loss_img)
+        self.val_metrics["loss_response"].append(loss_response)
+        self.val_metrics["img"].append(loss_img)
         self.val_metrics["ppl"].append(ppl)
         self.val_metrics["l2_cat_encoder"].append(z_kld_loss)
         self.val_metrics["z_kld"].append(z_kld_loss)
@@ -222,6 +232,7 @@ class TrainIQ(pl.LightningModule):
 
         self.log("val loss", loss.item())
         self.log("val loss rec", loss_rec)
+        self.log('val response loss', loss_response)
         self.log("val img recon loss", loss_img)
         self.log("val ppl", ppl)
         self.log('l2 category encoder', l2_category_encoder)
@@ -280,7 +291,7 @@ class TrainIQ(pl.LightningModule):
             z_pred = " ".join(z_list_pred)
             gts.append(gt)
             z_preds.append(z_pred)
-            if args.enable_t_space:
+            if self.args.enable_t_space:
                 t_list_pred = self.filter_special_tokens(t_decoded_sentences[i].split())
                 t_pred = " ".join(t_list_pred)
                 t_preds.append(t_pred)
@@ -288,7 +299,7 @@ class TrainIQ(pl.LightningModule):
                 print("Image ID:\t", image_ids[i])
                 print("Context:\t", " ".join(
                     [self.cat2name[category] for category in categories[i].tolist()]))
-                if args.enable_t_space: print("t Generated: \t", t_pred)
+                if self.args.enable_t_space: print("t Generated: \t", t_pred)
                 print("z Generated: \t", z_pred)
                 print("Reference: \t", gt)
                 # for j, word in enumerate(greedy_sentence.split()):
@@ -314,25 +325,26 @@ class TrainIQ(pl.LightningModule):
             self.args.device), answers.to(self.args.device), categories.to(self.args.device)
         categories = categories.unsqueeze(1)
 
-        preds = []
-        gts = []
-        decoded_sentences = self.model.decode_greedy(
-            images, categories, max_decode_length=50)
-        for i, greedy_sentence in enumerate(decoded_sentences):
-            list_gt = self.filter_special_tokens(
-                [self.vocab.idx2word[word] for word in batch["questions"][i].tolist()])
-            list_pred = self.filter_special_tokens(greedy_sentence.split())
-            gt = " ".join(list_gt)
-            pred = " ".join(list_pred)
-            gts.append(gt)
-            preds.append(pred)
 
-        scores = self.nlge.compute_metrics(ref_list=[gts], hyp_list=preds)
+        gts, z_preds, t_preds = self.decode_and_print(batch, print_lim=10)
 
-        for k, v in scores.items():
-            scores[k] = torch.tensor(v)
+        z_scores = self.nlge.compute_metrics(ref_list=[gts], hyp_list=z_preds)
+        if self.args.enable_t_space:
+            t_scores = self.nlge.compute_metrics(ref_list=[gts], hyp_list=t_preds)
 
-        return scores
+        # for k, v in self.val_metrics.items():
+        #     print(k, "\t", np.round(np.mean(v), 4))
+        #     self.val_metrics[k] = []  # reset v
+
+        # for k, v in z_scores.items():
+        #     print("z", k, "\t", np.round(np.mean(v) * 100, 4))
+        #     if self.args.enable_t_space:
+        #         print("t", k, "\t", np.round(np.mean(t_scores[k] * 100), 4))
+
+        for k, v in z_scores.items():
+            z_scores[k] = torch.tensor(v)
+
+        return z_scores
 
     def test_end(self, all_scores):
         for k, scores in all_scores.items():
@@ -352,6 +364,7 @@ class TrainIQ(pl.LightningModule):
 
     def configure_optimizers(self):
         optimizer = torch.optim.Adam(self.parameters(), lr=self.args.lr)
+        # optimizer = torch.optim.Adadelta(self.parameters())
         return optimizer
 
 
@@ -403,7 +416,14 @@ class CheckpointEveryNSteps(pl.Callback):
             trainer.save_checkpoint(ckpt_path)
 
 
+def keep_N_logs(n=10, logdir="lightning_logs"):
+    n_logs = len(os.listdir(logdir))
+    if n_logs > n:
+        shutil.rmtree(logdir)
+
+
 if __name__ == "__main__":
+    keep_N_logs()
     parser = argparse.ArgumentParser()
     # Model hyperparameters
     parser.add_argument("--emb_dim", type=int, default=300,
@@ -436,7 +456,8 @@ if __name__ == "__main__":
     parser.add_argument("--dropout", type=float, default=0.3)
     parser.add_argument("--latent_transformer", type=bool, default=False)
     parser.add_argument("--enable_t_space", dest="enable_t_space", type=lambda x: bool(strtobool(x)), default=True)
-    parser.add_argument("--adaptive_lr", type=bool, default=False)
+    parser.add_argument("--adaptive_lr", type=lambda x: bool(strtobool(x)), default=False)
+    parser.add_argument("--reconstruct_through_response", type=lambda x: bool(strtobool(x)), default=False)
     parser.add_argument('--lambda_z', type=float, default=0.001,
                         help='coefficient to be added in front of the kl loss.')
     parser.add_argument('--lambda_t', type=float, default=0.0001,
