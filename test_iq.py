@@ -68,7 +68,7 @@ if __name__ == "__main__":
     args.root_dir = os.getcwd()
 
     vocab = pickle.load(open(args.vocab, "rb"))
-    trainGVT = TrainIQ(vocab, args).load_from_checkpoint() .to(args.device)
+    trainGVT = TrainIQ(vocab, args).load_from_checkpoint().to(args.device)
     trainer = pl.Trainer(max_steps=args.total_training_steps, gradient_clip_val=5,
                             val_check_interval=500, limit_val_batches=100, gpus=args.num_gpus)
     test_data_loader = get_loader(os.path.join(os.getcwd(), args.val_dataset), transform, 128, shuffle=False, num_workers=8)

@@ -12,10 +12,11 @@ import torch.utils.data as data
 
 if os.path.exists("vocab.pkl"):
     vocab = pickle.load(open("vocab.pkl", "rb"))
-else: 
+else:
     import utils.vocab
     print("Building Vocab")
-    vocab = utils.vocab.build_vocab('data/vqa/v2_OpenEnded_mscoco_train2014_questions.json', 'data/vqa/iq_dataset.json', 4)
+    vocab = utils.vocab.build_vocab(
+        'data/vqa/v2_OpenEnded_mscoco_train2014_questions.json', 'data/vqa/iq_dataset.json', 4)
 
 
 class IQDataset(data.Dataset):
@@ -40,8 +41,9 @@ class IQDataset(data.Dataset):
         self.indices = indices
         self.max_len = 23
 
-        self.cat2name = sorted(json.load(open("data/processed/cat2name.json", "r")))
-        
+        self.cat2name = sorted(
+            json.load(open("data/processed/cat2name.json", "r")))
+
     def __getitem__(self, index):
         """Returns one data pair (image and caption).
         """
@@ -53,17 +55,19 @@ class IQDataset(data.Dataset):
             self.image_indices = annos['image_indices']
             self.images = annos['images']
             self.image_ids = annos["image_ids"]
+            self.rcnn_features = annos['rcnn_features']
+            self.rcnn_locations = annos['rcnn_locations']
 
         if self.indices is not None:
             index = self.indices[index]
 
         question = self.questions[index]
-        
+
         posterior = copy.deepcopy(question)
         posterior[0] = vocab.word2idx[vocab.SYM_POS]
         posterior = posterior.tolist()
         try:
-            posterior.remove(vocab.word2idx[vocab.SYM_EOS])        
+            posterior.remove(vocab.word2idx[vocab.SYM_EOS])
             posterior.append(vocab.word2idx[vocab.SYM_PAD])
         except:
             pass
@@ -75,11 +79,14 @@ class IQDataset(data.Dataset):
         except:
             answer = answer
 
-        answer_type = self.answer_types[index] # gives us an index of sorted cat2name
-        answer_type = vocab.word2idx[self.cat2name[answer_type]]
-        
-        answer_type_for_input = [vocab.word2idx[vocab.SYM_SOQ], answer_type, vocab.word2idx[vocab.SYM_EOS]]
-        answer_type_for_input = torch.from_numpy(np.array(answer_type_for_input))
+        # gives us an index of sorted cat2name
+        answer_type_orig = self.answer_types[index]
+        answer_type = vocab.word2idx[self.cat2name[answer_type_orig]]
+
+        answer_type_for_input = [
+            vocab.word2idx[vocab.SYM_SOQ], answer_type, vocab.word2idx[vocab.SYM_EOS]]
+        answer_type_for_input = torch.from_numpy(
+            np.array(answer_type_for_input))
 
         posterior.insert(1, answer_type)
         posterior = np.array(posterior)
@@ -111,7 +118,7 @@ class IQDataset(data.Dataset):
         # posterior = np.array(posterior)
         # print(posterior)
         ################################
-        
+
         answer.insert(1, answer_type)
         answer = np.array(answer)
 
@@ -119,16 +126,18 @@ class IQDataset(data.Dataset):
         image = self.images[image_index]
         image_id = self.image_ids[index]
 
-        question = torch.from_numpy(question)
+        rcnn_features = torch.from_numpy(self.rcnn_features[index])
+        rcnn_locations = torch.from_numpy(self.rcnn_locations[index])
 
+        question = torch.from_numpy(question)
         posterior = torch.from_numpy(posterior)
         answer = torch.from_numpy(answer)
         alength = answer.size(0) - answer.eq(0).sum(0).squeeze()
         qlength = question.size(0) - question.eq(0).sum(0).squeeze()
         if self.transform is not None:
             image = self.transform(image)
-        return (image, image_id, question, posterior, answer, answer_type, answer_type_for_input,
-                qlength.item(), alength.item())
+        return (image, image_id, question, posterior, answer, answer_type_orig, answer_type, answer_type_for_input,
+                qlength.item(), alength.item(), rcnn_features, rcnn_locations)
 
     def __len__(self):
         if self.max_examples is not None:
@@ -163,21 +172,36 @@ def collate_fn(data):
     """
     # Sort a data list by caption length (descending order).
     data.sort(key=lambda x: x[5], reverse=True)
-    images, image_ids, questions, posteriors, answers, answer_types, answer_types_for_input, qlengths, _ = list(zip(*data))
+    images, image_ids, questions, posteriors, answers, answer_type_orig, answer_types, answer_types_for_input, qlengths, _, rcnn_features, rcnn_locations = list(
+        zip(*data))
     images = torch.stack(images, 0)
     questions = torch.stack(questions, 0).long()
     posteriors = torch.stack(posteriors, 0).long()
     answers = torch.stack(answers, 0).long()
     answer_types = torch.Tensor(answer_types).long()
+    answer_type_orig = torch.Tensor(answer_type_orig).long()
     answer_types_for_input = torch.stack(answer_types_for_input, 0).long()
     qindices = np.flip(np.argsort(qlengths), axis=0).copy()
     qindices = torch.Tensor(qindices).long()
-    return {"images": images, "image_ids": image_ids, "questions": questions, "posteriors": posteriors, "answers": answers, "answer_types": answer_types, "answer_types_for_input": answer_types_for_input, "qindicies": qindices}
+    rcnn_features = torch.stack(rcnn_features)
+    rcnn_locations = torch.stack(rcnn_locations)
+    return {"images": images,
+            "image_ids": image_ids,
+            "questions": questions,
+            "posteriors": posteriors,
+            "answers": answers,
+            "answer_type_orig": answer_type_orig,
+            "answer_types": answer_types,
+            "answer_types_for_input": answer_types_for_input,
+            "qindicies": qindices,
+            "rcnn_features": rcnn_features,
+            "rcnn_locations": rcnn_locations
+            }
 
 
 def get_loader(dataset, transform, batch_size, sampler=None,
-                   shuffle=True, num_workers=1, max_examples=None,
-                   indices=None):
+               shuffle=True, num_workers=1, max_examples=None,
+               indices=None):
     """Returns torch.utils.data.DataLoader for custom dataset.
 
     Args:
@@ -196,7 +220,7 @@ def get_loader(dataset, transform, batch_size, sampler=None,
         A torch.utils.data.DataLoader for custom engagement dataset.
     """
     iq = IQDataset(dataset, transform=transform, max_examples=max_examples,
-                    indices=indices)
+                   indices=indices)
     data_loader = torch.utils.data.DataLoader(dataset=iq,
                                               batch_size=batch_size,
                                               shuffle=shuffle,

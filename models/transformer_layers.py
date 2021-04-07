@@ -7,10 +7,106 @@ import copy
 import math
 from torch import nn
 import numpy as np
+from fairseq.models import transformer
 
 
 def generate_pad_mask(data, pad_idx=0):
     return data.data.eq(pad_idx).unsqueeze(1)
+
+
+def create_padding_mask(src_tokens, src_lengths):
+    padding_mask = torch.zeros(src_tokens.shape[:2],
+                               dtype=torch.bool,
+                               device=src_tokens.device)
+
+    for i, src_length in enumerate(src_lengths):
+        padding_mask[i, src_length:] = 1
+
+    return padding_mask
+
+
+class FeatureProjection(nn.Module):
+    """
+    Projects image features into a space of
+    dimensionality `args.encoder_embed_dim`.
+    """
+
+    def __init__(self, args):
+        super().__init__()
+        self.linear = nn.Linear(2048, args.hidden_dim)
+
+        # The following members are needed to
+        # interface with TransformerEncoder.
+        self.embedding_dim = args.hidden_dim
+        self.padding_idx = -1
+
+    def forward(self, x):
+        return self.linear(x)
+
+
+class ImageTransformerEncoder(transformer.TransformerEncoder):
+    def __init__(self, args):
+        args.encoder_layerdrop = args.dropout
+        args.max_source_positions = 1000
+        args.no_scale_embedding = False
+        args.no_token_positional_embeddings = True
+        args.adaptive_input = True
+        args.encoder_normalize_before = False
+        args.encoder_layers = args.num_layers
+        args.encoder_embed_dim = args.hidden_dim
+        args.encoder_attention_heads = args.num_heads
+        args.attention_dropout = args.dropout
+        args.encoder_ffn_embed_dim = args.hidden_dim
+        self.args = args
+
+        super().__init__(args, None, FeatureProjection(args))
+        self.spatial_encoding = nn.Linear(5, args.hidden_dim)
+        self.dropout = nn.Dropout(args.dropout)
+
+    def forward(self, image_features, feature_locations):
+        # embed tokens and positions
+        x = self.embed_scale * self.embed_tokens(image_features)
+
+        if self.spatial_encoding is not None:
+            x += self.spatial_encoding(feature_locations)
+
+        x = self.dropout(x)
+
+        # B x T x C -> T x B x C
+        x = x.transpose(0, 1)
+
+        # compute padding mask
+        lengths = torch.zeros((image_features.shape[0])).fill_(
+            36).to(self.args.device).long()
+        encoder_padding_mask = create_padding_mask(image_features, lengths)
+
+        # encoder layers
+        for layer in self.layers:
+            x = layer(x, encoder_padding_mask)
+
+        if self.layer_norm:
+            x = self.layer_norm(x)
+
+        return x, encoder_padding_mask
+
+
+class LatentNorm(nn.Module):
+    def __init__(self, args):
+        super(LatentNorm, self).__init__()
+        self.args = args
+
+        self.mu_encoder = nn.Linear(args.hidden_dim, args.latent_dim)
+        self.logvar_encoder = nn.Linear(args.hidden_dim, args.latent_dim)
+
+    def forward(self, hidden_states):
+        mu = self.mu_encoder(hidden_states)
+        logvar = self.logvar_encoder(hidden_states)
+        std = torch.exp(0.5*logvar)
+        eps = torch.randn_like(std)
+        z = eps.mul(std).add_(mu)
+        kld = gaussian_kld_norm(mu, logvar)
+        return z, kld
+
 
 class Latent(nn.Module):
     def __init__(self, args, dropout=0):
@@ -40,7 +136,8 @@ class Latent(nn.Module):
 
     def forward(self, x, x_p):
         mean_logvar_prior = self.mean_logvar_prior(x)
-        mean_prior, logvar_prior = mean_logvar_prior[:, :self.args.latent_dim], mean_logvar_prior[:, self.args.latent_dim:]
+        mean_prior, logvar_prior = mean_logvar_prior[:,
+                                                     :self.args.latent_dim], mean_logvar_prior[:, self.args.latent_dim:]
 
         eps = torch.randn(mean_prior.size()).to(self.args.device)
         std = torch.exp(0.5 * logvar_prior)
@@ -48,16 +145,18 @@ class Latent(nn.Module):
         kld_loss = 0
 
         mean_posterior, logvar_posterior = None, None
-        if x_p is not None: # if x_p IS None, then we're in eval mode.
-            mean_logvar_posterior = self.mean_logvar_posterior(torch.cat((x_p, x), dim=-1))
-            mean_posterior, logvar_posterior = mean_logvar_posterior[:, :self.args.latent_dim], mean_logvar_posterior[:, self.args.latent_dim:]
-            kld_loss = gaussian_kld(mean_posterior, logvar_posterior, mean_prior, logvar_prior)
+        if x_p is not None:  # if x_p IS None, then we're in eval mode.
+            mean_logvar_posterior = self.mean_logvar_posterior(
+                torch.cat((x_p, x), dim=-1))
+            mean_posterior, logvar_posterior = mean_logvar_posterior[:,
+                                                                     :self.args.latent_dim], mean_logvar_posterior[:, self.args.latent_dim:]
+            kld_loss = gaussian_kld(
+                mean_posterior, logvar_posterior, mean_prior, logvar_prior)
             kld_loss = torch.mean(kld_loss)
 
             std = torch.exp(0.5 * logvar_posterior)
             z = eps * std + mean_posterior
-        return kld_loss, z, (mean_posterior, logvar_posterior)
-
+        return z, kld_loss
 
 
 def _gen_bias_mask(max_length):
@@ -66,7 +165,7 @@ def _gen_bias_mask(max_length):
     """
     np_mask = np.triu(np.full([max_length, max_length], -np.inf), 1)
     torch_mask = torch.from_numpy(np_mask).type(torch.FloatTensor)
-    
+
     return torch_mask.unsqueeze(0).unsqueeze(1)
 
 
@@ -92,8 +191,9 @@ class Encoder(nn.Module):
     Outputs will have the shape [batch_size, length, hidden_size]
     Refer Fig.1 in https://arxiv.org/pdf/1706.03762.pdf
     """
+
     def __init__(self, embedding_size, hidden_size, num_layers, num_heads, total_key_depth, total_value_depth,
-                 filter_size, max_length=1000, input_dropout=0, layer_dropout=0, 
+                 filter_size, max_length=1000, input_dropout=0, layer_dropout=0,
                  attention_dropout=0.1, relu_dropout=0.1, use_mask=False):
         """
         Parameters:
@@ -112,42 +212,41 @@ class Encoder(nn.Module):
             relu_dropout: Dropout probability after relu in FFN (Should be non-zero only during training)
             use_mask: Set to True to turn on future value masking
         """
-        
+
         super(Encoder, self).__init__()
         self.num_layers = num_layers
         self.timing_signal = _gen_timing_signal(max_length, hidden_size)
-        
-        
-        params =(hidden_size, 
-                 total_key_depth or hidden_size,
-                 total_value_depth or hidden_size,
-                 filter_size, 
-                 num_heads, 
-                 _gen_bias_mask(max_length) if use_mask else None,
-                 layer_dropout, 
-                 attention_dropout, 
-                 relu_dropout)
-        
+
+        params = (hidden_size,
+                  total_key_depth or hidden_size,
+                  total_value_depth or hidden_size,
+                  filter_size,
+                  num_heads,
+                  _gen_bias_mask(max_length) if use_mask else None,
+                  layer_dropout,
+                  attention_dropout,
+                  relu_dropout)
+
         # self.embedding_proj = nn.Linear(embedding_size, hidden_size, bias=False)
-        self.enc = nn.ModuleList([EncoderLayer(*params) for _ in range(num_layers)])
-        
+        self.enc = nn.ModuleList([EncoderLayer(*params)
+                                  for _ in range(num_layers)])
+
         self.layer_norm = LayerNorm(hidden_size)
         self.input_dropout = nn.Dropout(input_dropout)
-        
 
     def forward(self, inputs, mask):
-        #Add input dropout
+        # Add input dropout
         x = self.input_dropout(inputs)
-        
+
         # Project to hidden size
         # x = self.embedding_proj(x)
 
         # Add timing signal
         x += self.timing_signal[:, :inputs.shape[1], :].type_as(inputs.data)
-        
+
         for i in range(self.num_layers):
             x = self.enc[i](x, mask)
-    
+
         y = self.layer_norm(x)
         return y
 
@@ -159,8 +258,9 @@ class Decoder(nn.Module):
     Outputs will have the shape [batch_size, length, hidden_size]
     Refer Fig.1 in https://arxiv.org/pdf/1706.03762.pdf
     """
+
     def __init__(self, embedding_size, hidden_size, num_layers, num_heads, total_key_depth, total_value_depth,
-                 filter_size, max_length=200, input_dropout=0, layer_dropout=0, 
+                 filter_size, max_length=200, input_dropout=0, layer_dropout=0,
                  attention_dropout=0.1, relu_dropout=0.1, device="cpu"):
         """
         Parameters:
@@ -178,48 +278,50 @@ class Decoder(nn.Module):
             attention_dropout: Dropout probability after attention (Should be non-zero only during training)
             relu_dropout: Dropout probability after relu in FFN (Should be non-zero only during training)
         """
-        
+
         super(Decoder, self).__init__()
         self.num_layers = num_layers
         self.timing_signal = _gen_timing_signal(max_length, hidden_size)
 
         self.mask = _get_attn_subsequent_mask(max_length, device)
 
-        params =(hidden_size, 
-                 total_key_depth or hidden_size,
-                 total_value_depth or hidden_size,
-                 filter_size, 
-                 num_heads, 
-                 _gen_bias_mask(max_length), # mandatory
-                 None,
-                 layer_dropout, 
-                 attention_dropout, 
-                 relu_dropout)
-        
-        self.dec = nn.Sequential(*[DecoderLayer(*params) for l in range(num_layers)])
-        
+        params = (hidden_size,
+                  total_key_depth or hidden_size,
+                  total_value_depth or hidden_size,
+                  filter_size,
+                  num_heads,
+                  _gen_bias_mask(max_length),  # mandatory
+                  None,
+                  layer_dropout,
+                  attention_dropout,
+                  relu_dropout)
+
+        self.dec = nn.Sequential(*[DecoderLayer(*params)
+                                   for l in range(num_layers)])
+
         # self.embedding_proj = nn.Linear(embedding_size, hidden_size, bias=False)
         self.layer_norm = LayerNorm(hidden_size)
         self.input_dropout = nn.Dropout(input_dropout)
 
     def forward(self, inputs, encoder_output, mask):
         mask_src, mask_trg = mask
-        dec_mask = torch.gt(mask_trg + self.mask[:, :mask_trg.size(-1), :mask_trg.size(-1)], 0)
+        dec_mask = torch.gt(
+            mask_trg + self.mask[:, :mask_trg.size(-1), :mask_trg.size(-1)], 0)
 
-        #Add input dropout
+        # Add input dropout
         x = self.input_dropout(inputs)
         # x = self.embedding_proj(x)
-            
+
         # Add timing signal
         x += self.timing_signal[:, :inputs.shape[1], :].type_as(inputs.data)
-        
+
         # Run decoder
-        y, _, attn_dist, _ = self.dec((x, encoder_output, [], (mask_src,dec_mask)))
+        y, _, attn_dist, _ = self.dec(
+            (x, encoder_output, [], (mask_src, dec_mask)))
 
         # Final layer normalization
         y = self.layer_norm(y)
         return y, attn_dist
-
 
 
 class EncoderLayer(nn.Module):
@@ -228,6 +330,7 @@ class EncoderLayer(nn.Module):
     Refer Fig. 1 in https://arxiv.org/pdf/1706.03762.pdf
     NOTE: The layer normalization step has been moved to the input as per latest version of T2T
     """
+
     def __init__(self, hidden_size, total_key_depth, total_value_depth, filter_size, num_heads,
                  bias_mask=None, layer_dropout=0.1, attention_dropout=0.1, relu_dropout=0.1):
         """
@@ -243,44 +346,47 @@ class EncoderLayer(nn.Module):
             attention_dropout: Dropout probability after attention (Should be non-zero only during training)
             relu_dropout: Dropout probability after relu in FFN (Should be non-zero only during training)
         """
-        
+
         super(EncoderLayer, self).__init__()
-        
-        self.multi_head_attention = MultiHeadAttention(hidden_size, total_key_depth, total_value_depth, 
+
+        self.multi_head_attention = MultiHeadAttention(hidden_size, total_key_depth, total_value_depth,
                                                        hidden_size, num_heads, bias_mask, attention_dropout)
-        
+
         self.positionwise_feed_forward = PositionwiseFeedForward(hidden_size, filter_size, hidden_size,
-                                                                 layer_config='ll', padding = 'both', 
+                                                                 layer_config='ll', padding='both',
                                                                  dropout=relu_dropout)
         self.dropout = nn.Dropout(layer_dropout)
         self.layer_norm_mha = LayerNorm(hidden_size)
         self.layer_norm_ffn = LayerNorm(hidden_size)
-        # self.layer_norm_end = LayerNorm(hidden_size)
-        
+        self.layer_norm_end = LayerNorm(hidden_size)
+
     def forward(self, inputs, mask=None):
         x = inputs
-        
+
         # Layer Normalization
         x_norm = self.layer_norm_mha(x)
-        
+
         # Multi-head attention
         y, _ = self.multi_head_attention(x_norm, x_norm, x_norm, mask)
-        
+
         # Dropout and residual
-        x = self.dropout(x + y)
-        
+        y = self.dropout(y)
+        y = self.layer_norm_ffn(y)
+        x_norm = x + y
+        # x = self.dropout(x + y)
+
         # Layer Normalization
-        x_norm = self.layer_norm_ffn(x)
-        
+        # x_norm = self.layer_norm_ffn(x)
+
         # Positionwise Feedforward
         y = self.positionwise_feed_forward(x_norm)
-        
-        # Dropout and residual
-        y = self.dropout(x + y)
-        
-        # y = self.layer_norm_end(y)
-        return y
 
+        # Dropout and residual
+        # y = self.dropout(x + y)
+        y = self.dropout(y)
+        y = self.layer_norm_end(y) + self.dropout(x)
+
+        return y
 
 
 class DecoderLayer(nn.Module):
@@ -289,8 +395,9 @@ class DecoderLayer(nn.Module):
     Refer Fig. 1 in https://arxiv.org/pdf/1706.03762.pdf
     NOTE: The layer normalization step has been moved to the input as per latest version of T2T
     """
+
     def __init__(self, hidden_size, total_key_depth, total_value_depth, filter_size, num_heads,
-                 bias_mask,vocab_size=None , layer_dropout=0, attention_dropout=0.1, relu_dropout=0.1):
+                 bias_mask, vocab_size=None, layer_dropout=0, attention_dropout=0.1, relu_dropout=0.1):
         """
         Parameters:
             hidden_size: Hidden size
@@ -304,25 +411,24 @@ class DecoderLayer(nn.Module):
             attention_dropout: Dropout probability after attention (Should be non-zero only during training)
             relu_dropout: Dropout probability after relu in FFN (Should be non-zero only during training)
         """
-        
-        super(DecoderLayer, self).__init__()
-        
-        self.multi_head_attention_dec = MultiHeadAttention(hidden_size, total_key_depth, total_value_depth, 
-                                                       hidden_size, num_heads, bias_mask, attention_dropout)
 
-        self.multi_head_attention_enc_dec = MultiHeadAttention(hidden_size, total_key_depth, total_value_depth, 
-                                                       hidden_size, num_heads, None, attention_dropout)
-        
+        super(DecoderLayer, self).__init__()
+
+        self.multi_head_attention_dec = MultiHeadAttention(hidden_size, total_key_depth, total_value_depth,
+                                                           hidden_size, num_heads, bias_mask, attention_dropout)
+
+        self.multi_head_attention_enc_dec = MultiHeadAttention(hidden_size, total_key_depth, total_value_depth,
+                                                               hidden_size, num_heads, None, attention_dropout)
+
         self.positionwise_feed_forward = PositionwiseFeedForward(hidden_size, filter_size, hidden_size,
-                                                                 layer_config='ll', padding = 'left', 
+                                                                 layer_config='ll', padding='left',
                                                                  dropout=relu_dropout)
         self.dropout = nn.Dropout(layer_dropout)
         self.layer_norm_mha_dec = LayerNorm(hidden_size)
         self.layer_norm_mha_enc = LayerNorm(hidden_size)
         self.layer_norm_ffn = LayerNorm(hidden_size)
-        # self.layer_norm_end = LayerNorm(hidden_size)
+        self.layer_norm_end = LayerNorm(hidden_size)
 
-        
     def forward(self, inputs):
         """
         NOTE: Inputs is a tuple consisting of decoder inputs and encoder output
@@ -330,36 +436,41 @@ class DecoderLayer(nn.Module):
 
         x, encoder_outputs, attention_weight, mask = inputs
         mask_src, dec_mask = mask
-        
+
         # Layer Normalization before decoder self attention
         x_norm = self.layer_norm_mha_dec(x)
-        
+
         # Masked Multi-head attention
         y, _ = self.multi_head_attention_dec(x_norm, x_norm, x_norm, dec_mask)
-        
+
         # Dropout and residual after self-attention
-        x = self.dropout(x + y)
+        y = self.dropout(y)
+        x = self.layer_norm_mha_enc(y) + self.dropout(x)
+        # x = self.dropout(x + y)
 
         # Layer Normalization before encoder-decoder attention
         x_norm = self.layer_norm_mha_enc(x)
 
         # Multi-head encoder-decoder attention
-        y, attention_weight = self.multi_head_attention_enc_dec(x_norm, encoder_outputs, encoder_outputs, mask_src)
+        y, attention_weight = self.multi_head_attention_enc_dec(
+            x_norm, encoder_outputs, encoder_outputs, mask_src)
 
         # Dropout and residual after encoder-decoder attention
-        x = self.dropout(x + y)
-        
+        y = self.dropout(y)
+        x_norm = self.layer_norm_ffn(y) + self.dropout(x)
+        # x = self.dropout(x + y)
+
         # Layer Normalization
-        x_norm = self.layer_norm_ffn(x)
-        
+        # x_norm = self.layer_norm_ffn(x)
+
         # Positionwise Feedforward
         y = self.positionwise_feed_forward(x_norm)
-        
+
         # Dropout and residual after positionwise feed forward layer
-        y = self.dropout(x + y)
-        
-        # y = self.layer_norm_end(y)
-        
+        y = self.dropout(y)
+        y = self.layer_norm_end(y) + self.dropout(x)
+        # y = self.dropout(x + y)
+
         # Return encoder outputs as well to work with nn.Sequential
         return y, encoder_outputs, attention_weight, mask
 
@@ -368,6 +479,7 @@ class PositionwiseFeedForward(nn.Module):
     """
     Does a Linear + RELU + Linear on each of the timesteps
     """
+
     def __init__(self, input_depth, filter_size, output_depth, layer_config='ll', padding='left', dropout=0.0):
         """
         Parameters:
@@ -381,10 +493,10 @@ class PositionwiseFeedForward(nn.Module):
             dropout: Dropout probability (Should be non-zero only during training)
         """
         super(PositionwiseFeedForward, self).__init__()
-        
+
         layers = []
-        sizes = ([(input_depth, filter_size)] + 
-                 [(filter_size, filter_size)]*(len(layer_config)-2) + 
+        sizes = ([(input_depth, filter_size)] +
+                 [(filter_size, filter_size)]*(len(layer_config)-2) +
                  [(filter_size, output_depth)])
 
         for lc, s in zip(list(layer_config), sizes):
@@ -396,7 +508,7 @@ class PositionwiseFeedForward(nn.Module):
         self.layers = nn.ModuleList(layers)
         self.relu = nn.ReLU()
         self.dropout = nn.Dropout(dropout)
-        
+
     def forward(self, inputs):
         x = inputs
         for i, layer in enumerate(self.layers):
@@ -408,13 +520,13 @@ class PositionwiseFeedForward(nn.Module):
         return x
 
 
-
 class MultiHeadAttention(nn.Module):
     """
     Multi-head attention as per https://arxiv.org/pdf/1706.03762.pdf
     Refer Figure 2
     """
-    def __init__(self, input_depth, total_key_depth, total_value_depth, output_depth, 
+
+    def __init__(self, input_depth, total_key_depth, total_value_depth, output_depth,
                  num_heads, bias_mask=None, dropout=0.0):
         """
         Parameters:
@@ -427,7 +539,7 @@ class MultiHeadAttention(nn.Module):
             dropout: Dropout probability (Should be non-zero only during training)
         """
         super(MultiHeadAttention, self).__init__()
-        # Checks borrowed from 
+        # Checks borrowed from
         # https://github.com/tensorflow/tensor2tensor/blob/master/tensor2tensor/layers/common_attention.py
         # if total_key_depth % num_heads != 0:
         #     raise ValueError("Key depth (%d) must be divisible by the number of "
@@ -435,28 +547,31 @@ class MultiHeadAttention(nn.Module):
         # if total_value_depth % num_heads != 0:
         #     raise ValueError("Value depth (%d) must be divisible by the number of "
         #                      "attention heads (%d)." % (total_value_depth, num_heads))
-            
+
         if total_key_depth % num_heads != 0:
             print("Key depth (%d) must be divisible by the number of "
-                             "attention heads (%d)." % (total_key_depth, num_heads))
+                  "attention heads (%d)." % (total_key_depth, num_heads))
             total_key_depth = total_key_depth - (total_key_depth % num_heads)
         if total_value_depth % num_heads != 0:
             print("Value depth (%d) must be divisible by the number of "
-                             "attention heads (%d)." % (total_value_depth, num_heads))
-            total_value_depth = total_value_depth - (total_value_depth % num_heads)
+                  "attention heads (%d)." % (total_value_depth, num_heads))
+            total_value_depth = total_value_depth - \
+                (total_value_depth % num_heads)
 
         self.num_heads = num_heads
-        self.query_scale = (total_key_depth//num_heads)**-0.5 ## sqrt
+        self.query_scale = (total_key_depth//num_heads)**-0.5  # sqrt
         self.bias_mask = bias_mask
-        
+
         # Key and query depth will be same
         self.query_linear = nn.Linear(input_depth, total_key_depth, bias=False)
         self.key_linear = nn.Linear(input_depth, total_key_depth, bias=False)
-        self.value_linear = nn.Linear(input_depth, total_value_depth, bias=False)
-        self.output_linear = nn.Linear(total_value_depth, output_depth, bias=False)
-        
+        self.value_linear = nn.Linear(
+            input_depth, total_value_depth, bias=False)
+        self.output_linear = nn.Linear(
+            total_value_depth, output_depth, bias=False)
+
         self.dropout = nn.Dropout(dropout)
-    
+
     def _split_heads(self, x):
         """
         Split x such to add an extra num_heads dimension
@@ -469,7 +584,7 @@ class MultiHeadAttention(nn.Module):
             raise ValueError("x must have rank 3")
         shape = x.shape
         return x.view(shape[0], shape[1], self.num_heads, shape[2]//self.num_heads).permute(0, 2, 1, 3)
-    
+
     def _merge_heads(self, x):
         """
         Merge the extra num_heads into the last dimension
@@ -482,35 +597,34 @@ class MultiHeadAttention(nn.Module):
             raise ValueError("x must have rank 4")
         shape = x.shape
         return x.permute(0, 2, 1, 3).contiguous().view(shape[0], shape[2], shape[3]*self.num_heads)
-        
+
     def forward(self, queries, keys, values, mask):
-        
+
         # Do a linear for each component
         queries = self.query_linear(queries)
         keys = self.key_linear(keys)
         values = self.value_linear(values)
-        
+
         # Split into multiple heads
         queries = self._split_heads(queries)
         keys = self._split_heads(keys)
         values = self._split_heads(values)
-        
+
         # Scale queries
         queries *= self.query_scale
-        
+
         # Combine queries and keys
         logits = torch.matmul(queries, keys.permute(0, 1, 3, 2))
-        
+
         if mask is not None:
             mask = mask.unsqueeze(1)  # [B, 1, 1, T_values]
             logits = logits.masked_fill(mask, -1e18)
 
-
         # # Add bias to mask future values
         # if self.bias_mask is not None:
         #     logits += self.bias_mask[:, :, :logits.shape[-2], :logits.shape[-1]].type_as(logits.data)
-        
-        ## attention weights 
+
+        # attention weights
         attetion_weights = logits.sum(dim=1)/self.num_heads
 
         # Convert to probabilites
@@ -518,26 +632,50 @@ class MultiHeadAttention(nn.Module):
 
         # Dropout
         weights = self.dropout(weights)
-        
+
         # Combine with values to get context
         contexts = torch.matmul(weights, values)
-        
+
         # Merge heads
         contexts = self._merge_heads(contexts)
         #contexts = torch.tanh(contexts)
-        
+
         # Linear to get output
         outputs = self.output_linear(contexts)
-        
+
         return outputs, attetion_weights
 
+
+def gaussian_kld_norm(mus, logvars, eps=1e-8):
+    """Calculates KL distance of mus and logvars from unit normal.
+
+    Args:
+        mus: Tensor of means predicted by the encoder.
+        logvars: Tensor of log vars predicted by the encoder.
+
+    Returns:
+        KL loss between mus and logvars and the normal unit gaussian.
+    """
+    KLD = -0.5 * torch.sum(1 + logvars - mus.pow(2) - logvars.exp())
+    kl_loss = KLD/(mus.size(0) + eps)
+    """
+    if kl_loss > 100:
+        print kl_loss
+        print KLD
+        print mus.min(), mus.max()
+        print logvars.min(), logvars.max()
+        1/0
+    """
+    return kl_loss
 
 
 def gaussian_kld(recog_mu, recog_logvar, prior_mu, prior_logvar):
     kld = -0.5 * torch.sum(1 + (recog_logvar - prior_logvar)
-                               - torch.div(torch.pow(prior_mu - recog_mu, 2), torch.exp(prior_logvar))
-                               - torch.div(torch.exp(recog_logvar), torch.exp(prior_logvar)), dim=-1)
+                           - torch.div(torch.pow(prior_mu - recog_mu,
+                                                 2), torch.exp(prior_logvar))
+                           - torch.div(torch.exp(recog_logvar), torch.exp(prior_logvar)), dim=-1)
     return kld
+
 
 def _gen_timing_signal(length, channels, min_timescale=1.0, max_timescale=1.0e4):
     """
@@ -547,12 +685,17 @@ def _gen_timing_signal(length, channels, min_timescale=1.0, max_timescale=1.0e4)
     """
     position = np.arange(length)
     num_timescales = channels // 2
-    log_timescale_increment = ( math.log(float(max_timescale) / float(min_timescale)) / (float(num_timescales) - 1))
-    inv_timescales = min_timescale * np.exp(np.arange(num_timescales).astype(np.float) * -log_timescale_increment)
-    scaled_time = np.expand_dims(position, 1) * np.expand_dims(inv_timescales, 0)
+    log_timescale_increment = (math.log(
+        float(max_timescale) / float(min_timescale)) / (float(num_timescales) - 1))
+    inv_timescales = min_timescale * \
+        np.exp(np.arange(num_timescales).astype(
+            np.float) * -log_timescale_increment)
+    scaled_time = np.expand_dims(position, 1) * \
+        np.expand_dims(inv_timescales, 0)
 
     signal = np.concatenate([np.sin(scaled_time), np.cos(scaled_time)], axis=1)
-    signal = np.pad(signal, [[0, 0], [0, channels % 2]], 'constant', constant_values=[0.0, 0.0])
-    signal =  signal.reshape([1, length, channels])
+    signal = np.pad(signal, [[0, 0], [0, channels % 2]],
+                    'constant', constant_values=[0.0, 0.0])
+    signal = signal.reshape([1, length, channels])
 
     return torch.from_numpy(signal).type(torch.FloatTensor)

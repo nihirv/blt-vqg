@@ -1,10 +1,14 @@
 import argparse
+import copy
+from operator import itemgetter
 import os
 import pickle
 from types import SimpleNamespace
-from typing import OrderedDict
+from typing import List, OrderedDict
+from fairseq.models import transformer
 from pytorch_lightning import callbacks
-
+from utils.TextGenerationEvaluationMetrics.multiset_distances import MultisetDistances
+from utils.TextGenerationEvaluationMetrics.bert_distances import FBD, EMBD
 from torch._C import device
 from utils.vocab import build_vocab, load_vocab
 from utils.data_loader import get_loader
@@ -20,9 +24,14 @@ import pytorch_lightning as pl
 from pytorch_lightning.callbacks.early_stopping import EarlyStopping
 import torch.multiprocessing
 import math as m
-# os.environ['CUDA_VISIBLE_DEVICES'] = '1'
+import json
+import random
+from utils import Lamb
+from distutils.util import strtobool
+
 
 torch.multiprocessing.set_sharing_strategy('file_system')
+torch.autograd.set_detect_anomaly(True)
 
 
 class TrainIQ(pl.LightningModule):
@@ -35,6 +44,8 @@ class TrainIQ(pl.LightningModule):
         self.hp_string = "{}_{}_{}_{}_{}_{}_{}_{}_{}_{}. {}".format(
             args.input_mode, args.emb_dim, "True", args.hidden_dim, args.latent_dim, args.pwffn_dim, args.num_layers, args.num_heads, args.lr, args.batch_size, args.print_note
         )
+        self.print_string = "{}_\nCodename: {}".format(
+            args.print_note, args.variant)
 
         self.iter = 0
         self.kliter = 0
@@ -49,6 +60,14 @@ class TrainIQ(pl.LightningModule):
             "rec": [],
         }
         self.val_metrics = deepcopy(metrics)
+        self.bleus = []
+        self.msjs = []
+        self.fbds = []
+
+        self.test_scores = {}
+
+        self.cat2name = sorted(
+            json.load(open("data/processed/cat2name.json", "r")))
 
         self.model = IQ(self.latent_transformer, vocab, args)
         self.criterion = nn.CrossEntropyLoss(
@@ -65,23 +84,30 @@ class TrainIQ(pl.LightningModule):
         print()
 
     def forward(self, batch):
-        images, _, questions, posteriors, answers, _, answer_types_for_input, _ = batch.values()
-        images, questions, posteriors, answers, answer_types_for_input = images.cuda(
-        ), questions.to(self.args.device), posteriors.to(self.args.device), answers.to(self.args.device), answer_types_for_input.to(self.args.device)
+        images, _, questions, posteriors, answers, answer_type_orig, answer_types, answer_types_for_input, _, rcnn_features, rcnn_locations = batch.values()
+        images, questions, posteriors, answers, answer_type_orig, answer_types, answer_types_for_input, rcnn_features, rcnn_locations = images.cuda(
+        ), questions.to(self.args.device), posteriors.to(self.args.device), answers.to(self.args.device), answer_type_orig.to(self.args.device), answer_types.to(self.args.device), answer_types_for_input.to(self.args.device), rcnn_features.to(self.args.device), rcnn_locations.to(self.args.device)
 
-        if self.args.input_mode == "ans":
-            output, z, kld_loss, image_recon = self.model(
-                images, answers, posteriors, questions)
-        elif self.args.input_mode == "cat":
-            output, z, kld_loss, image_recon = self.model(
-                images, answer_types_for_input, posteriors, questions)
+        answer_input = answers  # answers has answer_type/the category pre-pended to it
+        if self.args.variant == "transformer-c":
+            answer_input = answer_types_for_input
 
-        return output, z, kld_loss, image_recon
+        output, z_logits, kld_loss, image_recon = self.model(
+            images, answer_type_orig, answer_input, posteriors, questions, rcnn_features, rcnn_locations)
+        # if random.random() > 0.5:
+        #     output, z_logits, kld_loss, image_recon = self.model(
+        #         images, answers, posteriors, questions, rcnn_features, rcnn_locations)
+        # else:
+        #     output, z_logits, kld_loss, image_recon = self.model(
+        #         images, answer_types_for_input, posteriors, questions, rcnn_features, rcnn_locations)
+
+        return output, z_logits, kld_loss, image_recon
 
     def calculate_losses(self, output, image_recon, kld_loss, z_logit, target):
         loss_rec = self.criterion(
-            output.reshape(-1, output.size(-1)), target.reshape(-1))
-        loss_img = self.image_recon_criterion(image_recon[0], image_recon[1])
+            output[1:].reshape(-1, output.size(-1)), target[1:].reshape(-1))  # TODO: Remove [1:] for TF decoder
+        # loss_img = self.image_recon_criterion(image_recon[0], image_recon[1])
+        loss_img = torch.tensor(0)
 
         if not self.latent_transformer:
             kld_loss = torch.tensor([0])
@@ -89,9 +115,9 @@ class TrainIQ(pl.LightningModule):
             elbo = loss_rec
             aux = 0
         else:
-            z_logit = z_logit.unsqueeze(1).repeat(1, output.size(1), 1)
-            loss_aux = self.criterion(
-                z_logit.reshape(-1, z_logit.size(-1)), target.reshape(-1))
+            # z_logit = z_logit.unsqueeze(1).repeat(1, output.size(1), 1)
+            loss_aux = torch.tensor(0)  # self.criterion(
+            # z_logit.reshape(-1, z_logit.size(-1)), target.reshape(-1))
 
             kl_weight = min(math.tanh(6 * self.kliter /
                                       self.args.full_kl_step - 3) + 1, 1)
@@ -161,51 +187,111 @@ class TrainIQ(pl.LightningModule):
         print("##### End of Epoch validation #####")
 
         batch = batch[0]
-
-        categories = batch["answer_types"].cuda().unsqueeze(-1)
-        images = batch["images"].cuda()
-        image_ids = batch["image_ids"]
-
+        self.last_val_batch = batch
 
         print("VALIDATION SAMPLE")
-        preds = []
-        gts = []
-        decoded_sentences, top_args, top_vals = self.model.decode_greedy(
-            images, categories, max_decode_length=50)
-        for i, greedy_sentence in enumerate(decoded_sentences):
-            list_gt = self.filter_special_tokens(
-                [self.vocab.idx2word[word] for word in batch["questions"][i].tolist()])
-            list_pred = self.filter_special_tokens(greedy_sentence.split())
-            gt = " ".join(list_gt)
-            pred = " ".join(list_pred)
-            gts.append(gt)
-            preds.append(pred)
-            if i < 10:
-                print("Image ID:\t", image_ids[i])
-                print("Context:\t", " ".join(
-                    [self.vocab.idx2word[category] for category in categories[i].tolist()]))
-                print("Generated: \t", pred)
-                print("Reference: \t", gt)
-                for j, word in enumerate(greedy_sentence.split()):
-                    near_tokens = [self.vocab.idx2word[token.item()] for token in top_args[i, j]]
-                    near_tokens_vals = [np.round(val.item(), 4) for val in top_vals[i, j]]
-                    print(word, "\t \t", [(token, val) for token, val in list(zip(near_tokens, near_tokens_vals))])
-                print()
-
-
-        scores = self.nlge.compute_metrics(ref_list=[gts], hyp_list=preds)
+        z_scores = self.decode_and_print(batch)
 
         for k, v in self.val_metrics.items():
             print(k, "\t", np.round(np.mean(v), 4))
             self.val_metrics[k] = []  # reset v
 
-        for k, v in scores.items():
-            print(k, "\t", np.round(np.mean(v), 4) * 100)
+        for k, v in z_scores.items():
+            rounded_val = np.round(np.mean(v) * 100, 4)
+            self.log("val_"+k, rounded_val)
+            print("z", k, "\t", rounded_val)
 
         print()
-        print(self.hp_string)
+        print("This was validating after iteration {}".format(self.iter))
 
-    def filter_special_tokens(self, decoded_sentence_list):
+    def decode_and_print(self, batch, print_lim=20, testing=False):
+
+        categories = batch["answer_types_for_input"].to(
+            self.args.device)
+        print_cats = batch["answer_types"].to(self.args.device).unsqueeze(1)
+        if self.args.variant in ("lstm-c", "lstm-oc", "lstm-latentNorm-oc", "lstm-latent-oca-lt",
+                                 "transformer-oc", "transformer-latentNorm-oc", "transformer-latent-oca-lt"):
+            categories = batch["answer_type_orig"].to(self.args.device)
+
+        images = batch["images"].to(self.args.device)
+        rcnn_features = batch["rcnn_features"].to(self.args.device)
+        rcnn_locations = batch["rcnn_locations"].to(self.args.device)
+        image_ids = batch["image_ids"]
+        questions = batch["questions"].to(self.args.device)
+
+        z_preds = []
+        gts = []
+        z_decoded_sentences = self.model.decode_greedy(
+            images, categories, questions, rcnn_features, rcnn_locations, max_decode_length=50)
+        for i, greedy_sentence in enumerate(z_decoded_sentences):
+            list_gt = self.filter_special_tokens(
+                [self.vocab.idx2word[word] for word in batch["questions"][i].tolist()])
+            z_list_pred = self.filter_special_tokens(greedy_sentence.split())
+            gt = " ".join(list_gt)
+            z_pred = " ".join(z_list_pred)
+            gts.append(gt)
+            z_preds.append(z_pred)
+            if i < print_lim:
+                print("Image ID:\t", image_ids[i])
+
+                context_string = ""
+                if self.args.variant == "lstm-c":
+                    context_string = " ".join(
+                        [self.cat2name[categories[i].item()]])
+                else:
+                    context_string = " ".join(
+                        [self.vocab.idx2word[category] for category in print_cats[i].tolist()])
+                print("Context:\t", context_string)
+                print("z Generated: \t", z_pred)
+                print("Reference: \t", gt)
+                print()
+
+        z_scores = self.nlge.compute_metrics(ref_list=[gts], hyp_list=z_preds)
+
+        msd = MultisetDistances(references=gts)
+        msj_distance = msd.get_jaccard_score(sentences=z_preds)
+        new_msj_distance = {}
+        for k in msj_distance.keys():
+            new_msj_distance["msj_{}".format(k)] = msj_distance[k]
+        z_scores.update(new_msj_distance)
+
+        # # fbd = FBD(references=gts, model_name="bert-base-uncased", bert_model_dir="/homes/nv419/.cache/huggingface/transformers/")
+        # # fbd_distance_sentences = fbd.get_score(sentences=z_preds)
+        # # fbd = EMBD(references=gts, model_name="bert-base-uncased", bert_model_dir="/homes/nv419/.cache/huggingface/transformers/")
+        # # embd_distance_sentences = fbd.get_score(sentences=z_preds)
+
+        # z_scores.update({"fbd": fbd_distance_sentences, "embd": embd_distance_sentences})
+
+        if not testing:
+            for k, v in z_scores.items():
+                rounded_val = np.round(np.mean(v) * 100, 4)
+                if k == "Bleu_4":
+                    self.bleus.append((self.iter, rounded_val))
+                elif k == "msj_4":
+                    self.msjs.append((self.iter, rounded_val))
+                elif k == "fbd":
+                    self.fbds.append((self.iter, rounded_val))
+
+        max_bleu = max(self.bleus, key=itemgetter(1))
+        max_msjs = max(self.msjs, key=itemgetter(1))
+        # min_fbds = min(self.fbds, key=itemgetter(1))
+        print("HIGHEST BLEU SCORE WAS: {} FROM ITER {}".format(
+            max_bleu[1], max_bleu[0]))
+        print("HIGHEST MSJ_4 SCORE WAS: {} FROM ITER {}".format(
+            max_msjs[1], max_msjs[0]))
+        # print("SMALLEST FBD SCORE WAS: {} FROM ITER {}".format(min_fbds[1], min_fbds[0]))
+
+        print(self.hp_string)
+        print(self.print_string)
+
+        return z_scores
+
+    def filter_special_tokens(self, decoded_sentence_list: List):
+
+        if "<end>" in decoded_sentence_list:
+            index_of_end = decoded_sentence_list.index("<end>")
+            decoded_sentence_list = decoded_sentence_list[:index_of_end]
+
         filtered = []
         special_tokens = ["<start>", "<end>", "<pad>"]
         for token in decoded_sentence_list:
@@ -220,44 +306,43 @@ class TrainIQ(pl.LightningModule):
             self.args.device), answers.to(self.args.device), categories.to(self.args.device)
         categories = categories.unsqueeze(1)
 
-        preds = []
-        gts = []
-        decoded_sentences = self.model.decode_greedy(
-            images, categories, max_decode_length=50)
-        for i, greedy_sentence in enumerate(decoded_sentences):
-            list_gt = self.filter_special_tokens(
-                [self.vocab.idx2word[word] for word in batch["questions"][i].tolist()])
-            list_pred = self.filter_special_tokens(greedy_sentence.split())
-            gt = " ".join(list_gt)
-            pred = " ".join(list_pred)
-            gts.append(gt)
-            preds.append(pred)
+        z_scores = self.decode_and_print(batch, print_lim=10, testing=True)
 
-        scores = self.nlge.compute_metrics(ref_list=[gts], hyp_list=preds)
+        # for k, v in self.val_metrics.items():
+        #     print(k, "\t", np.round(np.mean(v), 4))
+        #     self.val_metrics[k] = []  # reset v
 
-        for k, v in scores.items():
-            scores[k] = torch.tensor(v)
+        for k, v in z_scores.items():
+            print("z", k, "\t", np.round(np.mean(v) * 100, 4))
 
-        return scores
+        for k, v in z_scores.items():
+            if k not in self.test_scores.keys():
+                self.test_scores[k] = []
+            else:
+                self.test_scores[k].append(v)
+
+        return z_scores
 
     def test_end(self, all_scores):
-        for k, scores in all_scores.items():
-            all_scores[k] = scores.detach().cpu().numpy()
-            all_scores[k] = np.mean(all_scores[k])
+        for k, scores in self.test_scores.items():
+            self.test_scores[k] = np.mean(self.test_scores[k])
 
-        print(all_scores)
+        print(self.test_scores)
         print(self.hp_string)
         return all_scores
 
     def custom_optimizer(self, step, warmup_steps=4000):
-        min_arg1 = m.sqrt(1/(step+1))
-        min_arg2 = step * (warmup_steps**-1.5)
-        lr = m.sqrt(1/self.args.hidden_dim) * min(min_arg1, min_arg2)
+        pass
+        # min_arg1 = m.sqrt(1/(step+1))
+        # min_arg2 = step * (warmup_steps**-1.5)
+        # lr = m.sqrt(1/self.args.hidden_dim) * min(min_arg1, min_arg2)
 
-        self.trainer.lightning_optimizers[0].param_groups[0]["lr"] = lr
+        # self.trainer.lightning_optimizers[0].param_groups[0]["lr"] = lr
 
     def configure_optimizers(self):
-        optimizer = torch.optim.Adam(self.parameters(), lr=self.args.lr)
+        # optimizer = torch.optim.Adam(self.parameters(), lr=self.args.lr)
+        optimizer = Lamb(self.parameters(), lr=args.lr,
+                         weight_decay=0.01, betas=(.9, .999), adam=True)
         return optimizer
 
 
@@ -305,8 +390,24 @@ class CheckpointEveryNSteps(pl.Callback):
                 filename = trainer.checkpoint_callback.filename
             else:
                 filename = f"{self.prefix}_{epoch=}_{global_step=}.ckpt"
-            ckpt_path = os.path.join(trainer.checkpoint_callback.dirpath, filename)
+            ckpt_path = os.path.join(
+                trainer.checkpoint_callback.dirpath, filename)
             trainer.save_checkpoint(ckpt_path)
+
+
+class MyEarlyStopping(EarlyStopping):
+    def on_validation_end(self, trainer, pl_module):
+        if pl_module.iter > pl_module.args.num_pretraining_steps:
+            self._run_early_stopping_check(trainer, pl_module)
+
+
+early_stop_callback = MyEarlyStopping(
+    monitor='val_Bleu_4',
+    min_delta=0.00,
+    patience=8,
+    verbose=True,
+    mode='max'
+)
 
 
 if __name__ == "__main__":
@@ -337,6 +438,9 @@ if __name__ == "__main__":
     parser.add_argument("--image_recon_lambda", type=float, default=0.1,
                         help="How much to scale the image reconstruction loss by")
     parser.add_argument("--batch_size", type=int, default=128)
+    parser.add_argument("--dropout", type=float, default=0.0)
+    parser.add_argument(
+        "--early_stop", type=lambda x: bool(strtobool(x)), default=True)
     # Data args
     parser.add_argument("--emb_file", type=str, default="vectors/glove.6B.300d.txt",
                         help="Filepath for pretrained embeddings")
@@ -349,6 +453,8 @@ if __name__ == "__main__":
     parser.add_argument("--num_gpus", type=int, default=1)
     parser.add_argument("--print_note", type=str, default="")
     parser.add_argument("--input_mode", type=str, default="ans")
+    parser.add_argument("--variant", type=str, default="lstm-baseline",
+                        help="o = object, c = category, a = answer (train only), q = question (train only), d = caption (train only)")
 
     args = parser.parse_args()
 
@@ -364,14 +470,23 @@ if __name__ == "__main__":
             'data/vqa/v2_OpenEnded_mscoco_train2014_questions.json', 'data/vqa/iq_dataset.json', 4)
 
     data_loader = get_loader(os.path.join(
-        os.getcwd(), args.dataset), transform, 128, shuffle=True, num_workers=8)
+        os.getcwd(), args.dataset), transform, args.batch_size, shuffle=True, num_workers=8)
     val_data_loader = get_loader(os.path.join(
-        os.getcwd(), args.val_dataset), transform, 128, shuffle=True, num_workers=8)
+        os.getcwd(), args.val_dataset), transform, args.batch_size, shuffle=True, num_workers=8)
 
     trainGVT = TrainIQ(vocab, args).to(args.device)
-    trainer = pl.Trainer(max_steps=args.total_training_steps, gradient_clip_val=5,
-                         val_check_interval=500, limit_val_batches=100, gpus=args.num_gpus, callbacks=[CheckpointEveryNSteps(400)])
+    if args.early_stop:
+        trainer = pl.Trainer(max_steps=args.total_training_steps, gradient_clip_val=5,
+                             val_check_interval=250, limit_val_batches=135, gpus=args.num_gpus, callbacks=[early_stop_callback])
+    else:
+        trainer = pl.Trainer(max_steps=args.total_training_steps, gradient_clip_val=5,
+                             val_check_interval=250, limit_val_batches=135, gpus=args.num_gpus)
+
     trainer.fit(trainGVT, data_loader, val_data_loader)
 
-    test_data_loader = get_loader(os.path.join(os.getcwd(), args.val_dataset), transform, 128, shuffle=False, num_workers=8)
-    trainer.test(trainGVT, test_dataloaders=test_data_loader)
+    test_data_loader = get_loader(os.path.join(
+        os.getcwd(), args.val_dataset), transform, args.batch_size, shuffle=False, num_workers=8)
+    trainer.test(trainGVT, test_dataloaders=test_data_loader, ckpt_path="best")
+
+    for k, scores in trainGVT.test_scores.items():
+        print(k, np.mean(scores))

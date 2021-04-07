@@ -1,7 +1,10 @@
 """Transform all the IQ VQA dataset into a hdf5 dataset.
 """
 
+import base64
+import csv
 import pickle
+import sys
 from PIL import Image
 from numpy.lib.type_check import imag
 from torchvision import transforms
@@ -12,10 +15,14 @@ import h5py
 import numpy as np
 import os
 import progressbar
+import copy
+from tqdm import tqdm
 
 from utils.train_utils import Vocabulary
 from utils.vocab import build_vocab, load_vocab
 from utils.vocab import process_text
+
+csv.field_size_limit(sys.maxsize)
 
 
 def create_answer_mapping(annotations, ans2cat):
@@ -42,9 +49,41 @@ def create_answer_mapping(annotations, ans2cat):
     return answers, image_ids
 
 
+def read_image_features_tsv(tsv_in_file, FIELDNAMES=['image_id', 'image_w', 'image_h', 'num_boxes', 'boxes', 'features']):
+    image_feature_data = {}
+    reader = csv.DictReader(tsv_in_file, delimiter='\t', fieldnames=FIELDNAMES)
+    for i, item in tqdm(enumerate(reader)):
+        item['image_id'] = int(item['image_id'])
+        item['image_h'] = int(item['image_h'])
+        item['image_w'] = int(item['image_w'])
+        item['num_boxes'] = int(item['num_boxes'])
+        for field in ['boxes', 'features']:
+            try:
+                item[field] = np.frombuffer(
+                    base64.b64decode(item[field].encode() + b'==='),
+                    dtype=np.float32).reshape((item['num_boxes'], -1))
+            except:
+                print("Error processing file {}".format(item["image_id"]))
+                continue
+
+        boxes = copy.deepcopy(item["boxes"])
+        boxes[:, [0, 2]] /= item['image_w']
+        boxes[:, [1, 3]] /= item['image_h']
+
+    # Normalized box areas
+        areas = (boxes[:, 2] - boxes[:, 0]) * \
+            (boxes[:, 3] - boxes[:, 1])
+
+        image_feature_data[item['image_id']] = {
+            "normalized_boxes_area": np.c_[boxes, areas],
+            "features": item["features"]
+        }
+    return image_feature_data
+
+
 def save_dataset(image_dir, questions, annotations, vocab, ans2cat, output,
                  im_size=224, max_q_length=20, max_a_length=4,
-                 with_answers=False, train_or_val="train"):
+                 with_answers=False, train_or_val="train", num_objects=36):
     """Saves the Visual Genome images and the questions in a hdf5 file.
 
     Args:
@@ -64,6 +103,27 @@ def save_dataset(image_dir, questions, annotations, vocab, ans2cat, output,
         annos = json.load(f)
     with open(questions) as f:
         questions = json.load(f)
+
+    # Load RCNN features
+    print("Loading RCNN features. This may take a while")
+    image_feature_data = {}
+
+    filepaths = [
+        "data/image_features/updown/trainval/karpathy_test_resnet101_faster_rcnn_genome.tsv",
+        "data/image_features/updown/trainval/karpathy_train_resnet101_faster_rcnn_genome.tsv.0",
+        "data/image_features/updown/trainval/karpathy_train_resnet101_faster_rcnn_genome.tsv.1",
+        'data/image_features/updown/trainval/karpathy_val_resnet101_faster_rcnn_genome.tsv',
+        'data/image_features/updown/test2014/test2014_resnet101_faster_rcnn_genome.tsv.0',
+        'data/image_features/updown/test2014/test2014_resnet101_faster_rcnn_genome.tsv.1',
+        'data/image_features/updown/test2014/test2014_resnet101_faster_rcnn_genome.tsv.2',
+        'data/image_features/updown/test2015/test2015_resnet101_faster_rcnn_genome.tsv'
+    ]
+    for filepath in filepaths:
+        print("Loading file...")
+        with open(filepath, "r") as tsv_in_file:
+            ifd = read_image_features_tsv(tsv_in_file)
+            image_feature_data.update(ifd)
+    print("Loaded RCNN features!")
 
     # Get the mappings from qid to answers.
     qid2ans, image_ids = create_answer_mapping(annos, ans2cat)
@@ -85,7 +145,10 @@ def save_dataset(image_dir, questions, annotations, vocab, ans2cat, output,
         "answer_types", (total_questions,), dtype='i')
     d_image_ids = h5file.create_dataset(
         "image_ids", (total_questions,), dtype='i')
-    
+    d_rcnn_features = h5file.create_dataset(
+        "rcnn_features", (total_questions, num_objects, 2048), dtype='f')
+    d_rcnn_locations = h5file.create_dataset(
+        "rcnn_locations", (total_questions, num_objects, 5), dtype='f')
 
     # Create the transforms we want to apply to every image.
     transform = transforms.Compose([
@@ -97,6 +160,8 @@ def save_dataset(image_dir, questions, annotations, vocab, ans2cat, output,
     i_index = 0
     q_index = 0
     done_img2idx = {}
+    found_images = set()
+    not_found_images = set()
     for entry in questions['questions']:
         image_id = entry['image_id']
         question_id = entry['question_id']
@@ -107,11 +172,13 @@ def save_dataset(image_dir, questions, annotations, vocab, ans2cat, output,
         if image_id not in done_img2idx:
             try:
                 path = "COCO_%s2014_%d.jpg" % (train_or_val, image_id)
-                image = Image.open(os.path.join(image_dir, path)).convert('RGB')
+                image = Image.open(os.path.join(
+                    image_dir, path)).convert('RGB')
             except IOError:
                 try:
                     path = "COCO_%s2014_%012d.jpg" % (train_or_val, image_id)
-                    image = Image.open(os.path.join(image_dir, path)).convert('RGB')
+                    image = Image.open(os.path.join(
+                        image_dir, path)).convert('RGB')
                 except:
                     print("COULD NOT FIND IMAGE {}".format(path))
                     continue
@@ -129,14 +196,41 @@ def save_dataset(image_dir, questions, annotations, vocab, ans2cat, output,
         d_answer_types[q_index] = int(ans2cat[answer])
         d_indices[q_index] = done_img2idx[image_id]
         d_image_ids[q_index] = image_id
-        print("IMAGE ID:", image_id)
-        print("IMAGE PATH:", path)
-        print("IN H5 FILE:", d_image_ids[q_index])
+
+        rcnn_features_zeros = np.zeros((num_objects, 2048), dtype=np.float32)
+        rcnn_normalised_boxes = np.zeros((num_objects, 5), dtype=np.float32)
+
+        try:
+            relevant_image_feature_object = image_feature_data[image_id]
+            found_images.add(image_id)
+        except:
+            # print("Skipping file {} due to an error. Most like the file could not be found.".format(
+            #     image_id))
+            not_found_images.add(image_id)
+            continue
+
+        image_features, normalised_boxes = relevant_image_feature_object[
+            "features"], relevant_image_feature_object["normalized_boxes_area"]
+        len_features = image_features.shape[0]
+        if len_features > num_objects:
+            image_features = image_features[:num_objects]
+            normalised_boxes = normalised_boxes[:num_objects]
+            rcnn_features_zeros = image_features
+            rcnn_normalised_boxes = normalised_boxes
+        else:
+            rcnn_features_zeros[:len_features] = image_features
+            rcnn_normalised_boxes[:len_features] = normalised_boxes
+
+        d_rcnn_features[q_index] = rcnn_features_zeros
+        d_rcnn_locations[q_index] = rcnn_normalised_boxes
+
         q_index += 1
         bar.update(q_index)
     h5file.close()
     print("Number of images written: %d" % i_index)
     print("Number of QAs written: %d" % q_index)
+    print("Number of images found ({}) vs not found ({})".format(
+        len(found_images), len(not_found_images)))
 
 
 if __name__ == '__main__':
@@ -177,7 +271,8 @@ if __name__ == '__main__':
                         help='maximum sequence length for answers.')
 
     # Train or Val?
-    parser.add_argument('--val', type=bool, default=False, help="whether we're working iwth the validation set or not")
+    parser.add_argument('--val', type=bool, default=False,
+                        help="whether we're working iwth the validation set or not")
     args = parser.parse_args()
 
     ans2cat = {}
@@ -189,19 +284,17 @@ if __name__ == '__main__':
     for cat in cat2ans:
         for ans in cat2ans[cat]:
             ans2cat[ans] = cats.index(cat)
-    
+
     train_or_val = "train"
-    if args.val == True: 
+    if args.val == True:
         train_or_val = "val"
         vocab = pickle.load(open("vocab.pkl", "rb"))
         # vocab.save(args.vocab_path)
         # vocab = load_vocab(args.vocab_path)
     else:
-        vocab = build_vocab('data/vqa/v2_OpenEnded_mscoco_train2014_questions.json', 'data/vqa/iq_dataset.json', 4)
-        # vocab = pickle.load(open("vocab.pkl", "rb"))
+        # vocab = build_vocab('data/vqa/v2_OpenEnded_mscoco_train2014_questions.json', 'data/vqa/iq_dataset.json', 4)
+        vocab = pickle.load(open("vocab.pkl", "rb"))
         vocab.save(args.vocab_path)
-
-
 
     save_dataset(args.image_dir, args.questions, args.annotations, vocab,
                  ans2cat, args.output, im_size=args.im_size,

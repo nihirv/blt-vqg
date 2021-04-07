@@ -6,3 +6,6 @@ from .train_utils import get_glove_embedding
 from .train_utils import process_lengths
 from .vocab import load_vocab
 from .tools import Dict2Obj
+from .TextGenerationEvaluationMetrics import multiset_distances
+from .TextGenerationEvaluationMetrics import bert_distances
+from .lamb import Lamb
