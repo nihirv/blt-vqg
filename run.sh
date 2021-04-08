@@ -1,4 +1,4 @@
-CUDA_VISIBLE_DEVICES=1, python3 train_iq.py \
+CUDA_VISIBLE_DEVICES=2, python3 train_iq.py \
 --hidden_dim 512 \
 --latent_dim 512 \
 --pwffn_dim 2048 \
@@ -9,5 +9,5 @@ CUDA_VISIBLE_DEVICES=1, python3 train_iq.py \
 --num_pretraining_steps 6000 \
 --total_training_steps 15000 \
 --early_stop True \
---variant "transformer-latent-oca-lt" \
---print_note "Transformer decoder. Image features, object features, cat, ans (train only). Learned prior/post."
+--variant "transformer-latent-oca" \
+--print_note "Transformer decoder. Image features, object features, cat, ans (train only). Learned prior/post"

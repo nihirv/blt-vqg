@@ -89,8 +89,12 @@ class TrainIQ(pl.LightningModule):
         ), questions.to(self.args.device), posteriors.to(self.args.device), answers.to(self.args.device), answer_type_orig.to(self.args.device), answer_types.to(self.args.device), answer_types_for_input.to(self.args.device), rcnn_features.to(self.args.device), rcnn_locations.to(self.args.device)
 
         answer_input = answers  # answers has answer_type/the category pre-pended to it
-        if self.args.variant == "transformer-c":
+        if self.args.variant in ("transformer-c", "transformer-oc"):
             answer_input = answer_types_for_input
+
+        if self.args.variant == "transformer-latent-oca":
+            # input [<sos>, cat, <eos>] as "category" argument. Because we need a transformer to encode it
+            answer_type_orig = answer_types_for_input
 
         output, z_logits, kld_loss, image_recon = self.model(
             images, answer_type_orig, answer_input, posteriors, questions, rcnn_features, rcnn_locations)
@@ -209,8 +213,7 @@ class TrainIQ(pl.LightningModule):
         categories = batch["answer_types_for_input"].to(
             self.args.device)
         print_cats = batch["answer_types"].to(self.args.device).unsqueeze(1)
-        if self.args.variant in ("lstm-c", "lstm-oc", "lstm-latentNorm-oc", "lstm-latent-oca-lt",
-                                 "transformer-oc", "transformer-latentNorm-oc", "transformer-latent-oca-lt"):
+        if self.args.variant in ("lstm-c", "lstm-oc", "lstm-latentNorm-oc", "lstm-latent-oca-lt"):
             categories = batch["answer_type_orig"].to(self.args.device)
 
         images = batch["images"].to(self.args.device)

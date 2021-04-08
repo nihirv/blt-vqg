@@ -100,9 +100,8 @@ class IQ(nn.Module):
                 args, self.vocab_size, self.decoder_attention_R)
 
         if self.args.variant == "transformer-oc":
-            self.category_embedding = nn.Embedding(16, args.emb_dim)
-            self.category_image_proj = nn.Linear(
-                args.hidden_dim + args.emb_dim, args.hidden_dim)
+            self.text_encoder = TransformerModel(
+                args.hidden_dim, args.num_heads, args.pwffn_dim, args.num_layers, args.dropout, args)
             self.image_encoder_T = ImageTransformerEncoder(args)
             self.embedding = self.embedder()
             self.decoder_T = GVTransformerDecoder(
@@ -187,23 +186,19 @@ class IQ(nn.Module):
                 args, self.vocab_size, self.decoder_attention_R)
 
         if self.args.variant == "transformer-latentNorm-oc":
-            self.category_embedding = nn.Embedding(16, args.emb_dim)
-            self.category_image_proj = nn.Linear(
-                args.hidden_dim + args.emb_dim, args.hidden_dim)
+            self.embedding = self.embedder()
+            self.text_encoder = TransformerModel(
+                args.hidden_dim, args.num_heads, args.pwffn_dim, args.num_layers, args.dropout, args)
             self.image_encoder_T = ImageTransformerEncoder(args)
             self.latent_layer = LatentNorm(args)
-            self.embedding = self.embedder()
             self.decoder_T = GVTransformerDecoder(
                 self.embedding, self.latent_transformer, self.vocab_size, vocab, args)
 
-        if self.args.variant == "transformer-latent-oca-lt":
-            self.category_embedding = nn.Embedding(16, args.emb_dim)
-            self.category_image_proj = nn.Linear(
-                args.hidden_dim + args.emb_dim, args.hidden_dim)
+        if self.args.variant == "transformer-latent-oca":
             self.embedding = self.embedder()
-            self.text_embedder = nn.LSTM(
-                input_size=args.hidden_dim, hidden_size=args.hidden_dim, batch_first=True)
-            self.text_encoder = TransformerModel(
+            self.cat_encoder = TransformerModel(
+                args.hidden_dim, args.num_heads, args.pwffn_dim, args.num_layers, args.dropout, args)
+            self.ans_encoder = TransformerModel(
                 args.hidden_dim, args.num_heads, args.pwffn_dim, args.num_layers, args.dropout, args)
             self.image_encoder_T = ImageTransformerEncoder(args)
             self.latent_layer = Latent(args)
@@ -348,13 +343,22 @@ class IQ(nn.Module):
                 encoded_objects, cat_img, target)  # [B, T, D]
 
         if self.args.variant == "transformer-oc":
-            category_features = self.category_embedding(category)
-            cat_features = torch.cat((category_features, image_features), -1)
-            cat_img = self.category_image_proj(cat_features)
+            src_mask = self.text_encoder.generate_square_subsequent_mask(
+                answers.shape[-1]).to(self.args.device)
+            embedded_context = self.embedding(
+                answers) * math.sqrt(self.args.hidden_dim)
+            encoder_outputs = self.text_encoder(embedded_context.permute(
+                1, 0, 2), src_mask).permute(1, 0, 2)  # [B, T, D]
             encoded_objects, image_pad_mask = self.encode_object_features(
                 rcnn_features, rcnn_locations)
+            encoder_outputs = torch.cat(
+                (encoder_outputs, encoded_objects), dim=1)
+            image_mask = torch.zeros(
+                encoded_objects.shape[0], 1, 36, device=self.args.device).bool()
+            src_mask = torch.cat(
+                (image_mask, generate_pad_mask(answers)), dim=-1)
             decoder_outputs, z_logit = self.decoder_T(
-                encoded_objects, target, cat_img, cat_img, image_pad_mask
+                encoder_outputs, target, image_features, encoder_outputs[:, 0], src_mask
             )
 
         if self.args.variant == "lstm-ca":
@@ -485,72 +489,84 @@ class IQ(nn.Module):
                 encoded_objects, z, target)  # [B, T, D]
 
         if self.args.variant == "transformer-latentNorm-oc":
-            category_features = self.category_embedding(category)
-            cat_features = torch.cat((category_features, image_features), -1)
-            cat_img = self.category_image_proj(cat_features)
-            encoded_objects, image_pad_mask = self.encode_object_features(
-                rcnn_features, rcnn_locations)
-            if self.latent_transformer:
-                z, kld_loss = self.latent_layer(encoded_objects)
-                decoder_outputs, z_logit = self.decoder_T(
-                    z, target, cat_img, cat_img, image_pad_mask
-                )
-            else:
-                z, kld_loss = torch.tensor(0), torch.tensor(0)
-                decoder_outputs, z_logit = self.decoder_T(
-                    encoded_objects, target, cat_img, cat_img, image_pad_mask
-                )
-
-        if self.args.variant == "transformer-latent-oca-lt":
-            category_features = self.category_embedding(category)
-            cat_features = torch.cat((category_features, image_features), -1)
-            cat_img = self.category_image_proj(cat_features)
-            encoded_objects, image_pad_mask = self.encode_object_features(
-                rcnn_features, rcnn_locations)
             src_mask = self.text_encoder.generate_square_subsequent_mask(
                 answers.shape[-1]).to(self.args.device)
             embedded_context = self.embedding(
                 answers) * math.sqrt(self.args.hidden_dim)
-            embedded_context, _ = self.text_embedder(embedded_context)
             encoder_outputs = self.text_encoder(embedded_context.permute(
                 1, 0, 2), src_mask).permute(1, 0, 2)  # [B, T, D]
-            encoder_outputs[:, 0] = encoder_outputs[:, 0] + image_features
-            z, kld_loss = self.latent_layer(
-                cat_img, encoder_outputs[:, 0])
+            encoded_objects, image_pad_mask = self.encode_object_features(
+                rcnn_features, rcnn_locations)
             encoder_outputs = torch.cat(
-                (encoded_objects, encoder_outputs), dim=1)
+                (encoder_outputs, encoded_objects), dim=1)
+            image_mask = torch.zeros(
+                encoded_objects.shape[0], 1, 36, device=self.args.device).bool()
             src_mask = torch.cat(
-                (image_pad_mask, generate_pad_mask(answers)), dim=-1)
+                (image_mask, generate_pad_mask(answers)), dim=-1)
             if self.latent_transformer:
+                z, kld_loss = self.latent_layer(encoded_objects)
                 decoder_outputs, z_logit = self.decoder_T(
-                    encoder_outputs, target, cat_img, z, src_mask
+                    z, target, image_features, z[:, 0], src_mask
                 )
             else:
+                z, kld_loss = torch.tensor(0), torch.tensor(0)
                 decoder_outputs, z_logit = self.decoder_T(
-                    encoder_outputs, target, cat_img, 0, src_mask
+                    encoder_outputs, target, image_features, encoder_outputs[:, 0], src_mask
                 )
 
-                # z-path. transformer_posteriors is a tuple: (mean_posterior, logvar_posterior)
-                # encoder_outputs, transformer_kld_loss, z, transformer_posteriors, src_mask = self.answer_encoder(
-                #     answers, response, image_features, rcnn_features, rcnn_locations)
-                # if self.latent_transformer:
-                #     z = self.latent_projection(z)
-                # else:
-                #     z = encoder_outputs[:, 0]
-                # decoder_outputs, z_logit = self.decoder(
-                # encoded_objects, target, image_features, image_features, image_pad_mask.unsqueeze(1))
+        if self.args.variant == "transformer-latent-oca":
+            category_mask = self.cat_encoder.generate_square_subsequent_mask(
+                category.shape[-1]).to(self.args.device)
+            embedded_category = self.embedding(
+                category) * math.sqrt(self.args.hidden_dim)
+            encoded_category = self.cat_encoder(embedded_category.permute(
+                1, 0, 2), category_mask).permute(1, 0, 2)  # [B, T, D]
+            encoded_category[:, 0] = encoded_category[:, 0] + image_features
 
-                # decoder_outputs = self.decode_rnn(
-                #     encoder_outputs, z, target)  # [B, T, D]
-                # output, z_logit = self.decoder(
-                #     encoder_outputs, target, image_features, z, src_mask)
+            answer_mask = self.ans_encoder.generate_square_subsequent_mask(
+                answers.shape[-1]).to(self.args.device)
+            embedded_answer = self.embedding(
+                answers) * math.sqrt(self.args.hidden_dim)
+            encoded_answer = self.ans_encoder(
+                embedded_answer.permute(1, 0, 2), answer_mask).permute(1, 0, 2)
 
-                # if self.latent_transformer:  # experiement without requiring the latent mode enabled?
-                #     reconstructed_image_features = self.image_reconstructor(
-                #         encoder_outputs[:, 0] + z)
-                # else:
-                #     reconstructed_image_features = self.image_reconstructor(
-                #         encoder_outputs[:, 0])
+            encoded_objects, image_pad_mask = self.encode_object_features(
+                rcnn_features, rcnn_locations)
+
+            if self.latent_transformer:
+                z, kld_loss = self.latent_layer(
+                    encoded_category[:, 0], encoded_answer[:, 0])
+            else:
+                z, kld_loss = None, None
+
+            encoder_outputs = torch.cat(
+                (encoded_category, encoded_objects), dim=1)
+            src_mask = torch.cat(
+                (generate_pad_mask(category), image_pad_mask), dim=-1)
+            decoder_outputs, z_logit = self.decoder_T(
+                encoder_outputs, target, image_features, z, src_mask)
+
+            # z-path. transformer_posteriors is a tuple: (mean_posterior, logvar_posterior)
+            # encoder_outputs, transformer_kld_loss, z, transformer_posteriors, src_mask = self.answer_encoder(
+            #     answers, response, image_features, rcnn_features, rcnn_locations)
+            # if self.latent_transformer:
+            #     z = self.latent_projection(z)
+            # else:
+            #     z = encoder_outputs[:, 0]
+            # decoder_outputs, z_logit = self.decoder(
+            # encoded_objects, target, image_features, image_features, image_pad_mask.unsqueeze(1))
+
+            # decoder_outputs = self.decode_rnn(
+            #     encoder_outputs, z, target)  # [B, T, D]
+            # output, z_logit = self.decoder(
+            #     encoder_outputs, target, image_features, z, src_mask)
+
+            # if self.latent_transformer:  # experiement without requiring the latent mode enabled?
+            #     reconstructed_image_features = self.image_reconstructor(
+            #         encoder_outputs[:, 0] + z)
+            # else:
+            #     reconstructed_image_features = self.image_reconstructor(
+            #         encoder_outputs[:, 0])
 
         reconstructed_image_features = None
 
@@ -609,12 +625,22 @@ class IQ(nn.Module):
                 encoded_objects, cat_img, target, 0)  # [B, T, D]
 
         if self.args.variant == "transformer-oc":
-            category_features = self.category_embedding(answers)
-            cat_features = torch.cat((category_features, image_features), -1)
-            cat_img = self.category_image_proj(cat_features)
+            src_mask = self.text_encoder.generate_square_subsequent_mask(
+                answers.shape[-1]).to(self.args.device)
+            embedded_context = self.embedding(
+                answers) * math.sqrt(self.args.hidden_dim)
+            encoder_outputs = self.text_encoder(embedded_context.permute(
+                1, 0, 2), src_mask).permute(1, 0, 2)  # [B, T, D]
             encoded_objects, image_pad_mask = self.encode_object_features(
                 rcnn_features, rcnn_locations)
-            decoder_input_mask, encoder_outputs, image_features, z = image_pad_mask, encoded_objects, cat_img, cat_img
+            encoder_outputs = torch.cat(
+                (encoder_outputs, encoded_objects), dim=1)
+            image_mask = torch.zeros(
+                encoded_objects.shape[0], 1, 36, device=self.args.device).bool()
+            src_mask = torch.cat(
+                (image_mask, generate_pad_mask(answers)), dim=-1)
+            decoder_input_mask, encoder_outputs, image_features, z = src_mask, encoder_outputs, image_features, encoder_outputs[
+                :, 0]
 
         if self.args.variant == "lstm-ca":
             src_mask = self.text_encoder.generate_square_subsequent_mask(
@@ -730,28 +756,50 @@ class IQ(nn.Module):
                 encoded_objects, z, target)  # [B, T, D]
 
         if self.args.variant == "transformer-latentNorm-oc":
-            category_features = self.category_embedding(answers)
-            cat_features = torch.cat((category_features, image_features), -1)
-            cat_img = self.category_image_proj(cat_features)
+            src_mask = self.text_encoder.generate_square_subsequent_mask(
+                answers.shape[-1]).to(self.args.device)
+            embedded_context = self.embedding(
+                answers) * math.sqrt(self.args.hidden_dim)
+            encoder_outputs = self.text_encoder(embedded_context.permute(
+                1, 0, 2), src_mask).permute(1, 0, 2)  # [B, T, D]
             encoded_objects, image_pad_mask = self.encode_object_features(
                 rcnn_features, rcnn_locations)
+            encoder_outputs = torch.cat(
+                (encoder_outputs, encoded_objects), dim=1)
+            image_mask = torch.zeros(
+                encoded_objects.shape[0], 1, 36, device=self.args.device).bool()
+            src_mask = torch.cat(
+                (image_mask, generate_pad_mask(answers)), dim=-1)
             if self.latent_transformer:
                 z, kld_loss = self.latent_layer(encoded_objects)
-                decoder_input_mask, encoder_outputs, image_features, z = image_pad_mask, z, cat_img, cat_img
+                decoder_input_mask, encoder_outputs, image_features, z = src_mask, z, image_features, z[
+                    :, 0]
             else:
-                decoder_input_mask, encoder_outputs, image_features, z = image_pad_mask, encoded_objects, cat_img, cat_img
+                decoder_input_mask, encoder_outputs, image_features, z = src_mask, encoder_outputs, image_features, encoder_outputs[
+                    :, 0]
 
-        if self.args.variant == "transformer-latent-oca-lt":
-            category_features = self.category_embedding(answers)
-            cat_features = torch.cat((category_features, image_features), -1)
-            cat_img = self.category_image_proj(cat_features)
+        if self.args.variant == "transformer-latent-oca":
+            category_mask = self.cat_encoder.generate_square_subsequent_mask(
+                answers.shape[-1]).to(self.args.device)
+            embedded_category = self.embedding(
+                answers) * math.sqrt(self.args.hidden_dim)
+            encoded_category = self.cat_encoder(embedded_category.permute(
+                1, 0, 2), category_mask).permute(1, 0, 2)  # [B, T, D]
+            encoded_category[:, 0] = encoded_category[:, 0] + image_features
+
             encoded_objects, image_pad_mask = self.encode_object_features(
                 rcnn_features, rcnn_locations)
+
             if self.latent_transformer:
-                z, kld_loss = self.latent_layer(cat_img, None)
-                decoder_input_mask, encoder_outputs, image_features, z = image_pad_mask, encoded_objects, cat_img, z
+                z, _ = self.latent_layer(encoded_category[:, 0], None)
             else:
-                decoder_input_mask, encoder_outputs, image_features, z = image_pad_mask, encoded_objects, cat_img, 0
+                z = torch.tensor(0)
+
+            encoder_outputs = torch.cat(
+                (encoded_category, encoded_objects), dim=1)
+            src_mask = torch.cat(
+                (generate_pad_mask(answers), image_pad_mask), dim=-1)
+            decoder_input_mask, encoder_outputs, image_features, z = src_mask, encoder_outputs, image_features, z
 
             # encoded_objects, image_pad_mask = self.image_encoder(
             #     rcnn_features, rcnn_locations)  # encoded_objects [T, B, D]
